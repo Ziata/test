@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Select, { SingleValue, components } from "react-select";
 import Image from "next/image";
 import global from "static/img/global.svg";
-import triangle from "static/img/Triangle.svg";
+import triangle from "static/img/triangle.svg";
 
 const options = [
   { value: "en", label: "EN" },
