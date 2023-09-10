@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.container {
+  @apply mx-auto px-[60px] max-w-full;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    @apply mx-auto px-[25px] max-w-full;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    @apply mx-auto px-[10px] max-w-full;
+  }
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+  width: 0;
+}
