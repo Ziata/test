@@ -39,7 +39,7 @@ function HomeSpotlight() {
         <h3 className="text-[26px] md:text-5xl text-white font-Din font-bold text-center">
           NextQuestion Observations
         </h3>
-        <span className="font-[200] text-[24px] md:text-2xl leading-7 flex items-center text-center text-white font-Din mt-[30px]">
+        <span className="font-[200] text-[24px] md:text-2xl leading-7 flex items-center text-center text-white font-Din mt-[30px] md:mb-[50px]">
           Why does the brain play a single song on a loop? <br />
           Can listening to more music improve children&apos;s cognition?
         </span>
