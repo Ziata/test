@@ -1,16 +1,33 @@
 import Image from "next/image";
 import Link from "next/link";
 import shevron from "static/img/shevron.svg";
-import follow from "static/img/follow.png";
 import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
+import { useEffect, useState } from "react";
 
 function HomeSpotlight() {
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const backgroundImageStyle = {
-    backgroundImage: `url(static/img/spotlightBg.png)`,
+    backgroundImage: `url(${
+      isMobile ? "static/img/spotlightBgMob.png" : "static/img/spotlightBg.png"
+    })`,
     backgroundSize: "cover",
-    height: "330px",
+    height: isMobile ? "260px" : "330px",
     width: "100%",
+    padding: "30px",
   };
 
   return (
@@ -19,16 +36,16 @@ function HomeSpotlight() {
         style={backgroundImageStyle}
         className="flex items-center justify-center flex-col"
       >
-        <h3 className="text-5xl text-white font-Din font-bold">
+        <h3 className="text-[26px] md:text-5xl text-white font-Din font-bold text-center">
           NextQuestion Observations
         </h3>
-        <span className="font-light text-2xl leading-7 flex items-center text-center text-white font-Din mt-[30px]">
+        <span className="font-[200] text-[24px] md:text-2xl leading-7 flex items-center text-center text-white font-Din mt-[30px]">
           Why does the brain play a single song on a loop? <br />
-          Can listening to more music improve children's cognition?
+          Can listening to more music improve children&apos;s cognition?
         </span>
       </div>
-      <div className="container">
-        <div className="flex w-full gap-[30px] bg-white -mt-[70px] p-[30px] h-[690px]">
+      <div className="container bg-[#fff] md:bg-transperent">
+        <div className="flex flex-col tb:flex-row w-full gap-[30px] bg-white md:-mt-[70px] py-[10px] md:px-0 md:p-[30px] tb:h-[690px]">
           <div className="flex w-full gap-[8px] flex-col">
             <div className="flex justify-between items-center w-full h-12">
               <div className="font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
@@ -48,8 +65,8 @@ function HomeSpotlight() {
                 />
               </Link>
             </div>
-            <div className="flex w-full gap-[30px] h-full">
-              <div className="w-full">
+            <div className="flex flex-col md:flex-row w-full gap-[30px] h-full">
+              <div className="hidden md:block md:w-1/2 tb:w-full">
                 <div
                   className="w-full h-full p-[30px] flex items-end justify-start relative"
                   style={{
@@ -71,7 +88,7 @@ function HomeSpotlight() {
                   </div>
                 </div>
               </div>
-              <div className="w-[358px] min-w-[350px] flex flex-col justify-between">
+              <div className="w-full md:w-1/2 tb:w-[358px] tb:min-w-[300px] flex flex-col justify-between">
                 <SmallPostCard />
                 <SmallPostCard />
                 <SmallPostCard />
@@ -80,12 +97,7 @@ function HomeSpotlight() {
               </div>
             </div>
           </div>
-          <div className="w-[358px] min-w-[350px] bg-[#D0E5F2] flex flex-col h-fit">
-            <Image
-              src={follow}
-              alt="follow"
-              className="mt-[20px] mb-[3px] mx-[17px] w-auto"
-            />
+          <div className="tb:w-[358px] tb:min-w-[320px] w-full">
             <FollowBlock />
           </div>
         </div>

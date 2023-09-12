@@ -25,9 +25,9 @@ function HomeLastNews() {
           />
         </Link>
       </div>
-      <div className="flex gap-[30px] h-[440px] w-full">
+      <div className="flex gap-[30px] tb:h-[440px] w-full">
         <div
-          className="w-2/3 h-full px-[17px] py-[28px] flex items-end justify-start relative border-b-2 border-orange-600 border-solid"
+          className="hidden md:flex md:w-1/2 tb:w-2/3 tb:h-full px-[17px] py-[28px] items-end justify-start relative border-b-2 border-orange-600 border-solid"
           style={{
             backgroundImage: `url("static/img/test.png")`,
             backgroundSize: "cover",
@@ -59,7 +59,7 @@ function HomeLastNews() {
             </Link>
           </div>
         </div>
-        <div className="w-1/3 h-full flex flex-col justify-between">
+        <div className="md:w-1/2 tb:w-1/3 tb:max-w-[430px] h-full flex flex-col justify-between">
           <SmallPostCard />
           <SmallPostCard />
           <SmallPostCard />

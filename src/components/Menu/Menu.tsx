@@ -4,8 +4,8 @@ export default function Menu({ isOpen }: { isOpen: boolean }) {
   return (
     <div
       className={`${
-        isOpen ? "bottom-0 pt-[110px]" : "-bottom-[100%]"
-      } container absolute h-full flex flex-col justify-start md:top-0 md:relative md:flex-row md:h-[70px] md:justify-center items-center gap-[50px] teansition-all duration-500 bg-[#fff] overflow-auto hidden-scrollbar`}
+        isOpen ? "top-0 pt-[110px]" : "-top-[100%]"
+      } container absolute h-full flex flex-col justify-start md:top-0 md:relative md:flex-row md:h-[70px] md:justify-center items-center gap-[50px] teansition-all duration-500 bg-[#fff] overflow-auto hidden-scrollbar z-[19]`}
     >
       <Link
         href={"/"}

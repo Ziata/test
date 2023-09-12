@@ -11,9 +11,18 @@ import search from "static/img/search.svg";
 export default function Header() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
+
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
