@@ -2,6 +2,7 @@ import Header from "@/components/Header/Header";
 import "./globals.css";
 import "reset-css";
 import "static/fonts/D-DIN/stylesheet.css";
+import Footer from "@/components/Footer/Footer";
 
 /* import type { Metadata } from "next";
 import { Inter } from "next/font/google"; */
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body /* className={inter.className} */>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
