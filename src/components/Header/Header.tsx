@@ -46,7 +46,7 @@ export default function Header() {
             href="/"
             className="tb:absolute tb:left-1/2 tb:top-1/2 tb:-translate-x-1/2 tb:-translate-y-1/2"
           >
-            <Image src={logo} height={67} width={127} alt="logo" />
+            <Image src={logo} alt="logo" />
           </Link>
           <div className="flex items-center">
             <MenuButton isOpen={isOpen} setIsOpen={setIsOpen} />
