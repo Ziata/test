@@ -7,10 +7,10 @@ export default function MenuButton({
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }) {
-  const genericHamburgerLine = `h-[1px] w-[30px] my-[3px] bg-black transition ease transform duration-300`;
+  const genericHamburgerLine = `h-[1px] w-[30px] my-[3px] bg-black transition ease transform duration-300 `;
   return (
     <button
-      className="md:hidden flex flex-col h-[19px] w-[17px] justify-center items-center group overflow-hidden outline-none"
+      className="md:hidden flex flex-col h-[19px] w-[19px] justify-center items-center group overflow-hidden outline-none ml-4"
       onClick={() => setIsOpen(!isOpen)}
     >
       <div

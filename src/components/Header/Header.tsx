@@ -49,11 +49,11 @@ export default function Header() {
             <Image src={logo} alt="logo" />
           </Link>
           <div className="flex items-center">
-            <MenuButton isOpen={isOpen} setIsOpen={setIsOpen} />
-            <button className="mr-10 ml-[30px]">
+            <button className="mr-4 md:mr-10">
               <Image src={search} height={21} width={21} alt="search" />
             </button>
             <LanguageSwitch />
+            <MenuButton isOpen={isOpen} setIsOpen={setIsOpen} />
           </div>
         </div>
       </div>

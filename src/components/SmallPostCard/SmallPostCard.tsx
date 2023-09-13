@@ -1,6 +1,4 @@
 import { truncateText } from "@/utils";
-import Image from "next/image";
-import test from "static/img/test.png";
 
 function SmallPostCard({ isLine = true }: { isLine?: boolean }) {
   return (
@@ -11,9 +9,14 @@ function SmallPostCard({ isLine = true }: { isLine?: boolean }) {
           : ""
       }`}
     >
-      <div className="w-1/3 mr-[15px]">
-        <Image src={test} alt="test" />
-      </div>
+      <div
+        className="w-1/3 mr-[15px]"
+        style={{
+          backgroundImage: `url("../../static/img/test.png")`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
       <div className="w-2/3 flex flex-col justify-between">
         <span className="font-light text-base leading-5 flex items-center text-blue-700 font-Din">
           Science News

@@ -5,14 +5,23 @@ import Twitter from "static/img/twitter.svg";
 import Linkedin from "static/img/Linkedin.svg";
 import Rss from "static/img/rss.svg";
 import follow from "static/img/follow.png";
+import { useRouter } from "next/router";
 
 function FollowBlock() {
+  const router = useRouter();
+
   return (
-    <div className="bg-[#D0E5F2] flex flex-col tb:flex-col md:flex-row h-fit w-full py-[20px] px-[18px] gap-[30px] tb:gap-[18px]">
-      <div className="w-full md:w-1/2 tb:w-full h-auto">
-        <Image src={follow} alt="follow" />
-      </div>
-      <div className="w-full md:w-1/2 tb:w-full tb:h-full">
+    <div className="bg-[#D0E5F2] flex flex-col tb:flex-col md:flex-row h-fit w-full py-[20px] px-[18px]">
+      {router.pathname === "/" && (
+        <div className="w-full md:w-1/2 mr-[30px] tb:mr-[0] tb:w-full h-auto mb-[30px] md:mb-[0] tb:mb-[18px]">
+          <Image src={follow} alt="follow" />
+        </div>
+      )}
+      <div
+        className={`${
+          router.pathname === "/" ? "md:w-1/2" : undefined
+        } w-full  tb:w-full tb:h-full`}
+      >
         <div className="flex flex-col justify-between bg-[#fff] p-[20px] gap-[18px] h-full">
           <h4 className="font-light text-center text-2xl leading-7 text-gray-900 font-Din w-full">
             Follow NextQuestion
