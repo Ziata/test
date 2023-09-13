@@ -57,7 +57,7 @@ export default function Header() {
           </div>
         </div>
       </div>
-      <Menu isOpen={isOpen && isMobile} />
+      <Menu isOpen={isOpen && isMobile} setIsOpen={setIsOpen} />
     </header>
   );
 }
