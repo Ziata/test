@@ -24,7 +24,7 @@ function Category() {
       </div>
       <div className="container">
         <div className="md:p-[30px] bg-white md:-mt-[70px] flex w-full flex-col tb:flex-row">
-          <div className="tb:mr-[30px]">
+          <div className="tb:mr-[30px] w-full">
             <Tags />
             <div className="mt-[20px]">
               <Post />
