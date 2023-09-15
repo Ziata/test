@@ -51,7 +51,6 @@ function Post({ isInterview = false }: { isInterview?: boolean }) {
             </p>
           </div>
         )}
-
         <div
           className={` ${
             isInterview && "order-3"

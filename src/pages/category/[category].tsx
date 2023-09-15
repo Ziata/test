@@ -20,7 +20,9 @@ function Category() {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h2 className="font-bold text-5xl text-white font-Din">{category}</h2>
+        <h2 className="md:-mt-[70px] font-bold text-5xl text-white font-Din">
+          {category}
+        </h2>
       </div>
       <div className="container">
         <div className="md:p-[30px] bg-white md:-mt-[70px] flex w-full flex-col tb:flex-row">

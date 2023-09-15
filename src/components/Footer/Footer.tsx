@@ -20,13 +20,13 @@ export default function Footer() {
             href="/"
             className="font-normal text-lg leading-5 font-Din text-[#315469]  transition-all duration-300 hover:text-[#0071BC]"
           >
-            Download NextQuestion Annual report{" "}
+            Download NextQuestion Annual report
           </Link>
           <span className="hidden md:block font-normal text-lg leading-5 font-Din text-[#315469]">
             |
           </span>
           <Link
-            href="/"
+            href="/about"
             className="font-normal text-lg leading-5 font-Din text-[#315469]  transition-all duration-300 hover:text-[#0071BC]"
           >
             About NextQuestion
@@ -39,12 +39,12 @@ export default function Footer() {
             className="font-normal text-lg leading-5 font-Din text-[#315469]  transition-all duration-300 hover:text-[#0071BC]"
           >
             Subscribe
-          </Link>{" "}
+          </Link>
           <span className="hidden md:block font-normal text-lg leading-5 font-Din text-[#315469]">
             |
           </span>
           <Link
-            href="/"
+            href="/contact"
             className="font-normal text-lg leading-5 font-Din text-[#315469]  transition-all duration-300 hover:text-[#0071BC]"
           >
             Contact Us
