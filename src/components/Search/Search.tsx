@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useState } from "react";
 import close from "static/img/x.svg";
 import shevron from "static/img/shevron.svg";
+import { t } from "i18next";
+
 function highlightText(text: string, query: string): React.ReactNode[] {
   const parts = text.split(new RegExp(`(${query})`, "gi"));
   return parts.map((part, index) =>
@@ -16,7 +18,7 @@ function highlightText(text: string, query: string): React.ReactNode[] {
   );
 }
 
-export default function Search() {
+export default function Search({ closeModal }: { closeModal: () => void }) {
   const [search, setSearch] = useState<string>("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,9 +93,10 @@ export default function Search() {
         <div className="w-full justify-end flex">
           <Link
             href={"/"}
+            onClick={closeModal}
             className="flex items-center leading-0 font-light text-base leading-5 text-[#323232] font-Din mt-[20px]"
           >
-            More{" "}
+            {t("More")}{" "}
             <Image
               src={shevron}
               className="ml-4"

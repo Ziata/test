@@ -4,6 +4,7 @@ import shevron from "static/img/shevron.svg";
 import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import { useEffect, useState } from "react";
+import { t } from "i18next";
 
 function HomeSpotlight() {
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -49,13 +50,13 @@ function HomeSpotlight() {
           <div className="flex w-full gap-[8px] flex-col">
             <div className="flex justify-between items-center w-full h-12">
               <div className="font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
-                NextQuestion Spotlight
+                {t("NextQuestion Spotlight")}
               </div>
               <Link
                 href={"/"}
                 className="flex items-center leading-0 font-light text-base leading-5 text-gray-900 font-Din"
               >
-                More{" "}
+                {t("More")}{" "}
                 <Image
                   src={shevron}
                   className="ml-4"

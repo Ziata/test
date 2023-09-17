@@ -4,14 +4,19 @@ import Footer from "@/components/Footer/Footer";
 import "@/app/globals.css";
 import "reset-css";
 import "static/fonts/D-DIN/stylesheet.css";
+import { Provider } from "react-redux";
+import store from "@/services/store";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Header />
-      <Component {...pageProps} />
-      <Footer />
-    </>
+    <LanguageProvider>
+      <Provider store={store}>
+        <Header />
+        <Component {...pageProps} />
+        <Footer />
+      </Provider>
+    </LanguageProvider>
   );
 }
 

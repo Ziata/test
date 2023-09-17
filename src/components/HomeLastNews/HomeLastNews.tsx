@@ -3,19 +3,22 @@ import Link from "next/link";
 import shevron from "static/img/shevron.svg";
 import whiteShevron from "static/img/shevron-white.svg";
 import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
+import { t } from "i18next";
+import { FirstBlock } from "@/services/interface";
+import { generateUniqueId } from "@/utils";
 
-function HomeLastNews() {
+function HomeLastNews({ information }: { information: FirstBlock }) {
   return (
     <div className="container pb-[70px]">
       <div className="flex justify-between items-center py-10">
         <div className="font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
-          Latest News
+          {information.title}
         </div>
         <Link
           href={"/"}
           className="flex items-center leading-0 font-light text-base leading-5 text-gray-900 font-Din"
         >
-          More{" "}
+          {t("more")}{" "}
           <Image
             src={shevron}
             className="ml-4"
@@ -59,11 +62,10 @@ function HomeLastNews() {
             </Link>
           </div>
         </div>
-        <div className="md:w-1/2 tb:w-1/3 tb:max-w-[430px] h-full flex flex-col justify-between">
-          <SmallPostCard />
-          <SmallPostCard />
-          <SmallPostCard />
-          <SmallPostCard isLine={false} />
+        <div className="w-full md:w-1/2 tb:w-1/3 tb:max-w-[430px] h-full flex flex-col justify-between">
+          {information.latestNews.map((post) => (
+            <SmallPostCard key={generateUniqueId()} />
+          ))}
         </div>
       </div>
     </div>

@@ -1,20 +1,26 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import LanguageSwitch from "@/components/LanguageSwitch/LanguageSwitch";
 import Menu from "@/components/Menu/Menu";
 import MenuButton from "@/components/MenuButton/MenuButton";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "static/img/logo.svg";
 import search from "static/img/search.svg";
 import { useModal } from "@/hooks/useModal";
 import Modal from "@/components/Modal/Modal";
 import Search from "@/components/Search/Search";
+import { useGetHeaderQuery } from "@/services/api";
+import Loader from "@/components/Loader/Loader";
+import LanguageContext from "@/context/LanguageContext";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const { closeModal, isOpen: isOpenModal, openModal } = useModal();
+  const { currentLanguage } = useContext(LanguageContext);
+  const { data, isLoading } = useGetHeaderQuery({
+    language: currentLanguage,
+  });
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
@@ -45,7 +51,7 @@ export default function Header() {
   return (
     <header>
       <Modal isOpen={isOpenModal} parentSelector="body" closeModal={closeModal}>
-        <Search />
+        <Search closeModal={closeModal} />
       </Modal>
       <div className="w-full bg-[#F8F8F8] h-[86px] relative z-20">
         <div className="container flex items-center w-full h-full justify-between relative tb:justify-end">
@@ -53,7 +59,18 @@ export default function Header() {
             href="/"
             className="tb:absolute tb:left-1/2 tb:top-1/2 tb:-translate-x-1/2 tb:-translate-y-1/2"
           >
-            <Image src={logo} alt="logo" />
+            {isLoading ? (
+              <Loader customClass="w-10 h-10" />
+            ) : (
+              data && (
+                <Image
+                  src={data.logo_image.url}
+                  alt="logo"
+                  width={data.logo_image.width}
+                  height={data.logo_image.height}
+                />
+              )
+            )}
           </Link>
           <div className="flex items-center">
             <button className="mr-4 md:mr-10" onClick={openModal}>
@@ -64,7 +81,13 @@ export default function Header() {
           </div>
         </div>
       </div>
-      <Menu isOpen={isOpen && isMobile} setIsOpen={setIsOpen} />
+      {data && (
+        <Menu
+          categories={data.category_menu}
+          isOpen={isOpen && isMobile}
+          setIsOpen={setIsOpen}
+        />
+      )}
     </header>
   );
 }

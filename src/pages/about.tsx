@@ -1,4 +1,5 @@
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
+import { t } from "i18next";
 
 function About() {
   return (
@@ -12,7 +13,7 @@ function About() {
         }}
       >
         <h2 className="md:-mt-[70px] font-bold text-5xl text-white font-Din">
-          About
+          {t("about")}
         </h2>
       </div>
       <div className="container">

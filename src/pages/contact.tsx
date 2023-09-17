@@ -1,5 +1,6 @@
 import ContactSelect from "@/components/ContactSelect/ContactSelect";
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
+import { t } from "i18next";
 import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -45,7 +46,7 @@ function Contact() {
         }}
       >
         <h2 className="md:-mt-[70px] font-bold text-5xl text-white font-Din">
-          Contact
+          {t("Contact")}
         </h2>
       </div>
       <div className="container">

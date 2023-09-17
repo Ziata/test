@@ -1,6 +1,7 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { t } from "i18next";
 
 const settings = {
   dots: true,
@@ -19,7 +20,7 @@ function HomeDaily() {
   return (
     <div className="w-full py-[50px] overflow-hidden">
       <div className="font-light text-2xl leading-7 flex items-center text-gray-900 font-Din w-full justify-center mb-[30px]">
-        NextQuestion Spotlight
+        {t("NextQuestion Daily")}
       </div>
       <Slider {...settings}>
         <div className="!w-[290px] !h-[416px] md:!w-[350px]  mx-[10px]">

@@ -1,19 +1,33 @@
 "use client";
+import { useContext, useEffect } from "react";
 import HomeDaily from "@/components/HomeDaily/HomeDaily";
 import HomeInterviews from "@/components/HomeInterviews/HomeInterviews";
 import HomeLastNews from "@/components/HomeLastNews/HomeLastNews";
 import HomeSpotlight from "@/components/HomeSpotlight/HomeSpotlight";
-import { useTranslation } from "react-i18next";
+import LanguageContext from "@/context/LanguageContext";
+import { useGetHomeQuery } from "@/services/api";
+import Loader from "@/components/Loader/Loader";
 
 export default function Home() {
-  const { t } = useTranslation();
+  const { currentLanguage } = useContext(LanguageContext);
+  const { data, isLoading } = useGetHomeQuery({ language: currentLanguage });
 
-  return (
-    <>
-      <HomeLastNews />
-      <HomeSpotlight />
-      <HomeDaily />
-      <HomeInterviews />
-    </>
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  return isLoading ? (
+    <div className="flex w-full h-[70vh] items-center justify-center">
+      <Loader customClass="w-[200px] h-[200px] mx-auto" />
+    </div>
+  ) : (
+    data && (
+      <>
+        <HomeLastNews information={data.firstBlock[0]} />
+        <HomeSpotlight />
+        <HomeDaily />
+        <HomeInterviews />
+      </>
+    )
   );
 }

@@ -6,7 +6,6 @@ import test from "static/img/test.png";
 
 function Post() {
   const router = useRouter();
-  const { postName } = router.query;
 
   return (
     <div className="container ">

@@ -1,10 +1,10 @@
 "use client";
-import i18n from "@/i18n";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Select, { SingleValue, components } from "react-select";
 import Image from "next/image";
 import global from "static/img/global.svg";
 import triangle from "static/img/triangle.svg";
+import LanguageContext from "@/context/LanguageContext";
 
 const options = [
   { value: "en", label: "EN" },
@@ -18,15 +18,18 @@ const DropdownIndicator: React.FC<any> = (props) => {
     </components.DropdownIndicator>
   );
 };
+
 export default function LanguageSwitch() {
   const [selectedLanguage, setSelectedLanguage] = useState<{
     value: string;
     label: string;
   }>(options[0]);
 
+  const { changeLanguage } = useContext(LanguageContext);
+
   useEffect(() => {
-    i18n.changeLanguage(selectedLanguage.value);
-  }, [selectedLanguage]);
+    changeLanguage(selectedLanguage.value);
+  }, [selectedLanguage, changeLanguage]);
 
   const handleLanguageChange = (
     newValue: SingleValue<{ value: string; label: string }>

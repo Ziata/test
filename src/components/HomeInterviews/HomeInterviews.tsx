@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
 import Image from "next/image";
 import shevron from "static/img/shevron-white.svg";
+import { t } from "i18next";
 
 const settings = {
   dots: true,
@@ -24,13 +25,13 @@ function HomeInterviews() {
     >
       <div className="container flex justify-between items-center pb-[40px]">
         <div className="font-light text-2xl leading-7 flex items-center text-[#fff] font-Din">
-          Latest News
+          {t("NextQuestion Interviews")}
         </div>
         <Link
           href={"/"}
           className="flex items-center leading-0 font-light text-base leading-5 text-[#fff] font-Din"
         >
-          More{" "}
+          {t("More")}{" "}
           <Image
             src={shevron}
             className="ml-4"
@@ -57,7 +58,7 @@ function HomeInterviews() {
                   href={"/"}
                   className="font-normal text-[18px] md:text-lg leading-0 text-white font-Din flex flex-row justify-center items-center bg-[#0071BC] w-full max-w-[230px] h-[60px] rounded-[50px] mt-[20px] md:mt-0 md:mr-[40px] transition-all duration-300 hover:bg-[#001cbc]"
                 >
-                  Listen to the Interview
+                  {t("Listen to the Interview")}
                 </Link>
                 <span>Lorem ipsum dolor</span>
               </div>
