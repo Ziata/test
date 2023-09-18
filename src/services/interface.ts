@@ -94,40 +94,7 @@ export interface IHome {
 
 export interface FirstBlock {
   title: string;
-  latestNews: LatestNew[][];
-}
-
-export interface LatestNew {
-  ID: number;
-  post_author: string;
-  post_date: string;
-  post_date_gmt: string;
-  post_content: string;
-  post_title: string;
-  post_excerpt: string;
-  post_status: string;
-  comment_status: string;
-  ping_status: string;
-  post_password: string;
-  post_name: string;
-  to_ping: string;
-  pinged: string;
-  post_modified: string;
-  post_modified_gmt: string;
-  post_content_filtered: string;
-  post_parent: number;
-  guid: string;
-  menu_order: number;
-  post_type: string;
-  post_mime_type: string;
-  comment_count: string;
-  filter: string;
-  post_content_ml: string;
-  post_content_langs: PostContentLangs;
-  post_title_ml: string;
-  post_title_langs: PostTitleLangs;
-  thumbnail: string;
-  categories: Category[];
+  latestNews: Post[][];
 }
 
 export interface PostContentLangs {
@@ -138,26 +105,6 @@ export interface PostContentLangs {
 export interface PostTitleLangs {
   en: boolean;
   zh: boolean;
-}
-
-export interface Category {
-  term_id: number;
-  name: string;
-  slug: string;
-  term_group: number;
-  term_taxonomy_id: number;
-  taxonomy: string;
-  description: string;
-  parent: number;
-  count: number;
-  filter: string;
-  i18n_config: I18nConfig;
-  cat_ID: number;
-  category_count: number;
-  category_description: string;
-  cat_name: string;
-  category_nicename: string;
-  category_parent: number;
 }
 
 export interface I18nConfig {
@@ -179,7 +126,7 @@ export interface SecondBlock {
   background_image: BackgroundImage;
   category_title: string;
   right_image: Image;
-  secondBlockPosts: SecondBlockPost[][];
+  secondBlockPosts: Post[][];
 }
 
 export interface BackgroundImage {
@@ -230,7 +177,7 @@ export interface Sizes {
   "2048x2048-height": number;
 }
 
-export interface SecondBlockPost {
+export interface Post {
   ID: number;
   post_author: string;
   post_date: string;
@@ -265,47 +212,14 @@ export interface SecondBlockPost {
 
 export interface ThirdBlock {
   title: string;
-  thirdBlockPosts: any[][];
+  thirdBlockPosts: Post[][];
 }
 
 export interface FourthBlock {
   title: string;
   fourth_block_button_name: string;
   fourth_block_background_image: Image;
-  fourthBlockPosts: FourthBlockPost[][];
-}
-
-export interface FourthBlockPost {
-  ID: number;
-  post_author: string;
-  post_date: string;
-  post_date_gmt: string;
-  post_content: string;
-  post_title: string;
-  post_excerpt: string;
-  post_status: string;
-  comment_status: string;
-  ping_status: string;
-  post_password: string;
-  post_name: string;
-  to_ping: string;
-  pinged: string;
-  post_modified: string;
-  post_modified_gmt: string;
-  post_content_filtered: string;
-  post_parent: number;
-  guid: string;
-  menu_order: number;
-  post_type: string;
-  post_mime_type: string;
-  comment_count: string;
-  filter: string;
-  post_content_ml: string;
-  post_content_langs: PostContentLangs;
-  post_title_ml: string;
-  post_title_langs: PostTitleLangs;
-  thumbnail: string;
-  categories: Category[];
+  fourthBlockPosts: Post[][];
 }
 
 export interface PostContentLangs {

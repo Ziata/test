@@ -43,6 +43,10 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  useEffect(() => {
     if (isMobile) {
       setIsOpen(false);
     }

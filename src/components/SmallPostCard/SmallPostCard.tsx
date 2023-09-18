@@ -1,6 +1,13 @@
-import { truncateText } from "@/utils";
+import { Post } from "@/services/interface";
+import { formatDate, truncateText } from "@/utils";
 
-function SmallPostCard({ isLine = true }: { isLine?: boolean }) {
+function SmallPostCard({
+  content,
+  isLine = true,
+}: {
+  content: Post;
+  isLine?: boolean;
+}) {
   return (
     <div
       className={`flex ${
@@ -12,23 +19,20 @@ function SmallPostCard({ isLine = true }: { isLine?: boolean }) {
       <div
         className="w-1/3 mr-[15px]"
         style={{
-          backgroundImage: `url("../../static/img/test.png")`,
+          backgroundImage: `url(${content?.thumbnail})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
       />
-      <div className="w-2/3 flex flex-col justify-between">
-        <span className="font-light text-base leading-5 flex items-center text-blue-700 font-Din">
-          Science News
+      <div className="w-2/3 flex flex-col justify-between h-[79px]">
+        <span className="font-light text-base leading-5 flex items-center text-blue-700 font-Din whitespace-nowrap overflow-clip">
+          {content?.categories[0].name}
         </span>
-        <h6 className="text-lg leading-5 flex items-center text-gray-900 font-Din font-bold">
-          {truncateText(
-            "Lorem ipsum dolor sit amet consectetur suspendisse. Lorem ipsum dolor sit amet consectetur suspendisse. Lorem ipsum dolor sit amet consectetur suspendisse.",
-            45
-          )}
+        <h6 className="text-lg leading-5 flex text-gray-900 font-Din font-bold max-h-[2.4rem] overflow-clip">
+          {content?.post_title && content.post_title}
         </h6>
-        <span className="font-light text-sm leading-4 flex items-center text-[#33566C] font-Din">
-          March 03, 2022
+        <span className="font-light text-sm leading-4 flex items-center text-[#33566C] font-Din mt-[2px]">
+          {formatDate(content?.post_date)}
         </span>
       </div>
     </div>

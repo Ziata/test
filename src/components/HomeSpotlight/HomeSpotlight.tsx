@@ -5,8 +5,10 @@ import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import { useEffect, useState } from "react";
 import { t } from "i18next";
+import { SecondBlock } from "@/services/interface";
+import { generateUniqueId } from "@/utils";
 
-function HomeSpotlight() {
+function HomeSpotlight({ data }: { data: SecondBlock }) {
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const handleResize = () => {
@@ -23,9 +25,10 @@ function HomeSpotlight() {
 
   const backgroundImageStyle = {
     backgroundImage: `url(${
-      isMobile ? "static/img/spotlightBgMob.png" : "static/img/spotlightBg.png"
+      isMobile ? data.background_image.url : data.background_image.url
     })`,
     backgroundSize: "cover",
+    backgroundPosition: "center",
     height: isMobile ? "260px" : "330px",
     width: "100%",
     padding: "30px",
@@ -38,19 +41,19 @@ function HomeSpotlight() {
         className="flex items-center justify-center flex-col"
       >
         <h3 className="text-[26px] md:text-5xl text-white font-Din font-bold text-center">
-          NextQuestion Observations
+          {data.title}
         </h3>
-        <span className="font-[200] text-[24px] md:text-2xl leading-7 flex items-center text-center text-white font-Din mt-[30px] md:mb-[50px]">
-          Why does the brain play a single song on a loop? <br />
-          Can listening to more music improve children&apos;s cognition?
-        </span>
+        <span
+          className="font-[200] text-[24px] md:text-2xl leading-7 flex items-center text-center text-white font-Din mt-[30px] md:mb-[50px]"
+          dangerouslySetInnerHTML={{ __html: data.subtitle }}
+        ></span>
       </div>
       <div className="container bg-[#fff] md:bg-transperent">
         <div className="flex flex-col tb:flex-row w-full gap-[30px] bg-white md:-mt-[70px] py-[10px] md:px-0 md:p-[30px] tb:h-[690px]">
           <div className="flex w-full gap-[8px] flex-col">
             <div className="flex justify-between items-center w-full h-12">
               <div className="font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
-                {t("NextQuestion Spotlight")}
+                {data.category_title}
               </div>
               <Link
                 href={"/"}
@@ -90,11 +93,13 @@ function HomeSpotlight() {
                 </div>
               </div>
               <div className="w-full md:w-1/2 tb:w-[358px] tb:min-w-[300px] flex flex-col justify-between">
-                <SmallPostCard />
-                <SmallPostCard />
-                <SmallPostCard />
-                <SmallPostCard />
-                <SmallPostCard isLine={false} />
+                {data.secondBlockPosts[0].slice(1, 6).map((post, index) => (
+                  <SmallPostCard
+                    content={post}
+                    key={generateUniqueId()}
+                    isLine={index !== 4}
+                  />
+                ))}
               </div>
             </div>
           </div>

@@ -13,3 +13,13 @@ export const generateUniqueId = () => {
   const randomNumber = array[0] % 10000;
   return `${timestamp}-${randomNumber}`;
 };
+
+export const formatDate = (inputDate: string): string => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const date: Date = new Date(inputDate);
+  return date.toLocaleDateString("en-US", options);
+};

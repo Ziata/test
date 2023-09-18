@@ -15,6 +15,10 @@ function FollowBlock() {
     language: currentLanguage,
   });
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
     <div className="bg-[#D0E5F2] flex flex-col tb:flex-col md:flex-row h-fit w-full py-[20px] px-[18px]">
       {router.pathname === "/" && (
