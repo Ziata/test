@@ -1,4 +1,5 @@
 import { CategoryMenu } from "@/services/interface";
+import { generateUniqueId } from "@/utils";
 import Link from "next/link";
 import React, { SetStateAction } from "react";
 
@@ -19,7 +20,7 @@ export default function Menu({
     >
       {categories.map((categorie) => (
         <Link
-          key={categorie.category_id}
+          key={generateUniqueId()}
           onClick={() => setIsOpen(false)}
           href={`/category/${categorie.category_name}`}
           className="font-Din font-bold text-base capitalize text-black transition-all duration-300 hover:text-[#0071BC]"

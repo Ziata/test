@@ -97,7 +97,7 @@ function HomeSpotlight({ data }: { data: SecondBlock }) {
                   <SmallPostCard
                     content={post}
                     key={generateUniqueId()}
-                    isLine={index !== 4}
+                    isHiddenLine={index === 4}
                   />
                 ))}
               </div>

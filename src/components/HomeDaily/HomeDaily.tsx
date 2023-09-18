@@ -4,20 +4,20 @@ import "slick-carousel/slick/slick-theme.css";
 import { ThirdBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
 
-const settings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  arrow: false,
-  centerMode: true,
-  variableWidth: true,
-  adaptiveHeight: true,
-  autoplay: true,
-};
-
 function HomeDaily({ data }: { data: ThirdBlock }) {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrow: false,
+    centerMode: true,
+    variableWidth: true,
+    adaptiveHeight: true,
+    autoplay: true,
+  };
+
   return (
     <div className="w-full py-[50px] overflow-hidden">
       <div className="font-light text-2xl leading-7 flex items-center text-gray-900 font-Din w-full justify-center mb-[30px]">
@@ -27,7 +27,7 @@ function HomeDaily({ data }: { data: ThirdBlock }) {
         {data.thirdBlockPosts[0].map((post) => (
           <div
             key={generateUniqueId()}
-            className="!w-[290px] !h-[416px] md:!w-[350px]  mx-[10px]"
+            className="!w-[290px] !h-[416px] md:!w-[350px] mx-[10px]"
           >
             <div
               className="w-full h-full p-[30px] flex items-end justify-start relative"

@@ -3,17 +3,17 @@ import { formatDate, truncateText } from "@/utils";
 
 function SmallPostCard({
   content,
-  isLine = true,
+  isHiddenLine = false,
 }: {
   content: Post;
-  isLine?: boolean;
+  isHiddenLine?: boolean;
 }) {
   return (
     <div
       className={`flex ${
-        isLine
-          ? "border-b-2 border-solid border-[#E5E5E5] pb-3 mb-3 md:pb-5 md:mb-5"
-          : ""
+        isHiddenLine
+          ? ""
+          : "border-b-2 border-solid border-[#E5E5E5] pb-3 mb-3 md:pb-5 md:mb-5"
       }`}
     >
       <div

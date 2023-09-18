@@ -87,7 +87,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
             <SmallPostCard
               content={post}
               key={generateUniqueId()}
-              isLine={index !== slicedNews.length && true}
+              isHiddenLine={index === slicedNews.length - 1}
             />
           ))}
         </div>
