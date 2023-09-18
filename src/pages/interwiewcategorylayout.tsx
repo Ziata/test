@@ -47,9 +47,9 @@ function InterwiewCategoryLayout() {
               <h6 className="font-light text-2xl leading-7 flex items-center text-[#002C47] font-Din mt-[30px] mb-[25px]">
                 Recomend
               </h6>
+              {/* <SmallPostCard />
               <SmallPostCard />
-              <SmallPostCard />
-              <SmallPostCard />
+              <SmallPostCard /> */}
             </div>
           </div>
         </div>
