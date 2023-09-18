@@ -23,12 +23,12 @@ export default function Home() {
   ) : (
     data && (
       <>
-        <HomeLastNews data={data.firstBlock[0]} />
-        <HomeSpotlight data={data.secondBlock[0]} />
-        {data.thirdBlock[0].thirdBlockPosts[0].length > 0 && (
-          <HomeDaily data={data.thirdBlock[0]} />
+        <HomeLastNews data={data.firstBlock} />
+        <HomeSpotlight data={data.secondBlock} />
+        {data.thirdBlock.thirdBlockPosts.length > 0 && (
+          <HomeDaily data={data.thirdBlock} />
         )}
-        <HomeInterviews data={data.fourthBlock[0]} />
+        <HomeInterviews data={data.fourthBlock} />
       </>
     )
   );

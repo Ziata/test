@@ -43,7 +43,7 @@ function HomeInterviews({ data }: { data: FourthBlock }) {
         </Link>
       </div>
       <Slider {...settings}>
-        {data.fourthBlockPosts[0].map((post) => (
+        {data.fourthBlockPosts.map((post) => (
           <div
             className="h-[340px] md:h-[500px] px-[5px] md:px-[10px]"
             key={post.ID}

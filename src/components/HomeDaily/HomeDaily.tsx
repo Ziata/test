@@ -24,7 +24,7 @@ function HomeDaily({ data }: { data: ThirdBlock }) {
         {data.title}
       </div>
       <Slider {...settings}>
-        {data.thirdBlockPosts[0].map((post) => (
+        {data.thirdBlockPosts.map((post) => (
           <div
             key={generateUniqueId()}
             className="!w-[290px] !h-[416px] md:!w-[350px] mx-[10px]"

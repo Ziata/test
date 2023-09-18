@@ -24,8 +24,8 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
   }, []);
 
   const slicedNews = isMobile
-    ? data.latestNews[0].slice(0, 4)
-    : data.latestNews[0].slice(1, 5);
+    ? data.latestNews.slice(0, 4)
+    : data.latestNews.slice(1, 5);
 
   return (
     <div className="container pb-[70px]">
@@ -62,10 +62,10 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
               Meeting Reports:
             </div> */}
             <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1">
-              {data.latestNews[0][0].post_title}
+              {data.latestNews[0].post_title}
             </h5>
             <span className="block font-light text-sm leading-4 text-white font-Din mt-1">
-              {formatDate(data.latestNews[0][0].post_date)}
+              {formatDate(data.latestNews[0].post_date)}
             </span>
             <Link
               href={"/"}

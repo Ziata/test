@@ -86,15 +86,15 @@ export interface SocialMediaList {
 }
 
 export interface IHome {
-  firstBlock: FirstBlock[];
-  secondBlock: SecondBlock[];
-  thirdBlock: ThirdBlock[];
-  fourthBlock: FourthBlock[];
+  firstBlock: FirstBlock;
+  secondBlock: SecondBlock;
+  thirdBlock: ThirdBlock;
+  fourthBlock: FourthBlock;
 }
 
 export interface FirstBlock {
   title: string;
-  latestNews: Post[][];
+  latestNews: Post[];
 }
 
 export interface PostContentLangs {
@@ -126,7 +126,7 @@ export interface SecondBlock {
   background_image: BackgroundImage;
   category_title: string;
   right_image: Image;
-  secondBlockPosts: Post[][];
+  secondBlockPosts: Post[];
 }
 
 export interface BackgroundImage {
@@ -212,14 +212,14 @@ export interface Post {
 
 export interface ThirdBlock {
   title: string;
-  thirdBlockPosts: Post[][];
+  thirdBlockPosts: Post[];
 }
 
 export interface FourthBlock {
   title: string;
   fourth_block_button_name: string;
   fourth_block_background_image: Image;
-  fourthBlockPosts: Post[][];
+  fourthBlockPosts: Post[];
 }
 
 export interface PostContentLangs {
