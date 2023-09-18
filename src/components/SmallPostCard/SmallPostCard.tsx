@@ -1,15 +1,22 @@
 import { Post } from "@/services/interface";
-import { formatDate, truncateText } from "@/utils";
+import { formatDate } from "@/utils";
+import Link from "next/link";
 
 function SmallPostCard({
-  content,
+  post,
   isHiddenLine = false,
 }: {
-  content: Post;
+  post: Post;
   isHiddenLine?: boolean;
 }) {
   return (
-    <div
+    <Link
+      href={{
+        pathname: `/post/${post.post_name}`,
+        query: {
+          post: encodeURIComponent(JSON.stringify(post)),
+        },
+      }}
       className={`flex ${
         isHiddenLine
           ? ""
@@ -19,23 +26,23 @@ function SmallPostCard({
       <div
         className="w-1/3 mr-[15px]"
         style={{
-          backgroundImage: `url(${content?.thumbnail})`,
+          backgroundImage: `url(${post?.thumbnail})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
       />
       <div className="w-2/3 flex flex-col justify-between h-[79px]">
         <span className="font-light text-base leading-5 flex items-center text-blue-700 font-Din whitespace-nowrap overflow-clip">
-          {content?.categories[0].name}
+          {post?.categories[0].name}
         </span>
         <h6 className="text-lg leading-5 flex text-gray-900 font-Din font-bold max-h-[2.4rem] overflow-clip">
-          {content?.post_title && content.post_title}
+          {post?.post_title && post.post_title}
         </h6>
         <span className="font-light text-sm leading-4 flex items-center text-[#33566C] font-Din mt-[2px]">
-          {formatDate(content?.post_date)}
+          {formatDate(post?.post_date)}
         </span>
       </div>
-    </div>
+    </Link>
   );
 }
 

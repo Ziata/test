@@ -1,4 +1,4 @@
-import { IFollow, IFooter, IHeader, IHome } from "@/services/interface";
+import { Page, IFollow, IFooter, IHeader, IHome } from "@/services/interface";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
@@ -19,6 +19,13 @@ export const api = createApi({
     getHome: builder.query<IHome, { language: string }>({
       query: ({ language }) => `${language}/wp-json/nextquestion/v2/home-page`,
     }),
+    getAbout: builder.query<Page, { language: string }>({
+      query: ({ language }) => `${language}/wp-json/nextquestion/v2/about-page`,
+    }),
+    getContact: builder.query<Page, { language: string }>({
+      query: ({ language }) =>
+        `${language}/wp-json/nextquestion/v2/contact-page`,
+    }),
   }),
 });
 
@@ -27,4 +34,6 @@ export const {
   useGetFooterQuery,
   useGetFollowQuery,
   useGetHomeQuery,
+  useGetAboutQuery,
+  useGetContactQuery,
 } = api;

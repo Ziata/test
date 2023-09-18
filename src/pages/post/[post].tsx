@@ -1,12 +1,9 @@
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
 /* import SmallPostCard from "@/components/SmallPostCard/SmallPostCard"; */
 import Image from "next/image";
-import { useRouter } from "next/router";
 import test from "static/img/test.png";
 
 function Post() {
-  const router = useRouter();
-
   return (
     <div className="container ">
       <div className="flex w-full flex-col tb:flex-row bg-white border-t-2 border-solid border-[#B3B3B3] pt-[25px]">

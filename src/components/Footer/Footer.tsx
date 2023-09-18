@@ -9,10 +9,6 @@ export default function Footer() {
   const { currentLanguage } = useContext(LanguageContext);
   const { data } = useGetFooterQuery({ language: currentLanguage });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
     <footer className="bg-[#fff]">
       <div className="container h-full">

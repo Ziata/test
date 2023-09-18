@@ -246,3 +246,10 @@ export interface Category {
   category_nicename: string;
   category_parent: number;
 }
+
+export interface Page {
+  title: string;
+  featured_image: string;
+  featured_image_alt: string;
+  content: string;
+}

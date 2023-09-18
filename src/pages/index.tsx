@@ -12,10 +12,6 @@ export default function Home() {
   const { currentLanguage } = useContext(LanguageContext);
   const { data, isLoading } = useGetHomeQuery({ language: currentLanguage });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return isLoading ? (
     <div className="flex w-full h-[70vh] items-center justify-center">
       <Loader customClass="w-[200px] h-[200px] mx-auto" />

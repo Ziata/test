@@ -95,7 +95,7 @@ function HomeSpotlight({ data }: { data: SecondBlock }) {
               <div className="w-full md:w-1/2 tb:w-[358px] tb:min-w-[300px] flex flex-col justify-between">
                 {data.secondBlockPosts.slice(1, 6).map((post, index) => (
                   <SmallPostCard
-                    content={post}
+                    post={post}
                     key={generateUniqueId()}
                     isHiddenLine={index === 4}
                   />

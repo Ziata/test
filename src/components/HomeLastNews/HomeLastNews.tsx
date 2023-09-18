@@ -52,7 +52,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
           className="hidden md:flex md:w-1/2 tb:w-2/3 tb:h-full px-[17px] py-[28px] items-end justify-start relative"
           /* border-b-2 border-orange-600 border-solid */
           style={{
-            backgroundImage: `url("static/img/test.png")`,
+            backgroundImage: `url(${data.latestNews[0].thumbnail})`,
             backgroundSize: "cover",
           }}
         >
@@ -68,7 +68,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
               {formatDate(data.latestNews[0].post_date)}
             </span>
             <Link
-              href={"/"}
+              href={`/post/${data.latestNews[0].post_name}`}
               className="font-normal text-lg flex items-center text-white font-Din mt-2"
             >
               Read the Report{" "}
@@ -85,7 +85,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
         <div className="w-full md:w-1/2 tb:w-1/3 tb:max-w-[430px] h-full flex flex-col justify-between">
           {slicedNews.map((post, index) => (
             <SmallPostCard
-              content={post}
+              post={post}
               key={generateUniqueId()}
               isHiddenLine={index === slicedNews.length - 1}
             />
