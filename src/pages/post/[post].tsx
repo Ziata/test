@@ -1,5 +1,5 @@
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
-import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
+/* import SmallPostCard from "@/components/SmallPostCard/SmallPostCard"; */
 import Image from "next/image";
 import { useRouter } from "next/router";
 import test from "static/img/test.png";
@@ -79,9 +79,9 @@ function Post() {
             <h6 className="font-light text-2xl leading-7 flex items-center text-[#002C47] font-Din mt-[30px] mb-[25px]">
               Recomend
             </h6>
+            {/*   <SmallPostCard />
             <SmallPostCard />
-            <SmallPostCard />
-            <SmallPostCard />
+            <SmallPostCard /> */}
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import PageSelect from "@/components/PageSelect/PageSelect";
 import Pagination from "@/components/Pagination/Pagination";
 import Post from "@/components/Post/Post";
-import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
+/* import SmallPostCard from "@/components/SmallPostCard/SmallPostCard"; */
 import Tags from "@/components/Tags/Tags";
 
 function InterwiewCategoryLayout() {
