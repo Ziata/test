@@ -3,7 +3,7 @@ import { Post } from "@/services/interface";
 import { blurPlaceholder, formatDate, truncateText } from "@/utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 function Post({
   post,

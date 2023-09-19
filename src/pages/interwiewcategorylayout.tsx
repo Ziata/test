@@ -25,18 +25,18 @@ function InterwiewCategoryLayout() {
           <div className="tb:mr-[30px] w-full">
             <Tags />
             <div className="mt-[20px] flex-col flex justify-between md:flex-row md:flex-wrap gap-x-[1%] gap-y-[30px] pb-[30px]">
+              {/* <Post isInterview={true} />
               <Post isInterview={true} />
               <Post isInterview={true} />
               <Post isInterview={true} />
               <Post isInterview={true} />
               <Post isInterview={true} />
               <Post isInterview={true} />
-              <Post isInterview={true} />
-              <Post isInterview={true} />
+              <Post isInterview={true} /> */}
             </div>
             <div className="flex flex-col-reverse md:flex-row justify-between items-center ">
-              <PageSelect />
-              <Pagination />
+              {/* <PageSelect />
+              <Pagination /> */}
             </div>
           </div>
           <div className="w-full flex flex-col-reverse md:flex-row justify-between tb:block tb:w-[360px] tb:min-w-[300px]">
