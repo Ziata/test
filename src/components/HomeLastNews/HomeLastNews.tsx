@@ -4,12 +4,23 @@ import shevron from "static/img/shevron.svg";
 import whiteShevron from "static/img/shevron-white.svg";
 import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
 import { t } from "i18next";
-import { FirstBlock } from "@/services/interface";
+import { FirstBlock, Post } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { PostContext } from "@/context/PostContext";
+import { useRouter } from "next/router";
 
 function HomeLastNews({ data }: { data: FirstBlock }) {
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const { setPost } = useContext(PostContext);
+  const router = useRouter();
+
+  const handleClick = (post: Post) => {
+    setPost(post);
+    router.push({
+      pathname: `/post/${post.post_name}`,
+    });
+  };
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
@@ -34,7 +45,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
           {data.title}
         </div>
         <Link
-          href={"/"}
+          href="/category/all"
           className="flex items-center leading-0 font-light text-base leading-5 text-gray-900 font-Din"
         >
           {t("More")}{" "}
@@ -49,7 +60,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
       </div>
       <div className="flex gap-[30px] tb:h-[440px] w-full">
         <div
-          className="hidden md:flex md:w-1/2 tb:w-2/3 tb:h-full px-[17px] py-[28px] items-end justify-start relative"
+          className="hidden md:flex md:w-1/2 tb:w-2/3 tb:h-full px-[17px] py-[28px] items-end justify-start relative lazy-background"
           /* border-b-2 border-orange-600 border-solid */
           style={{
             backgroundImage: `url(${data.latestNews[0].thumbnail})`,
@@ -67,8 +78,8 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
             <span className="block font-light text-sm leading-4 text-white font-Din mt-1">
               {formatDate(data.latestNews[0].post_date)}
             </span>
-            <Link
-              href={`/post/${data.latestNews[0].post_name}`}
+            <button
+              onClick={() => handleClick(data.latestNews[0])}
               className="font-normal text-lg flex items-center text-white font-Din mt-2"
             >
               Read the Report{" "}
@@ -79,7 +90,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
                 width="5"
                 height="10"
               />
-            </Link>
+            </button>
           </div>
         </div>
         <div className="w-full md:w-1/2 tb:w-1/3 tb:max-w-[430px] h-full flex flex-col justify-between">

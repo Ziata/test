@@ -1,21 +1,34 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ThirdBlock } from "@/services/interface";
+import { Post, ThirdBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
+import { useContext } from "react";
+import { PostContext } from "@/context/PostContext";
+import { useRouter } from "next/router";
+
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrow: false,
+  centerMode: true,
+  variableWidth: true,
+  adaptiveHeight: true,
+  autoplay: true,
+};
 
 function HomeDaily({ data }: { data: ThirdBlock }) {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrow: false,
-    centerMode: true,
-    variableWidth: true,
-    adaptiveHeight: true,
-    autoplay: true,
+  const { setPost } = useContext(PostContext);
+  const router = useRouter();
+
+  const handleClick = (post: Post) => {
+    setPost(post);
+    router.push({
+      pathname: `/post/${post.post_name}`,
+    });
   };
 
   return (
@@ -27,6 +40,7 @@ function HomeDaily({ data }: { data: ThirdBlock }) {
         {data.thirdBlockPosts.map((post) => (
           <div
             key={generateUniqueId()}
+            onClick={() => handleClick(post)}
             className="!w-[290px] !h-[416px] md:!w-[350px] mx-[10px]"
           >
             <div

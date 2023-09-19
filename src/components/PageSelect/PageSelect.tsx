@@ -1,24 +1,29 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Select, { SingleValue } from "react-select";
 
 const options = [
-  { value: "10", label: "10 items" },
-  { value: "20", label: "20 items" },
-  { value: "50", label: "50 items" },
-  { value: "100", label: "100 items" },
+  { value: 5, label: "5 items" },
+  { value: 10, label: "10 items" },
+  { value: 20, label: "20 items" },
+  { value: 50, label: "50 items" },
 ];
 
-function PageSelect() {
+function PageSelect({
+  setPostsPerPage,
+}: {
+  setPostsPerPage: Dispatch<SetStateAction<number>>;
+}) {
   const [selectedOption, setSelectedOptions] = useState<{
-    value: string;
+    value: number;
     label: string;
-  }>(options[0]);
+  }>(options[1]);
 
   const handleOptionChange = (
-    newValue: SingleValue<{ value: string; label: string }>
+    newValue: SingleValue<{ value: number; label: string }>
   ) => {
     if (newValue) {
       setSelectedOptions(newValue);
+      setPostsPerPage(newValue.value);
     }
   };
 

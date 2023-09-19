@@ -57,6 +57,27 @@ html .slick-dots li button::before {
   animation: spinner 1.5s linear infinite;
 }
 
+input[type="range"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 50%;
+  background-color: #fff;
+  height: 0.8rem;
+  width: 0.8rem;
+}
+
+.text-content p {
+  @apply mt-2;
+}
+
 @-webkit-keyframes spinner {
   0% {
     -webkit-transform: rotate(0deg);

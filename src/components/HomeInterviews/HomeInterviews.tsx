@@ -5,7 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import shevron from "static/img/shevron-white.svg";
 import { t } from "i18next";
-import { FourthBlock } from "@/services/interface";
+import { FourthBlock, Post } from "@/services/interface";
+import { useContext } from "react";
+import { PostContext } from "@/context/PostContext";
+import { useRouter } from "next/router";
 
 const settings = {
   dots: true,
@@ -19,10 +22,22 @@ const settings = {
 };
 
 function HomeInterviews({ data }: { data: FourthBlock }) {
+  const { setPost } = useContext(PostContext);
+  const router = useRouter();
+
+  const handleClick = (post: Post) => {
+    setPost(post);
+    router.push({
+      pathname: `/post/${post.post_name}`,
+    });
+  };
+
   return (
     <div
       className="w-full py-[70px] overflow-hidden bg-no-repeat bg-cover mt-[65px]"
-      style={{ backgroundImage: data.fourth_block_background_image.url }}
+      style={{
+        backgroundImage: `url('${data.fourth_block_background_image.url}')`,
+      }}
     >
       <div className="container flex justify-between items-center pb-[40px]">
         <div className="font-light text-2xl leading-7 flex items-center text-[#fff] font-Din">
@@ -51,7 +66,7 @@ function HomeInterviews({ data }: { data: FourthBlock }) {
             <div
               className="w-full h-full px-[10px] py-[40px] md:p-[30px] flex items-end justify-start relative"
               style={{
-                backgroundImage: `url("static/img/test.png")`,
+                backgroundImage: `url(${post.thumbnail})`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
               }}
@@ -59,12 +74,12 @@ function HomeInterviews({ data }: { data: FourthBlock }) {
               <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />
               <div className="z-1 relative w-full">
                 <div className="font-normal text-[18px] md:text-2xl leading-7 flex w-full flex-col-reverse md:flex-row items-center text-white font-Din">
-                  <Link
-                    href={"/"}
+                  <button
+                    onClick={() => handleClick(post)}
                     className="font-normal text-[18px] md:text-lg leading-0 text-white font-Din flex flex-row justify-center items-center bg-[#0071BC] w-full max-w-[230px] h-[60px] rounded-[50px] mt-[20px] md:mt-0 md:mr-[40px] transition-all duration-300 hover:bg-[#001cbc]"
                   >
                     {data.fourth_block_button_name}
-                  </Link>
+                  </button>
                   <span>{post.post_title}</span>
                 </div>
               </div>

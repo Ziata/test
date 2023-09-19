@@ -3,14 +3,24 @@ import Link from "next/link";
 import shevron from "static/img/shevron.svg";
 import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { t } from "i18next";
-import { SecondBlock } from "@/services/interface";
-import { generateUniqueId } from "@/utils";
+import { Post, SecondBlock } from "@/services/interface";
+import { formatDate, generateUniqueId } from "@/utils";
+import { PostContext } from "@/context/PostContext";
+import { useRouter } from "next/router";
 
 function HomeSpotlight({ data }: { data: SecondBlock }) {
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const { setPost } = useContext(PostContext);
+  const router = useRouter();
 
+  const handleClick = (post: Post) => {
+    setPost(post);
+    router.push({
+      pathname: `/post/${post.post_name}`,
+    });
+  };
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
   };
@@ -24,15 +34,17 @@ function HomeSpotlight({ data }: { data: SecondBlock }) {
   }, []);
 
   const backgroundImageStyle = {
-    backgroundImage: `url(${
-      isMobile ? data.background_image.url : data.background_image.url
-    })`,
+    backgroundImage: `url(${data.background_image.url})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     height: isMobile ? "260px" : "330px",
     width: "100%",
     padding: "30px",
   };
+
+  const slicedNews = isMobile
+    ? data.secondBlockPosts.slice(0, 5)
+    : data.secondBlockPosts.slice(1, 6);
 
   return (
     <div>
@@ -72,9 +84,10 @@ function HomeSpotlight({ data }: { data: SecondBlock }) {
             <div className="flex flex-col md:flex-row w-full gap-[30px] h-full">
               <div className="hidden md:block md:w-1/2 tb:w-full">
                 <div
-                  className="w-full h-full p-[30px] flex items-end justify-start relative"
+                  onClick={() => handleClick(data.secondBlockPosts[0])}
+                  className="w-full h-full p-[30px] flex items-end justify-start relative cursor-pointer"
                   style={{
-                    backgroundImage: `url("static/img/test.png")`,
+                    backgroundImage: `url("${data.secondBlockPosts[0].thumbnail}")`,
                     backgroundSize: "cover",
                   }}
                 >
@@ -84,16 +97,16 @@ function HomeSpotlight({ data }: { data: SecondBlock }) {
                       Cosmology
                     </div>
                     <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1">
-                      Lorem ipsum dolor sit amet consectetur suspendisse Lorem
+                      {data.secondBlockPosts[0].post_title}
                     </h5>
                     <span className="block font-light text-sm leading-4 text-white font-Din mt-1">
-                      March 31, 2022
+                      {formatDate(data.secondBlockPosts[0].post_date)}
                     </span>
                   </div>
                 </div>
               </div>
               <div className="w-full md:w-1/2 tb:w-[358px] tb:min-w-[300px] flex flex-col justify-between">
-                {data.secondBlockPosts.slice(1, 6).map((post, index) => (
+                {slicedNews.map((post, index) => (
                   <SmallPostCard
                     post={post}
                     key={generateUniqueId()}

@@ -4,11 +4,29 @@ import Pagination from "@/components/Pagination/Pagination";
 import Post from "@/components/Post/Post";
 import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
 import Tags from "@/components/Tags/Tags";
+import LanguageContext from "@/context/LanguageContext";
+import { useGetAllPostQuery } from "@/services/api";
 import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
 
 function Category() {
   const router = useRouter();
   const { category } = router.query;
+  const { currentLanguage } = useContext(LanguageContext);
+  const { data, isLoading } = useGetAllPostQuery({ language: currentLanguage });
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [postsPerPage, setPostsPerPage] = useState<number>(10);
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = data?.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <>
@@ -29,16 +47,21 @@ function Category() {
           <div className="tb:mr-[30px] w-full">
             <Tags />
             <div className="mt-[20px]">
-              <Post />
-              <Post />
-              <Post />
-              <Post />
-              <Post />
-              <Post />
+              {currentPosts &&
+                currentPosts.map((post) => <Post key={post.ID} post={post} />)}
             </div>
             <div className="flex flex-col-reverse md:flex-row justify-between items-center ">
-              <PageSelect />
-              <Pagination />
+              {data && (
+                <>
+                  <PageSelect setPostsPerPage={setPostsPerPage} />
+                  <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={data.length}
+                    currentPage={currentPage}
+                    paginate={paginate}
+                  />
+                </>
+              )}
             </div>
           </div>
           <div className="w-full flex flex-col-reverse md:flex-row justify-between tb:block tb:w-[360px] tb:min-w-[300px]">

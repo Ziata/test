@@ -1,6 +1,8 @@
+import { PostContext } from "@/context/PostContext";
 import { Post } from "@/services/interface";
 import { formatDate } from "@/utils";
-import Link from "next/link";
+import { useRouter } from "next/router";
+import { useContext } from "react";
 
 function SmallPostCard({
   post,
@@ -9,22 +11,27 @@ function SmallPostCard({
   post: Post;
   isHiddenLine?: boolean;
 }) {
+  const { setPost } = useContext(PostContext);
+  const router = useRouter();
+
+  const handleClick = (post: Post) => {
+    setPost(post);
+    router.push({
+      pathname: `/post/${post.post_name}`,
+    });
+  };
+
   return (
-    <Link
-      href={{
-        pathname: `/post/${post.post_name}`,
-        query: {
-          post: encodeURIComponent(JSON.stringify(post)),
-        },
-      }}
-      className={`flex ${
+    <div
+      onClick={() => handleClick(post)}
+      className={`flex cursor-pointer ${
         isHiddenLine
           ? ""
           : "border-b-2 border-solid border-[#E5E5E5] pb-3 mb-3 md:pb-5 md:mb-5"
       }`}
     >
       <div
-        className="w-1/3 mr-[15px]"
+        className={`w-1/3 mr-[15px]`}
         style={{
           backgroundImage: `url(${post?.thumbnail})`,
           backgroundSize: "cover",
@@ -42,7 +49,7 @@ function SmallPostCard({
           {formatDate(post?.post_date)}
         </span>
       </div>
-    </Link>
+    </div>
   );
 }
 
