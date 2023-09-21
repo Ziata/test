@@ -1,26 +1,17 @@
-import { PostContext } from "@/context/PostContext";
-import { Post } from "@/services/interface";
+import { IPost } from "@/services/interface";
 import { blurPlaceholder, formatDate, truncateText } from "@/utils";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext } from "react";
 
 function Post({
   post,
   isInterview = false,
 }: {
-  post: Post;
+  post: IPost;
   isInterview?: boolean;
 }) {
   const router = useRouter();
-  const { setPost } = useContext(PostContext);
-
-  const handleClick = () => {
-    setPost(post);
-    router.push({
-      pathname: `/post/${post.post_name}`,
-    });
-  };
 
   return (
     <div
@@ -30,8 +21,8 @@ function Post({
           : "flex-row w-full h-[170px] md:h-[200px] border-b-2 border-solid border-[#CECECE] pb-[20px] my-[20px]"
       } flex`}
     >
-      <div
-        onClick={handleClick}
+      <Link
+        href={`/${router.query.lang}/post/${post.post_name}`}
         className={`${
           isInterview ? "w-full h-[205px]" : "w-1/3 mr-[10px] md:mr-[20px] "
         } relative cursor-pointer`}
@@ -47,7 +38,7 @@ function Post({
             blurDataURL={blurPlaceholder()}
           />
         )}
-      </div>
+      </Link>
       <div className="w-2/3 flex flex-col justify-between">
         <span
           className={` ${
@@ -56,14 +47,14 @@ function Post({
         >
           From the journals
         </span>
-        <div
-          onClick={handleClick}
+        <Link
+          href={`/${router.query.lang}/post/${post.post_name}`}
           className={` ${
             isInterview ? "order-1" : "md:mb-[20px]"
           } cursor-pointer font-bold text-lg leading-5 flex items-center text-[#002C47] font-Din my-[5px] md:mt-[10px] `}
         >
           {post.post_title}
-        </div>
+        </Link>
         {!isInterview && (
           <div className="h-[70px] relative overflow-hidden">
             <div

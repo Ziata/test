@@ -4,23 +4,14 @@ import shevron from "static/img/shevron.svg";
 import whiteShevron from "static/img/shevron-white.svg";
 import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
 import { t } from "i18next";
-import { FirstBlock, Post } from "@/services/interface";
+import { FirstBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
-import { useContext, useEffect, useState } from "react";
-import { PostContext } from "@/context/PostContext";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 function HomeLastNews({ data }: { data: FirstBlock }) {
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const { setPost } = useContext(PostContext);
   const router = useRouter();
-
-  const handleClick = (post: Post) => {
-    setPost(post);
-    router.push({
-      pathname: `/post/${post.post_name}`,
-    });
-  };
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
@@ -45,7 +36,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
           {data.title}
         </div>
         <Link
-          href="/category/all"
+          href={`/${router.query.lang}/category/all`}
           className="flex items-center leading-0 font-light text-base leading-5 text-gray-900 font-Din"
         >
           {t("More")}{" "}
@@ -78,8 +69,8 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
             <span className="block font-light text-sm leading-4 text-white font-Din mt-1">
               {formatDate(data.latestNews[0].post_date)}
             </span>
-            <button
-              onClick={() => handleClick(data.latestNews[0])}
+            <Link
+              href={`/${router.query.lang}/post/${data.latestNews[0].post_name}`}
               className="font-normal text-lg flex items-center text-white font-Din mt-2"
             >
               Read the Report{" "}
@@ -90,7 +81,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
                 width="5"
                 height="10"
               />
-            </button>
+            </Link>
           </div>
         </div>
         <div className="w-full md:w-1/2 tb:w-1/3 tb:max-w-[430px] h-full flex flex-col justify-between">

@@ -1,29 +1,20 @@
-import { PostContext } from "@/context/PostContext";
-import { Post } from "@/services/interface";
+import { IPost } from "@/services/interface";
 import { formatDate } from "@/utils";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext } from "react";
 
 function SmallPostCard({
   post,
   isHiddenLine = false,
 }: {
-  post: Post;
+  post: IPost;
   isHiddenLine?: boolean;
 }) {
-  const { setPost } = useContext(PostContext);
   const router = useRouter();
 
-  const handleClick = (post: Post) => {
-    setPost(post);
-    router.push({
-      pathname: `/post/${post.post_name}`,
-    });
-  };
-
   return (
-    <div
-      onClick={() => handleClick(post)}
+    <Link
+      href={`/${router.query.lang}/post/${post.post_name}`}
       className={`flex cursor-pointer ${
         isHiddenLine
           ? ""
@@ -49,7 +40,7 @@ function SmallPostCard({
           {formatDate(post?.post_date)}
         </span>
       </div>
-    </div>
+    </Link>
   );
 }
 

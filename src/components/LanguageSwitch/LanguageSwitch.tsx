@@ -4,7 +4,7 @@ import Select, { SingleValue, components } from "react-select";
 import Image from "next/image";
 import global from "static/img/global.svg";
 import triangle from "static/img/triangle.svg";
-import LanguageContext from "@/context/LanguageContext";
+import { useRouter } from "next/router";
 
 const options = [
   { value: "en", label: "EN" },
@@ -24,18 +24,14 @@ export default function LanguageSwitch() {
     value: string;
     label: string;
   }>(options[0]);
-
-  const { changeLanguage } = useContext(LanguageContext);
-
-  useEffect(() => {
-    changeLanguage(selectedLanguage.value);
-  }, [selectedLanguage, changeLanguage]);
+  const router = useRouter();
 
   const handleLanguageChange = (
     newValue: SingleValue<{ value: string; label: string }>
   ) => {
-    if (newValue) {
+    if (newValue && newValue.value !== router.query.lang) {
       setSelectedLanguage(newValue);
+      router.push(`/${newValue.value}`);
     }
   };
 

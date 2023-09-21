@@ -13,7 +13,7 @@ i18n
     fallbackLng: "en",
     debug: true,
     detection: {
-      order: ["queryString", "cookie"],
+      order: ["path", "cookie", "htmlTag", "localStorage", "subdomain"],
       caches: ["cookie"],
     },
     interpolation: {

@@ -5,22 +5,16 @@ import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import { useContext, useEffect, useState } from "react";
 import { t } from "i18next";
-import { Post, SecondBlock } from "@/services/interface";
+import { SecondBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
-import { PostContext } from "@/context/PostContext";
+import { InfoContext } from "@/context/InfoContext";
 import { useRouter } from "next/router";
 
 function HomeSpotlight({ data }: { data: SecondBlock }) {
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const { setPost } = useContext(PostContext);
+
   const router = useRouter();
 
-  const handleClick = (post: Post) => {
-    setPost(post);
-    router.push({
-      pathname: `/post/${post.post_name}`,
-    });
-  };
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
   };
@@ -83,8 +77,8 @@ function HomeSpotlight({ data }: { data: SecondBlock }) {
             </div>
             <div className="flex flex-col md:flex-row w-full gap-[30px] h-full">
               <div className="hidden md:block md:w-1/2 tb:w-full">
-                <div
-                  onClick={() => handleClick(data.secondBlockPosts[0])}
+                <Link
+                  href={`/${router.query.lang}/post/${data.secondBlockPosts[0].post_name}`}
                   className="w-full h-full p-[30px] flex items-end justify-start relative cursor-pointer"
                   style={{
                     backgroundImage: `url("${data.secondBlockPosts[0].thumbnail}")`,
@@ -103,7 +97,7 @@ function HomeSpotlight({ data }: { data: SecondBlock }) {
                       {formatDate(data.secondBlockPosts[0].post_date)}
                     </span>
                   </div>
-                </div>
+                </Link>
               </div>
               <div className="w-full md:w-1/2 tb:w-[358px] tb:min-w-[300px] flex flex-col justify-between">
                 {slicedNews.map((post, index) => (

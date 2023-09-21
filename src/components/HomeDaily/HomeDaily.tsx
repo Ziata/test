@@ -1,11 +1,10 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Post, ThirdBlock } from "@/services/interface";
+import { ThirdBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
-import { useContext } from "react";
-import { PostContext } from "@/context/PostContext";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const settings = {
   dots: true,
@@ -21,15 +20,7 @@ const settings = {
 };
 
 function HomeDaily({ data }: { data: ThirdBlock }) {
-  const { setPost } = useContext(PostContext);
   const router = useRouter();
-
-  const handleClick = (post: Post) => {
-    setPost(post);
-    router.push({
-      pathname: `/post/${post.post_name}`,
-    });
-  };
 
   return (
     <div className="w-full py-[50px] overflow-hidden">
@@ -38,9 +29,9 @@ function HomeDaily({ data }: { data: ThirdBlock }) {
       </div>
       <Slider {...settings}>
         {data.thirdBlockPosts.map((post) => (
-          <div
+          <Link
             key={generateUniqueId()}
-            onClick={() => handleClick(post)}
+            href={`/${router.query.lang}/post/${post.post_name}`}
             className="!w-[290px] !h-[416px] md:!w-[350px] mx-[10px]"
           >
             <div
@@ -63,7 +54,7 @@ function HomeDaily({ data }: { data: ThirdBlock }) {
                 </span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </Slider>
     </div>

@@ -1,24 +1,11 @@
-import {
-  Page,
-  IFollow,
-  IFooter,
-  IHeader,
-  IHome,
-  Post,
-} from "@/services/interface";
+import { Page, IFollow, IHome, IPost, ICategory } from "@/services/interface";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: `https://nextquestion.g-team.org/`,
+    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
   }),
   endpoints: (builder) => ({
-    getHeader: builder.query<IHeader, { language: string }>({
-      query: ({ language }) => `${language}/wp-json/nextquestion/v2/header`,
-    }),
-    getFooter: builder.query<IFooter, { language: string }>({
-      query: ({ language }) => `${language}/wp-json/nextquestion/v2/footer`,
-    }),
     getFollow: builder.query<IFollow, { language: string }>({
       query: ({ language }) =>
         `${language}/wp-json/nextquestion/v2/follownextquestion`,
@@ -33,24 +20,35 @@ export const api = createApi({
       query: ({ language }) =>
         `${language}/wp-json/nextquestion/v2/contact-page`,
     }),
-    getAllPost: builder.query<Post[], { language: string }>({
+    getAllPost: builder.query<IPost[], { language: string }>({
       query: ({ language }) =>
         `${language}/wp-json/nextquestion/v2/interview-posts`,
     }),
-    getPost: builder.query<Post, { language: string; slug?: string }>({
+    getPost: builder.query<IPost, { language: string; slug?: string }>({
       query: ({ language, slug }) =>
         `${language}/wp-json/nextquestion/v2/post/?slug=${slug}`,
+    }),
+    getPostByCategories: builder.query<
+      ICategory,
+      { language: string; slug: string }
+    >({
+      query: ({ language, slug }) => {
+        if (slug === "all") {
+          return `${language}/wp-json/nextquestion/v2/interview-posts`;
+        } else {
+          return `${language}/wp-json/nextquestion/v2/category/?slug=${slug}`;
+        }
+      },
     }),
   }),
 });
 
 export const {
-  useGetHeaderQuery,
-  useGetFooterQuery,
   useGetFollowQuery,
   useGetHomeQuery,
   useGetAboutQuery,
   useGetContactQuery,
   useGetAllPostQuery,
   useGetPostQuery,
+  useGetPostByCategoriesQuery,
 } = api;

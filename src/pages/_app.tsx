@@ -6,20 +6,25 @@ import "reset-css";
 import "static/fonts/D-DIN/stylesheet.css";
 import { Provider } from "react-redux";
 import store from "@/services/store";
-import { LanguageProvider } from "@/context/LanguageContext";
-import { PostProvider } from "@/context/PostContext";
+import { InfoProvider } from "@/context/InfoContext";
+import { I18nextProvider } from "react-i18next";
+import i18n from "@/i18n";
+import { IHeader } from "@/services/interface";
+import { LayoutProvider } from "@/context/LayoutContext";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps & { headerData: IHeader }) {
   return (
-    <LanguageProvider>
-      <Provider store={store}>
-        <PostProvider>
-          <Header />
-          <Component {...pageProps} />
-          <Footer />
-        </PostProvider>
-      </Provider>
-    </LanguageProvider>
+    <Provider store={store}>
+      <I18nextProvider i18n={i18n}>
+        <InfoProvider>
+          <LayoutProvider>
+            <Header />
+            <Component {...pageProps} />
+            <Footer />
+          </LayoutProvider>
+        </InfoProvider>
+      </I18nextProvider>
+    </Provider>
   );
 }
 

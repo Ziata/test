@@ -1,4 +1,3 @@
-"use client";
 import { useState, useEffect, useContext } from "react";
 import LanguageSwitch from "@/components/LanguageSwitch/LanguageSwitch";
 import Menu from "@/components/Menu/Menu";
@@ -9,18 +8,13 @@ import search from "static/img/search.svg";
 import { useModal } from "@/hooks/useModal";
 import Modal from "@/components/Modal/Modal";
 import Search from "@/components/Search/Search";
-import { useGetHeaderQuery } from "@/services/api";
-import Loader from "@/components/Loader/Loader";
-import LanguageContext from "@/context/LanguageContext";
+import { LayoutContext } from "@/context/LayoutContext";
 
 export default function Header() {
+  const { headerData: data } = useContext(LayoutContext);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const { closeModal, isOpen: isOpenModal, openModal } = useModal();
-  const { currentLanguage } = useContext(LanguageContext);
-  const { data, isLoading } = useGetHeaderQuery({
-    language: currentLanguage,
-  });
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
@@ -59,17 +53,13 @@ export default function Header() {
             href="/"
             className="tb:absolute tb:left-1/2 tb:top-1/2 tb:-translate-x-1/2 tb:-translate-y-1/2"
           >
-            {isLoading ? (
-              <Loader customClass="w-10 h-10" />
-            ) : (
-              data && (
-                <Image
-                  src={data.logo_image.url}
-                  alt="logo"
-                  width={data.logo_image.width}
-                  height={data.logo_image.height}
-                />
-              )
+            {data && (
+              <Image
+                src={data.logo_image.url}
+                alt="logo"
+                width={data.logo_image.width}
+                height={data.logo_image.height}
+              />
             )}
           </Link>
           <div className="flex items-center">

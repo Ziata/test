@@ -4,13 +4,13 @@ import Link from "next/link";
 import follow from "static/img/follow.png";
 import { useRouter } from "next/router";
 import { useGetFollowQuery } from "@/services/api";
-import LanguageContext from "@/context/LanguageContext";
+
 import Loader from "@/components/Loader/Loader";
 import { generateUniqueId } from "@/utils";
 
 function FollowBlock() {
   const router = useRouter();
-  const { currentLanguage } = useContext(LanguageContext);
+  const currentLanguage = "en";
   const { data, isLoading } = useGetFollowQuery({
     language: currentLanguage,
   });

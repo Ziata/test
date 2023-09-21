@@ -1,11 +1,9 @@
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import Loader from "@/components/Loader/Loader";
-import LanguageContext from "@/context/LanguageContext";
 import { useGetAboutQuery } from "@/services/api";
-import { useContext } from "react";
 
 function About() {
-  const { currentLanguage } = useContext(LanguageContext);
+  const currentLanguage = "en";
   const { data, isLoading } = useGetAboutQuery({ language: currentLanguage });
 
   return (

@@ -1,14 +1,12 @@
 import ContactSelect from "@/components/ContactSelect/ContactSelect";
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import Loader from "@/components/Loader/Loader";
-import LanguageContext from "@/context/LanguageContext";
 import { useGetContactQuery } from "@/services/api";
-
-import { useState, useContext } from "react";
+import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
 function Contact() {
-  const { currentLanguage } = useContext(LanguageContext);
+  const currentLanguage = "en";
   const { data, isLoading } = useGetContactQuery({ language: currentLanguage });
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");

@@ -55,7 +55,7 @@ export interface Image {
 
 export interface CategoryMenu {
   category_name: string;
-  category_id: number;
+  category: ICategory;
 }
 
 export interface IFooter {
@@ -94,7 +94,7 @@ export interface IHome {
 
 export interface FirstBlock {
   title: string;
-  latestNews: Post[];
+  latestNews: IPost[];
 }
 
 export interface PostContentLangs {
@@ -126,7 +126,7 @@ export interface SecondBlock {
   background_image: BackgroundImage;
   category_title: string;
   right_image: Image;
-  secondBlockPosts: Post[];
+  secondBlockPosts: IPost[];
 }
 
 export interface BackgroundImage {
@@ -177,7 +177,7 @@ export interface Sizes {
   "2048x2048-height": number;
 }
 
-export interface Post {
+export interface IPost {
   ID: number;
   post_author: string;
   post_date: string;
@@ -207,7 +207,7 @@ export interface Post {
   post_title_ml: string;
   post_title_langs: PostTitleLangs;
   thumbnail: string;
-  categories: Category[];
+  categories: ICategory[];
   youtube_url: string;
   interview_audio: Audio;
 }
@@ -238,14 +238,14 @@ export interface Audio {
 
 export interface ThirdBlock {
   title: string;
-  thirdBlockPosts: Post[];
+  thirdBlockPosts: IPost[];
 }
 
 export interface FourthBlock {
   title: string;
   fourth_block_button_name: string;
   fourth_block_background_image: Image;
-  fourthBlockPosts: Post[];
+  fourthBlockPosts: IPost[];
 }
 
 export interface PostContentLangs {
@@ -253,7 +253,7 @@ export interface PostContentLangs {
   zh: boolean;
 }
 
-export interface Category {
+export interface ICategory {
   term_id: number;
   name: string;
   slug: string;
@@ -271,6 +271,7 @@ export interface Category {
   cat_name: string;
   category_nicename: string;
   category_parent: number;
+  all_posts: IPost[];
 }
 
 export interface Page {

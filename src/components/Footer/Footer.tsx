@@ -1,13 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useGetFooterQuery } from "@/services/api";
 import { generateUniqueId } from "@/utils";
-import LanguageContext from "@/context/LanguageContext";
+import { LayoutContext } from "@/context/LayoutContext";
 
 export default function Footer() {
-  const { currentLanguage } = useContext(LanguageContext);
-  const { data } = useGetFooterQuery({ language: currentLanguage });
+  const { footerData: data } = useContext(LayoutContext);
 
   return (
     <footer className="bg-[#fff]">
