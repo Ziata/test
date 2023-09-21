@@ -1,10 +1,9 @@
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
-import Loader from "@/components/Loader/Loader";
 import PageSelect from "@/components/PageSelect/PageSelect";
 import Pagination from "@/components/Pagination/Pagination";
 import Post from "@/components/Post/Post";
 import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
-import Tags from "@/components/Tags/Tags";
+import Tabs from "@/components/Tabs/Tabs";
 import { LayoutContext } from "@/context/LayoutContext";
 import { ICategory, IFooter, IHeader } from "@/services/interface";
 import { GetStaticPaths, GetStaticProps } from "next";
@@ -24,6 +23,13 @@ const Category: React.FC<CategoryProps> = ({
   headerData,
 }) => {
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string>(
+    data.cat_name
+  );
+
+  useEffect(() => {
+    setSelectedSubcategory(data.cat_name);
+  }, [data.cat_name]);
 
   useEffect(() => {
     setHeaderData(headerData); // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -32,6 +38,10 @@ const Category: React.FC<CategoryProps> = ({
   useEffect(() => {
     setFooterData(footerData); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [footerData]);
+
+  const handleSubcategoryClick = (subcategory: string) => {
+    setSelectedSubcategory(subcategory);
+  };
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [postsPerPage, setPostsPerPage] = useState<number>(10);
@@ -43,6 +53,14 @@ const Category: React.FC<CategoryProps> = ({
     indexOfFirstPost,
     indexOfLastPost
   );
+
+  const filteredPosts = selectedSubcategory
+    ? currentPosts?.filter((post) =>
+        post.categories.some(
+          (category) => category.name === selectedSubcategory
+        )
+      )
+    : currentPosts;
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -63,13 +81,36 @@ const Category: React.FC<CategoryProps> = ({
       <div className="container">
         <div className="md:p-[30px] bg-white md:-mt-[70px] flex w-full flex-col tb:flex-row">
           <div className="tb:mr-[30px] w-full">
-            <Tags />
-            <div className="mt-[20px]">
-              {currentPosts &&
-                currentPosts.map((post) => <Post key={post.ID} post={post} />)}
+            {data?.subcategories && data?.subcategories.length > 0 && (
+              <Tabs
+                subcategories={[data, ...data.subcategories]}
+                selectedSubcategory={selectedSubcategory}
+                onSubcategoryClick={handleSubcategoryClick}
+              />
+            )}
+            <div
+              className={`${
+                data?.slug === "people"
+                  ? "flex-col flex justify-between md:flex-row md:flex-wrap gap-x-[1%] gap-y-[30px] pb-[30px]"
+                  : ""
+              } mt-[20px]`}
+            >
+              {filteredPosts?.length > 0 ? (
+                filteredPosts.map((post) => (
+                  <Post
+                    key={post.ID}
+                    post={post}
+                    isInterview={data?.slug === "people"}
+                  />
+                ))
+              ) : (
+                <div className="w-full h-[300px] justify-center font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
+                  No Data
+                </div>
+              )}
             </div>
             <div className="flex flex-col-reverse md:flex-row justify-between items-center ">
-              {data?.all_posts && (
+              {filteredPosts?.length > 0 && (
                 <>
                   <PageSelect setPostsPerPage={setPostsPerPage} />
                   <Pagination

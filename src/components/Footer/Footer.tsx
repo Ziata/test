@@ -3,9 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { generateUniqueId } from "@/utils";
 import { LayoutContext } from "@/context/LayoutContext";
+import { useRouter } from "next/router";
 
 export default function Footer() {
   const { footerData: data } = useContext(LayoutContext);
+  const router = useRouter();
 
   return (
     <footer className="bg-[#fff]">
@@ -22,7 +24,9 @@ export default function Footer() {
               {data.footer_links.map((link) => (
                 <React.Fragment key={generateUniqueId()}>
                   <Link
-                    href={link.url}
+                    href={`/${router.query.lang}${
+                      link.url.startsWith("/") ? "" : "/"
+                    }${link.url}`}
                     className="font-normal text-lg leading-5 font-Din text-[#315469]  transition-all duration-300 hover:text-[#0071BC]"
                   >
                     {link.name}

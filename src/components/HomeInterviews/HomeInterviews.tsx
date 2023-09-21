@@ -27,6 +27,7 @@ function HomeInterviews({ data }: { data: FourthBlock }) {
       className="w-full py-[70px] overflow-hidden bg-no-repeat bg-cover mt-[65px]"
       style={{
         backgroundImage: `url('${data.fourth_block_background_image.url}')`,
+        backgroundPosition: "center",
       }}
     >
       <div className="container flex justify-between items-center pb-[40px]">
@@ -56,9 +57,12 @@ function HomeInterviews({ data }: { data: FourthBlock }) {
             <div
               className="w-full h-full px-[10px] py-[40px] md:p-[30px] flex items-end justify-start relative"
               style={{
-                backgroundImage: `url(${post.thumbnail})`,
-                backgroundSize: "cover",
+                backgroundImage: `url(${
+                  post?.thumbnail || "../../static/img/no-image.svg"
+                })`,
+                backgroundSize: post.thumbnail ? "cover" : "contain",
                 backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
               }}
             >
               <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />

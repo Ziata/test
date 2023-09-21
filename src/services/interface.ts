@@ -272,6 +272,7 @@ export interface ICategory {
   category_nicename: string;
   category_parent: number;
   all_posts: IPost[];
+  subcategories?: ICategory[];
 }
 
 export interface Page {

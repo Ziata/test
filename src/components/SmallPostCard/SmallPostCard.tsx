@@ -24,8 +24,11 @@ function SmallPostCard({
       <div
         className={`w-1/3 mr-[15px]`}
         style={{
-          backgroundImage: `url(${post?.thumbnail})`,
-          backgroundSize: "cover",
+          backgroundImage: `url(${
+            post?.thumbnail || "../../static/img/no-image.svg"
+          })`,
+          backgroundSize: post?.thumbnail ? "cover" : "contain",
+          backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
       />

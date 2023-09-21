@@ -9,12 +9,14 @@ import { useModal } from "@/hooks/useModal";
 import Modal from "@/components/Modal/Modal";
 import Search from "@/components/Search/Search";
 import { LayoutContext } from "@/context/LayoutContext";
+import { useRouter } from "next/router";
 
 export default function Header() {
   const { headerData: data } = useContext(LayoutContext);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const { closeModal, isOpen: isOpenModal, openModal } = useModal();
+  const router = useRouter();
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
@@ -50,7 +52,7 @@ export default function Header() {
       <div className="w-full bg-[#F8F8F8] h-[86px] relative z-20">
         <div className="container flex items-center w-full h-full justify-between relative tb:justify-end">
           <Link
-            href="/"
+            href={`/${router.query.lang}/`}
             className="tb:absolute tb:left-1/2 tb:top-1/2 tb:-translate-x-1/2 tb:-translate-y-1/2"
           >
             {data && (

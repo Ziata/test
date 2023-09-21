@@ -1,10 +1,10 @@
-"use client";
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useState } from "react";
 import Select, { SingleValue, components } from "react-select";
 import Image from "next/image";
 import global from "static/img/global.svg";
 import triangle from "static/img/triangle.svg";
 import { useRouter } from "next/router";
+import i18n from "@/i18n";
 
 const options = [
   { value: "en", label: "EN" },
@@ -20,11 +20,15 @@ const DropdownIndicator: React.FC<any> = (props) => {
 };
 
 export default function LanguageSwitch() {
+  const router = useRouter();
+  const initialLanguage = options.find(
+    (option) => option.value === router.query.lang
+  );
+
   const [selectedLanguage, setSelectedLanguage] = useState<{
     value: string;
     label: string;
-  }>(options[0]);
-  const router = useRouter();
+  }>(initialLanguage || options[0]);
 
   const handleLanguageChange = (
     newValue: SingleValue<{ value: string; label: string }>
@@ -34,6 +38,11 @@ export default function LanguageSwitch() {
       router.push(`/${newValue.value}`);
     }
   };
+
+  useEffect(() => {
+    if (!selectedLanguage) return;
+    i18n.changeLanguage(selectedLanguage.value);
+  }, [selectedLanguage]);
 
   return (
     <div className="flex items-center w-[85px]">

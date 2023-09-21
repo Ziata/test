@@ -27,17 +27,15 @@ function Post({
           isInterview ? "w-full h-[205px]" : "w-1/3 mr-[10px] md:mr-[20px] "
         } relative cursor-pointer`}
       >
-        {post.thumbnail && (
-          <Image
-            className="w-full h-full"
-            src={post.thumbnail}
-            fill={true}
-            alt="image"
-            objectFit="cover"
-            placeholder="blur"
-            blurDataURL={blurPlaceholder()}
-          />
-        )}
+        <Image
+          className="w-full h-full"
+          src={post.thumbnail || "../../static/img/no-image.svg"}
+          fill={true}
+          alt="image"
+          objectFit="cover"
+          placeholder="blur"
+          blurDataURL={blurPlaceholder()}
+        />
       </Link>
       <div className="w-2/3 flex flex-col justify-between">
         <span
@@ -70,7 +68,7 @@ function Post({
             isInterview && "order-3"
           } font-light  text-[12px] md:text-sm leading-4 flex items-center font-Din text-[#33566C] gap-[4px] md:gap-[8px]`}
         >
-          <span>{formatDate(post.post_content)}</span>
+          <span>{formatDate(post.post_date)}</span>
           <span>|</span>
           <span>{post.post_author}</span>
         </div>

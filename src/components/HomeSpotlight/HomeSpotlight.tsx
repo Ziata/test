@@ -3,11 +3,10 @@ import Link from "next/link";
 import shevron from "static/img/shevron.svg";
 import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { t } from "i18next";
 import { SecondBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
-import { InfoContext } from "@/context/InfoContext";
 import { useRouter } from "next/router";
 
 function HomeSpotlight({ data }: { data: SecondBlock }) {

@@ -8,6 +8,7 @@ import { FirstBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { i18n } from "next-i18next";
 
 function HomeLastNews({ data }: { data: FirstBlock }) {
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -56,6 +57,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
           style={{
             backgroundImage: `url(${data.latestNews[0].thumbnail})`,
             backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         >
           <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />

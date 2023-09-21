@@ -39,6 +39,7 @@ function HomeDaily({ data }: { data: ThirdBlock }) {
               style={{
                 backgroundImage: `url("static/img/test.png")`,
                 backgroundSize: "cover",
+                backgroundPosition: "center",
               }}
             >
               <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />

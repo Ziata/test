@@ -6,7 +6,6 @@ import "reset-css";
 import "static/fonts/D-DIN/stylesheet.css";
 import { Provider } from "react-redux";
 import store from "@/services/store";
-import { InfoProvider } from "@/context/InfoContext";
 import { I18nextProvider } from "react-i18next";
 import i18n from "@/i18n";
 import { IHeader } from "@/services/interface";
@@ -16,13 +15,11 @@ function MyApp({ Component, pageProps }: AppProps & { headerData: IHeader }) {
   return (
     <Provider store={store}>
       <I18nextProvider i18n={i18n}>
-        <InfoProvider>
-          <LayoutProvider>
-            <Header />
-            <Component {...pageProps} />
-            <Footer />
-          </LayoutProvider>
-        </InfoProvider>
+        <LayoutProvider>
+          <Header />
+          <Component {...pageProps} />
+          <Footer />
+        </LayoutProvider>
       </I18nextProvider>
     </Provider>
   );

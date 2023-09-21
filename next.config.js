@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "nextquestion.g-team.org",
+        hostname: "next-question.com",
       },
     ],
   },
