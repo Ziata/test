@@ -1,4 +1,4 @@
-import { Category, Post } from "@/services/interface";
+import { ICategory, IPost } from "@/services/interface";
 import React, {
   Dispatch,
   ReactNode,
@@ -8,10 +8,10 @@ import React, {
 } from "react";
 
 interface InfoContextProps {
-  post: Post | null;
-  setPost: Dispatch<SetStateAction<Post | null>>;
-  category: Category | null;
-  setCategory: Dispatch<SetStateAction<Category | null>>;
+  post: IPost | null;
+  setPost: Dispatch<SetStateAction<IPost | null>>;
+  category: ICategory | null;
+  setCategory: Dispatch<SetStateAction<ICategory | null>>;
 }
 
 export const InfoContext = createContext<InfoContextProps>({
@@ -22,8 +22,8 @@ export const InfoContext = createContext<InfoContextProps>({
 });
 
 export const InfoProvider = ({ children }: { children: ReactNode }) => {
-  const [post, setPost] = useState<Post | null>(null);
-  const [category, setCategory] = useState<Category | null>(null);
+  const [post, setPost] = useState<IPost | null>(null);
+  const [category, setCategory] = useState<ICategory | null>(null);
 
   return (
     <InfoContext.Provider value={{ post, setPost, category, setCategory }}>
