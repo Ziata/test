@@ -1,4 +1,3 @@
-import AudioPlayer from "@/components/AudioPlayer/AudioPlayer";
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import { formatDate } from "@/utils";
 /* import SmallPostCard from "@/components/SmallPostCard/SmallPostCard"; */
@@ -59,7 +58,6 @@ const Post: React.FC<PostProps> = ({ data, footerData, headerData }) => {
               }}
               sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
               src={extractSrcFromIframe(data.interview_audio)}
-              title="Podcast Embed"
             />
           </div>
         )

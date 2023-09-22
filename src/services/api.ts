@@ -28,6 +28,10 @@ export const api = createApi({
       query: ({ language, slug }) =>
         `${language}/wp-json/nextquestion/v2/post/?slug=${slug}`,
     }),
+    getSearch: builder.query<IPost[], { language: string; slug?: string }>({
+      query: ({ language, slug }) =>
+        `${language}/wp-json/nextquestion/v2/search?s=${slug}`,
+    }),
     getPostByCategories: builder.query<
       ICategory,
       { language: string; slug: string }
@@ -51,4 +55,5 @@ export const {
   useGetAllPostQuery,
   useGetPostQuery,
   useGetPostByCategoriesQuery,
+  useGetSearchQuery,
 } = api;

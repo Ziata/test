@@ -4,9 +4,20 @@ import { useState } from "react";
 import close from "static/img/x.svg";
 import shevron from "static/img/shevron.svg";
 import { t } from "i18next";
+import { useGetSearchQuery } from "@/services/api";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
+import { useRouter } from "next/router";
+import Loader from "@/components/Loader/Loader";
+import { IPost } from "@/services/interface";
+import { truncateText } from "@/utils";
+
+function stripHTMLTags(text: string): string {
+  return text.replace(/(<([^>]+)>)/gi, "");
+}
 
 function highlightText(text: string, query: string): React.ReactNode[] {
-  const parts = text.split(new RegExp(`(${query})`, "gi"));
+  const textWithoutHtml = stripHTMLTags(text);
+  const parts = textWithoutHtml.split(new RegExp(`(${query})`, "gi"));
   return parts.map((part, index) =>
     part.toLowerCase() === query.toLowerCase() ? (
       <span key={index} className="bg-[#FCFF6A]">
@@ -20,14 +31,19 @@ function highlightText(text: string, query: string): React.ReactNode[] {
 
 export default function Search({ closeModal }: { closeModal: () => void }) {
   const [search, setSearch] = useState<string>("");
+  const router = useRouter();
+  const currentLanguage = router.query.lang as string;
+
+  const { data, isLoading } = useGetSearchQuery(
+    search ? { slug: search, language: currentLanguage } : skipToken
+  );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+    const newSearchValue = e.target.value;
+    setSearch(newSearchValue);
   };
 
-  const handleSearch = () => {
-    console.log("Searching for:", search);
-  };
+  const firstThreePost = data?.slice(0, 3) || [];
 
   return (
     <div className="md:w-[650px] min-w-[300px] mx-[10px]">
@@ -47,66 +63,46 @@ export default function Search({ closeModal }: { closeModal: () => void }) {
           </button>
         )}
       </div>
-      <div className="bg-[#EBEBEB] mt-[10px] w-full rounded-[10px] p-[20px] overflow-scroll max-h-[85vh] hidden-scrollbar">
-        <div>
-          <h6 className="text-lg leading-5 font-Din text-[#323232] font-bold mb-[10px]">
-            {highlightText(
-              "How the Brain Distinguishes Memories From Science",
-              search
-            )}
-          </h6>
-          <p className="font-light text-lg leading-6 text-[#323232] font-Din">
-            {highlightText(
-              "Lorem Science dolor sit amet consectetur. Ultricies euismod dui neque sollicitudin nibh semper sit. Sodales a etiam mi quisque amet. Et ac sed tellus tempus odio turpis nisl nunc vitae. Ut enim morbi in massa netus vestibulum. Donec fames ac lacinia dis ultrices. Ullamcorper elementum nunc suscipit sed dictum posuere sagittis. Egestas faucibus arcu porttitor vitae ullamcorper duis",
-              search
-            )}
-          </p>
+      {search && (
+        <div className="bg-[#EBEBEB] mt-[10px] w-full rounded-[10px] p-[20px] overflow-scroll max-h-[85vh] hidden-scrollbar">
+          {isLoading ? (
+            <Loader customClass="w-20 h-20 mx-auto" />
+          ) : firstThreePost.length > 0 ? (
+            firstThreePost.map((post: IPost) => (
+              <div key={post.ID} className="mt-[20px]">
+                <h6 className="text-lg leading-5 font-Din text-[#323232] font-bold mb-[10px]">
+                  {highlightText(post.post_title, search)}
+                </h6>
+                <p className="font-light text-lg leading-6 text-[#323232] font-Din">
+                  {highlightText(truncateText(post.post_content, 1500), search)}
+                </p>
+              </div>
+            ))
+          ) : (
+            <div className="w-full h-[300px] justify-center font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
+              No Data
+            </div>
+          )}
+          {firstThreePost.length > 0 && (
+            <div className="w-full justify-end flex">
+              <Link
+                href={"/"}
+                onClick={closeModal}
+                className="flex items-center leading-0 font-light text-base leading-5 text-[#323232] font-Din mt-[20px]"
+              >
+                {t("More")}{" "}
+                <Image
+                  src={shevron}
+                  className="ml-4"
+                  alt="arrow"
+                  width="5"
+                  height="10"
+                />
+              </Link>
+            </div>
+          )}
         </div>
-        <div className="mt-[20px]">
-          <h6 className="text-lg leading-5 font-Din text-[#323232] font-bold mb-[10px]">
-            {highlightText(
-              "How the Brain Distinguishes Memories From Science",
-              search
-            )}
-          </h6>
-          <p className="font-light text-lg leading-6 text-[#323232] font-Din">
-            {highlightText(
-              "Lorem Science dolor sit amet consectetur. Ultricies euismod dui neque sollicitudin nibh semper sit. Sodales a etiam mi quisque amet. Et ac sed tellus tempus odio turpis nisl nunc vitae. Ut enim morbi in massa netus vestibulum. Donec fames ac lacinia dis ultrices. Ullamcorper elementum nunc suscipit sed dictum posuere sagittis. Egestas faucibus arcu porttitor vitae ullamcorper duis",
-              search
-            )}
-          </p>
-        </div>
-        <div className="mt-[20px]">
-          <h6 className="text-lg leading-5 font-Din text-[#323232] font-bold mb-[10px]">
-            {highlightText(
-              "How the Brain Distinguishes Memories From Science",
-              search
-            )}
-          </h6>
-          <p className="font-light text-lg leading-6 text-[#323232] font-Din">
-            {highlightText(
-              "Lorem Science dolor sit amet consectetur. Ultricies euismod dui neque sollicitudin nibh semper sit. Sodales a etiam mi quisque amet. Et ac sed tellus tempus odio turpis nisl nunc vitae. Ut enim morbi in massa netus vestibulum. Donec fames ac lacinia dis ultrices. Ullamcorper elementum nunc suscipit sed dictum posuere sagittis. Egestas faucibus arcu porttitor vitae ullamcorper duis",
-              search
-            )}
-          </p>
-        </div>
-        <div className="w-full justify-end flex">
-          <Link
-            href={"/"}
-            onClick={closeModal}
-            className="flex items-center leading-0 font-light text-base leading-5 text-[#323232] font-Din mt-[20px]"
-          >
-            {t("More")}{" "}
-            <Image
-              src={shevron}
-              className="ml-4"
-              alt="arrow"
-              width="5"
-              height="10"
-            />
-          </Link>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
