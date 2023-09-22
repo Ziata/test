@@ -55,6 +55,7 @@ const Post: React.FC<PostProps> = ({ data, footerData, headerData }) => {
                 width: "100%",
                 overflow: "hidden",
                 borderRadius: "10px",
+                height: "200px",
               }}
               sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
               src={extractSrcFromIframe(data.interview_audio)}
