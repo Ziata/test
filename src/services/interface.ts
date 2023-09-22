@@ -209,31 +209,7 @@ export interface IPost {
   thumbnail: string;
   categories: ICategory[];
   youtube_url: string;
-  interview_audio: Audio;
-}
-
-export interface Audio {
-  ID: number;
-  id: number;
-  title: string;
-  filename: string;
-  filesize: number;
-  url: string;
-  link: string;
-  alt: string;
-  author: string;
-  description: string;
-  caption: string;
-  name: string;
-  status: string;
-  uploaded_to: number;
-  date: string;
-  modified: string;
-  menu_order: number;
-  mime_type: string;
-  type: string;
-  subtype: string;
-  icon: string;
+  interview_audio: string;
 }
 
 export interface ThirdBlock {

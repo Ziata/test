@@ -8,7 +8,6 @@ import { FirstBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { i18n } from "next-i18next";
 
 function HomeLastNews({ data }: { data: FirstBlock }) {
   const [isMobile, setIsMobile] = useState<boolean>(false);

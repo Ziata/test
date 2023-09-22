@@ -24,6 +24,10 @@ const Home: React.FC<HomeProps> = ({ data, footerData, headerData }) => {
     setFooterData(footerData); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [footerData]);
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
     data && (
       <>

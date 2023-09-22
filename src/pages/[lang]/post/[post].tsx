@@ -29,6 +29,15 @@ const Post: React.FC<PostProps> = ({ data, footerData, headerData }) => {
     setFooterData(footerData); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [footerData]);
 
+  const extractSrcFromIframe = (iframeString: string) => {
+    const regex = /src="([^"]+)"/;
+    const match = iframeString.match(regex);
+    if (match && match[1]) {
+      return match[1];
+    }
+    return "";
+  };
+
   return (
     <>
       {data?.youtube_url ? (
@@ -38,24 +47,19 @@ const Post: React.FC<PostProps> = ({ data, footerData, headerData }) => {
         />
       ) : (
         data?.interview_audio && (
-          <div
-            className="w-full h-[200px] md:h-[600px] flex items-center justify-center"
-            style={{
-              backgroundImage: `url('${data.thumbnail}')`,
-              backgroundColor: "#d7d6d6",
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-            }}
-          >
-            <div className="flex flex-col items-center">
-              <span className="font-light text-2xl leading-7 flex items-center text-white font-Din">
-                {data?.interview_audio.title}
-              </span>
-              <h2 className="font-bold text-white font-Din text-[40px] mt-[20px] mb-[30px]">
-                {data.post_title}
-              </h2>
-              <AudioPlayer src={data?.interview_audio.url} />
-            </div>
+          <div className="w-full flex items-center justify-center container">
+            <iframe
+              allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+              height="175"
+              style={{
+                width: "100%",
+                overflow: "hidden",
+                borderRadius: "10px",
+              }}
+              sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+              src={extractSrcFromIframe(data.interview_audio)}
+              title="Podcast Embed"
+            />
           </div>
         )
       )}
@@ -143,7 +147,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const lang = params?.lang;
-  const slug = params?.category;
+  const slug = params?.post;
 
   try {
     const response = await fetch(
