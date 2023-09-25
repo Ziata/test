@@ -20,6 +20,11 @@ const Modal = ({
     if (parentElement) {
       parentElement.style.overflowY = isOpen ? "hidden" : "auto";
     }
+    return () => {
+      if (parentElement) {
+        parentElement.style.overflowY = "auto";
+      }
+    };
   }, [isOpen, parentSelector, parentElement]);
 
   if (!isOpen) return null;
