@@ -54,6 +54,10 @@ const Category: React.FC<CategoryProps> = ({
     indexOfLastPost
   );
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [data.cat_name]);
+
   const filteredPosts = selectedSubcategory
     ? currentPosts?.filter((post) =>
         post.categories.some(

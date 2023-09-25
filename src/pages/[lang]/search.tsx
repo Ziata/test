@@ -5,7 +5,13 @@ import Post from "@/components/Post/Post";
 import close from "static/img/x.svg";
 import { LayoutContext } from "@/context/LayoutContext";
 import { SearchContext } from "@/context/SearchContext";
-import { IFooter, IHeader, Page, SearchPage } from "@/services/interface";
+import {
+  IFooter,
+  IHeader,
+  IPost,
+  Page,
+  SearchPage,
+} from "@/services/interface";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
@@ -39,11 +45,13 @@ const Search: React.FC<PageProps> = ({ data, footerData, headerData }) => {
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [postsPerPage, setPostsPerPage] = useState<number>(10);
+  const [currentPosts, setCurrentPosts] = useState<IPost[]>([]);
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-
-  const currentPosts = searchData?.slice(indexOfFirstPost, indexOfLastPost);
+  useEffect(() => {
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    setCurrentPosts(searchData?.slice(indexOfFirstPost, indexOfLastPost) || []);
+  }, [currentPage, postsPerPage, searchData]);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -53,8 +61,11 @@ const Search: React.FC<PageProps> = ({ data, footerData, headerData }) => {
   };
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    if (searchString === "") {
+      setCurrentPage(1);
+      setCurrentPosts([]);
+    }
+  }, [searchString]);
 
   return (
     <>
@@ -88,11 +99,11 @@ const Search: React.FC<PageProps> = ({ data, footerData, headerData }) => {
           <div className="tb:mr-[30px] w-full">
             <div className={`mt-[20px]`}>
               {isLoading ? (
-                <Loader customClass="w-20 h-20 mx-auto" />
-              ) : currentPosts && currentPosts?.length > 0 ? (
+                <Loader customClass="w-20 h-20 mx-auto mt-20" />
+              ) : currentPosts?.length > 0 ? (
                 currentPosts.map((post) => <Post key={post.ID} post={post} />)
               ) : (
-                (!currentPosts || isError) && (
+                (currentPosts.length === 0 || isError) && (
                   <div className="w-full h-[300px] justify-center font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
                     No Data
                   </div>
@@ -100,12 +111,12 @@ const Search: React.FC<PageProps> = ({ data, footerData, headerData }) => {
               )}
             </div>
             <div className="flex flex-col-reverse md:flex-row justify-between items-center ">
-              {currentPosts && (
+              {searchData && currentPosts.length > 0 && (
                 <>
                   <PageSelect setPostsPerPage={setPostsPerPage} />
                   <Pagination
                     postsPerPage={postsPerPage}
-                    totalPosts={currentPosts.length}
+                    totalPosts={searchData.length}
                     currentPage={currentPage}
                     paginate={paginate}
                   />

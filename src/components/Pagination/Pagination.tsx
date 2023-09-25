@@ -44,6 +44,17 @@ function Pagination({
     );
 
     if (startPage > 1) {
+      // Include the "1" button before ellipsis
+      visiblePages.push(
+        <button
+          key={generateUniqueId()}
+          onClick={() => paginate(1)}
+          className={`px-2 md:px-4 py-2 rounded hover:bg-gray-100`}
+        >
+          1
+        </button>
+      );
+
       visiblePages.push(
         <button
           key="start-ellipsis"
@@ -77,6 +88,17 @@ function Pagination({
           ...
         </button>
       );
+
+      // Include the last page button after ellipsis
+      visiblePages.push(
+        <button
+          key={generateUniqueId()}
+          onClick={() => paginate(Math.ceil(totalPosts / postsPerPage))}
+          className={`px-2 md:px-4 py-2 rounded hover:bg-gray-100`}
+        >
+          {Math.ceil(totalPosts / postsPerPage)}
+        </button>
+      );
     }
 
     return visiblePages;
@@ -99,33 +121,9 @@ function Pagination({
         >
           <Image src={arrowLeft} alt="Previous" />
         </button>
-        {currentPage !== 1 && currentPage !== 2 && (
-          <button
-            onClick={() => paginate(1)}
-            className={`px-2 md:px-4 py-2 rounded hover:bg-gray-100 ${
-              currentPage === 1
-                ? "pointer-events-none opacity-20 select-none"
-                : ""
-            }`}
-          >
-            1
-          </button>
-        )}
+
         {renderPageNumbers()}
-        {currentPage !== Math.ceil(totalPosts / postsPerPage) &&
-          currentPage !== Math.ceil(totalPosts / postsPerPage) - 1 && (
-            <button
-              onClick={() => paginate(Math.ceil(totalPosts / postsPerPage))}
-              className={`px-2 md:px-4 py-2 rounded hover:bg-gray-100 ${
-                currentPage === Math.ceil(totalPosts / postsPerPage)
-                  ? "pointer-events-none opacity-20 select-none"
-                  : ""
-              }`}
-              disabled={currentPage === Math.ceil(totalPosts / postsPerPage)}
-            >
-              {Math.ceil(totalPosts / postsPerPage)}
-            </button>
-          )}
+
         <button
           onClick={() => paginate(currentPage + 1)}
           className={`px-2 md:px-4 py-2 rounded hover:bg-gray-100 ${
