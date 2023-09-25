@@ -61,7 +61,7 @@ const Search: React.FC<PageProps> = ({ data, footerData, headerData }) => {
   };
 
   useEffect(() => {
-    if (searchString === "") {
+    if (searchString === "" || isError) {
       setCurrentPage(1);
       setCurrentPosts([]);
     }

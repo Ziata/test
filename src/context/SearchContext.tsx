@@ -27,7 +27,7 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
 
   const currentLanguage = router.query.lang as string;
 
-  const { data, isLoading, isError } = useGetSearchQuery(
+  const { data, isLoading, isError, refetch } = useGetSearchQuery(
     searchString ? { slug: searchString, language: currentLanguage } : skipToken
   );
 
