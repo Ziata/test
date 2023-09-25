@@ -257,3 +257,8 @@ export interface Page {
   featured_image_alt: string;
   content: string;
 }
+
+export interface SearchPage {
+  featured_image: Image;
+  placeholder_for_search_input: string;
+}
