@@ -65,7 +65,7 @@ const Search: React.FC<PageProps> = ({ data, footerData, headerData }) => {
       setCurrentPage(1);
       setCurrentPosts([]);
     }
-  }, [searchString]);
+  }, [searchString, isError]);
 
   return (
     <>
