@@ -156,7 +156,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const languages = ["en", "zh"];
 
   const categoriesResponse = await fetch(
-    `${baseUrl}/en/wp-json/nextquestion/v2/header`
+    `${baseUrl}/en/wp-json/nextquestion/v2/header`,
+    { cache: "no-store" }
   );
   const categoriesData: IHeader = await categoriesResponse.json();
   const categories = categoriesData.category_menu.map(
@@ -185,34 +186,40 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     if (slug === "all") {
       const response = await fetch(
-        `${baseUrl}/${lang}/wp-json/nextquestion/v2/interview-posts`
+        `${baseUrl}/${lang}/wp-json/nextquestion/v2/interview-posts`,
+        { cache: "no-store" }
       );
       const allPosts = await response.json();
       data = { cat_name: "All", slug: "all", all_posts: allPosts } as ICategory;
     } else {
       const response = await fetch(
-        `${baseUrl}/${lang}/wp-json/nextquestion/v2/category/?slug=${slug}`
+        `${baseUrl}/${lang}/wp-json/nextquestion/v2/category/?slug=${slug}`,
+        { cache: "no-store" }
       );
       data = (await response.json()) as ICategory;
     }
 
     const responseRecomend = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/all-posts`
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/all-posts`,
+      { cache: "no-store" }
     );
     const recomendData: IPost[] = await responseRecomend.json();
 
     const responseHeader = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`,
+      { cache: "no-store" }
     );
     const headerData: IHeader = await responseHeader.json();
 
     const responseFooter = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`,
+      { cache: "no-store" }
     );
     const footerData: IFooter = await responseFooter.json();
 
     const responseFollow = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`,
+      { cache: "no-store" }
     );
     const followData: IFooter = await responseFollow.json();
 

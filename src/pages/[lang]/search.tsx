@@ -148,7 +148,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const languages = ["en", "zh"];
 
   const categoriesResponse = await fetch(
-    `${baseUrl}/en/wp-json/nextquestion/v2/header`
+    `${baseUrl}/en/wp-json/nextquestion/v2/header`,
+    { cache: "no-store" }
   );
   const categoriesData: IHeader = await categoriesResponse.json();
   const categories = categoriesData.category_menu.map(
@@ -173,22 +174,26 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   try {
     const response = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/search-page`
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/search-page`,
+      { cache: "no-store" }
     );
 
     const data: Page = await response.json();
     const responseHeader = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`,
+      { cache: "no-store" }
     );
     const headerData: IHeader = await responseHeader.json();
 
     const responseFooter = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`,
+      { cache: "no-store" }
     );
     const footerData: IFooter = await responseFooter.json();
 
     const responseFollow = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`,
+      { cache: "no-store" }
     );
     const followData: IFooter = await responseFollow.json();
 
