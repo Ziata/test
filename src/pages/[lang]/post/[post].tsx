@@ -19,6 +19,8 @@ interface PostProps {
   followData: IFollow;
 }
 
+export const revalidate = 0;
+
 const Post: React.FC<PostProps> = ({
   data,
   recomendData,
