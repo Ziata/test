@@ -2,10 +2,11 @@ import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import PageSelect from "@/components/PageSelect/PageSelect";
 import Pagination from "@/components/Pagination/Pagination";
 import Post from "@/components/Post/Post";
+import Recomend from "@/components/Recomend/Recomend";
 import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
 import Tabs from "@/components/Tabs/Tabs";
 import { LayoutContext } from "@/context/LayoutContext";
-import { ICategory, IFooter, IHeader } from "@/services/interface";
+import { ICategory, IFooter, IHeader, IPost } from "@/services/interface";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useContext, useEffect, useState } from "react";
 
@@ -13,12 +14,14 @@ const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 interface CategoryProps {
   data: ICategory;
+  recomendData: IPost[];
   headerData: IHeader;
   footerData: IFooter;
 }
 
 const Category: React.FC<CategoryProps> = ({
   data,
+  recomendData,
   footerData,
   headerData,
 }) => {
@@ -57,6 +60,10 @@ const Category: React.FC<CategoryProps> = ({
   useEffect(() => {
     setCurrentPage(1);
   }, [data.cat_name]);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   const filteredPosts = selectedSubcategory
     ? currentPosts?.filter((post) =>
@@ -128,17 +135,10 @@ const Category: React.FC<CategoryProps> = ({
             </div>
           </div>
           <div className="w-full flex flex-col-reverse md:flex-row justify-between tb:block tb:w-[360px] tb:min-w-[300px]">
-            <div className="mt-[30px] tb:mt-[0]">
+            <div className="mt-[30px] min-w-[300px] md:mr-[20px] tb:min-w-auto tb:mt-[0] tb:mr-[0]">
               <FollowBlock />
             </div>
-            <div>
-              <h6 className="font-light text-2xl leading-7 flex items-center text-[#002C47] font-Din mt-[30px] mb-[25px]">
-                Recomend
-              </h6>
-              {/*     <SmallPostCard />
-              <SmallPostCard />
-              <SmallPostCard /> */}
-            </div>
+            <Recomend posts={recomendData} />
           </div>
         </div>
       </div>
@@ -192,6 +192,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       data = (await response.json()) as ICategory;
     }
 
+    const responseRecomend = await fetch(
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/all-posts`
+    );
+    const recomendData: IPost[] = await responseRecomend.json();
+
     const responseHeader = await fetch(
       `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`
     );
@@ -205,6 +210,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return {
       props: {
         data,
+        recomendData,
         headerData,
         footerData,
       },
@@ -214,6 +220,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return {
       props: {
         data: null,
+        recomendData: null,
         headerData: null,
         footerData: null,
       },

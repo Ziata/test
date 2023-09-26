@@ -43,7 +43,9 @@ function Post({
             isInterview && "order-2 mb-[5px]"
           } font-light text-base leading-5 flex items-center text-blue-700 font-Din`}
         >
-          From the journals
+          {isInterview
+            ? "James White"
+            : post.categories[1]?.cat_name || post.categories[0]?.cat_name}
         </span>
         <Link
           href={`/${router.query.lang}/post/${post.post_name}`}

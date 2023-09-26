@@ -1,6 +1,5 @@
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import { formatDate } from "@/utils";
-/* import SmallPostCard from "@/components/SmallPostCard/SmallPostCard"; */
 import Image from "next/image";
 import test from "static/img/test.png";
 import YouTube from "react-youtube";
@@ -8,16 +7,23 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { IFooter, IHeader, IPost } from "@/services/interface";
 import { useContext, useEffect } from "react";
 import { LayoutContext } from "@/context/LayoutContext";
+import Recomend from "@/components/Recomend/Recomend";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 interface PostProps {
   data: IPost;
+  recomendData: IPost[];
   headerData: IHeader;
   footerData: IFooter;
 }
 
-const Post: React.FC<PostProps> = ({ data, footerData, headerData }) => {
+const Post: React.FC<PostProps> = ({
+  data,
+  recomendData,
+  footerData,
+  headerData,
+}) => {
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
 
   useEffect(() => {
@@ -27,6 +33,16 @@ const Post: React.FC<PostProps> = ({ data, footerData, headerData }) => {
   useEffect(() => {
     setFooterData(footerData); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [footerData]);
+
+  useEffect(() => {
+    if (!data) return;
+    const sendViewsRequest = async () => {
+      await fetch(
+        `${baseUrl}/wp-json/nextquestion/v2/views/?postId=${data.ID}`
+      );
+    };
+    sendViewsRequest();
+  }, [data]);
 
   const extractSrcFromIframe = (iframeString: string) => {
     const regex = /src="([^"]+)"/;
@@ -103,16 +119,11 @@ const Post: React.FC<PostProps> = ({ data, footerData, headerData }) => {
             )}
           </div>
           <div className="w-full flex flex-col-reverse md:flex-row justify-between tb:block tb:w-[360px] tb:min-w-[300px]">
-            <div className="mt-[30px] tb:mt-[0]">
+            <div className="mt-[30px] min-w-[300px] md:mr-[20px] tb:min-w-auto tb:mt-[0] tb:mr-[0]">
               <FollowBlock />
             </div>
             <div>
-              <h6 className="font-light text-2xl leading-7 flex items-center text-[#002C47] font-Din mt-[30px] mb-[25px]">
-                Recomend
-              </h6>
-              {/*   <SmallPostCard />
-            <SmallPostCard />
-            <SmallPostCard /> */}
+              <Recomend posts={recomendData} />
             </div>
           </div>
         </div>
@@ -154,6 +165,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     );
     const data = await response.json();
 
+    const responseRecomend = await fetch(
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/all-posts`
+    );
+    const recomendData: IPost[] = await responseRecomend.json();
+
     const responseHeader = await fetch(
       `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`
     );
@@ -168,6 +184,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       props: {
         data,
         headerData,
+        recomendData,
         footerData,
       },
     };
@@ -176,6 +193,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return {
       props: {
         data: null,
+        recomendData: null,
         headerData: null,
         footerData: null,
       },

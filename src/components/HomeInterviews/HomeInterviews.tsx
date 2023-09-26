@@ -35,7 +35,7 @@ function HomeInterviews({ data }: { data: FourthBlock }) {
           {data.title}
         </div>
         <Link
-          href={"/"}
+          href={`/${router.query.lang}/category/people`}
           className="flex items-center leading-0 font-light text-base leading-5 text-[#fff] font-Din"
         >
           {t("More")}{" "}

@@ -87,7 +87,8 @@ function HomeSpotlight({ data }: { data: SecondBlock }) {
                   <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />
                   <div className="z-1 relative">
                     <div className="font-normal text-lg leading-5 text-white font-Din">
-                      Cosmology
+                      {data.secondBlockPosts[0].categories[1]?.cat_name ||
+                        data.secondBlockPosts[0].categories[0]?.cat_name}
                     </div>
                     <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1">
                       {data.secondBlockPosts[0].post_title}

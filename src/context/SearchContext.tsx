@@ -2,7 +2,7 @@ import { useGetSearchQuery } from "@/services/api";
 import { IPost } from "@/services/interface";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import { useRouter } from "next/router";
-import React, { ReactNode, createContext, useEffect, useState } from "react";
+import React, { ReactNode, createContext, useState } from "react";
 
 interface SearchtProps {
   data: IPost[] | undefined;
@@ -27,7 +27,7 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
 
   const currentLanguage = router.query.lang as string;
 
-  const { data, isLoading, isError, refetch } = useGetSearchQuery(
+  const { data, isLoading, isError } = useGetSearchQuery(
     searchString ? { slug: searchString, language: currentLanguage } : skipToken
   );
 

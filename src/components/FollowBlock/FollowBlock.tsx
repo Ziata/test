@@ -1,4 +1,3 @@
-import { useContext, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import follow from "static/img/follow.png";
@@ -10,14 +9,14 @@ import { generateUniqueId } from "@/utils";
 
 function FollowBlock() {
   const router = useRouter();
-  const currentLanguage = "en";
+  const currentLanguage = router.query.lang;
   const { data, isLoading } = useGetFollowQuery({
-    language: currentLanguage,
+    language: currentLanguage as string,
   });
 
   return (
     <div className="bg-[#D0E5F2] flex flex-col tb:flex-col md:flex-row h-fit w-full py-[20px] px-[18px]">
-      {router.pathname === "/" && (
+      {router.pathname === `/[lang]` && (
         <div className="w-full md:w-1/2 mr-[30px] tb:mr-[0] tb:w-full h-auto mb-[30px] md:mb-[0] tb:mb-[18px]">
           <Image src={follow} alt="follow" />
         </div>

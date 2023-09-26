@@ -210,6 +210,7 @@ export interface IPost {
   categories: ICategory[];
   youtube_url: string;
   interview_audio: string;
+  views: number;
 }
 
 export interface ThirdBlock {

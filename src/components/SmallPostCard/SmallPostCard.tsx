@@ -34,7 +34,9 @@ function SmallPostCard({
       />
       <div className="w-2/3 flex flex-col justify-between h-[79px]">
         <span className="font-light text-base leading-5 flex items-center text-blue-700 font-Din whitespace-nowrap overflow-clip">
-          {post?.categories[0].name}
+          {post.interview_audio || post.youtube_url
+            ? "James White"
+            : post.categories[1]?.cat_name || post.categories[0]?.cat_name}
         </span>
         <h6 className="text-lg leading-5 flex text-gray-900 font-Din font-bold max-h-[2.4rem] overflow-clip">
           {post?.post_title && post.post_title}
