@@ -17,7 +17,6 @@ const nextConfig = {
       },
     ];
   },
-  revalidate: 10,
 };
 
 module.exports = nextConfig;

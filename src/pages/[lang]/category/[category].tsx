@@ -3,7 +3,6 @@ import PageSelect from "@/components/PageSelect/PageSelect";
 import Pagination from "@/components/Pagination/Pagination";
 import Post from "@/components/Post/Post";
 import Recomend from "@/components/Recomend/Recomend";
-import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
 import Tabs from "@/components/Tabs/Tabs";
 import { LayoutContext } from "@/context/LayoutContext";
 import {
@@ -13,7 +12,7 @@ import {
   IHeader,
   IPost,
 } from "@/services/interface";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { useContext, useEffect, useState } from "react";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -152,32 +151,7 @@ const Category: React.FC<CategoryProps> = ({
 
 export default Category;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const languages = ["en", "zh"];
-
-  const categoriesResponse = await fetch(
-    `${baseUrl}/en/wp-json/nextquestion/v2/header`,
-    { next: { revalidate: 10 } }
-  );
-  const categoriesData: IHeader = await categoriesResponse.json();
-  const categories = categoriesData.category_menu.map(
-    (item) => item.category.slug
-  );
-  categories.push("all");
-
-  const paths = languages.flatMap((lang) =>
-    categories.map((category) => ({
-      params: { lang, category },
-    }))
-  );
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const lang = params?.lang;
   const slug = params?.category;
 
@@ -200,26 +174,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
 
     const responseRecomend = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/all-posts`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/all-posts`
     );
     const recomendData: IPost[] = await responseRecomend.json();
 
     const responseHeader = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`
     );
     const headerData: IHeader = await responseHeader.json();
 
     const responseFooter = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`
     );
     const footerData: IFooter = await responseFooter.json();
 
     const responseFollow = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`
     );
     const followData: IFooter = await responseFollow.json();
 
@@ -242,7 +212,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         footerData: null,
         followData: null,
       },
-      revalidate: 10,
     };
   }
 };

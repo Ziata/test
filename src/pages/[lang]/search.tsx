@@ -13,7 +13,7 @@ import {
   Page,
   SearchPage,
 } from "@/services/interface";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import Loader from "@/components/Loader/Loader";
@@ -144,56 +144,27 @@ const Search: React.FC<PageProps> = ({
 
 export default Search;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const languages = ["en", "zh"];
-
-  const categoriesResponse = await fetch(
-    `${baseUrl}/en/wp-json/nextquestion/v2/header`,
-    { next: { revalidate: 10 } }
-  );
-  const categoriesData: IHeader = await categoriesResponse.json();
-  const categories = categoriesData.category_menu.map(
-    (item) => item.category.slug
-  );
-  categories.push("all");
-
-  const paths = languages.flatMap((lang) =>
-    categories.map((category) => ({
-      params: { lang, category },
-    }))
-  );
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const lang = params?.lang;
 
   try {
     const response = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/search-page`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/search-page`
     );
 
     const data: Page = await response.json();
     const responseHeader = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`
     );
     const headerData: IHeader = await responseHeader.json();
 
     const responseFooter = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`
     );
     const footerData: IFooter = await responseFooter.json();
 
     const responseFollow = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`
     );
     const followData: IFooter = await responseFollow.json();
 
@@ -214,7 +185,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         footerData: null,
         followData: null,
       },
-      revalidate: 10,
     };
   }
 };

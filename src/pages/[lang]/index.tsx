@@ -4,7 +4,7 @@ import HomeInterviews from "@/components/HomeInterviews/HomeInterviews";
 import HomeLastNews from "@/components/HomeLastNews/HomeLastNews";
 import HomeSpotlight from "@/components/HomeSpotlight/HomeSpotlight";
 import { IFollow, IFooter, IHeader, IHome } from "@/services/interface";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { LayoutContext } from "@/context/LayoutContext";
 
 interface HomeProps {
@@ -44,45 +44,28 @@ const Home: React.FC<HomeProps> = ({
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const languages = ["en", "zh"];
-
-  const paths = languages.map((lang) => ({
-    params: { lang },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const lang = params?.lang;
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   try {
     const response = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/home-page`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/home-page`
     );
     const data: IHome = await response.json();
 
     const responseHeader = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`
     );
     const headerData: IHeader = await responseHeader.json();
 
     const responseFooter = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`
     );
     const footerData: IFooter = await responseFooter.json();
 
     const responseFollow = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`
     );
     const followData: IFooter = await responseFollow.json();
 
@@ -103,7 +86,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         footerData: null,
         followData: null,
       },
-      revalidate: 10,
     };
   }
 };

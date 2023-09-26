@@ -37,10 +37,6 @@ const Post: React.FC<PostProps> = ({
   }, [footerData]);
 
   useEffect(() => {
-    console.log(data); // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-
-  useEffect(() => {
     if (!data) return;
     const sendViewsRequest = async () => {
       await fetch(
@@ -57,7 +53,6 @@ const Post: React.FC<PostProps> = ({
     if (match && match[1]) {
       return match[1];
     }
-    console.log(iframeString);
     return "";
   };
 
@@ -148,32 +143,27 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   try {
     const response = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/post/?slug=${slug}`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/post/?slug=${slug}`
     );
     const data = await response.json();
 
     const responseRecomend = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/all-posts`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/all-posts`
     );
     const recomendData: IPost[] = await responseRecomend.json();
 
     const responseHeader = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`
     );
     const headerData: IHeader = await responseHeader.json();
 
     const responseFooter = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`
     );
     const footerData: IFooter = await responseFooter.json();
 
     const responseFollow = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`,
-      { next: { revalidate: 10 } }
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`
     );
     const followData: IFooter = await responseFollow.json();
 
@@ -196,7 +186,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         footerData: null,
         followData: null,
       },
-      revalidate: 10,
     };
   }
 };
