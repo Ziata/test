@@ -1,7 +1,7 @@
 import ContactSelect from "@/components/ContactSelect/ContactSelect";
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import { LayoutContext } from "@/context/LayoutContext";
-import { IFooter, IHeader, Page } from "@/services/interface";
+import { IFollow, IFooter, IHeader, Page } from "@/services/interface";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useContext, useEffect, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -10,9 +10,15 @@ export interface PageProps {
   data: Page;
   headerData: IHeader;
   footerData: IFooter;
+  followData: IFollow;
 }
 
-const Contact: React.FC<PageProps> = ({ data, footerData, headerData }) => {
+const Contact: React.FC<PageProps> = ({
+  data,
+  footerData,
+  headerData,
+  followData,
+}) => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [type, setType] = useState("type 1");
@@ -123,7 +129,7 @@ const Contact: React.FC<PageProps> = ({ data, footerData, headerData }) => {
           </div>
           <div className="w-full flex flex-col-reverse md:flex-row justify-between tb:block tb:w-[360px] tb:min-w-[300px]">
             <div className="mt-[30px] tb:mt-[0]">
-              <FollowBlock />
+              <FollowBlock followData={followData} />
             </div>
           </div>
         </div>
@@ -165,11 +171,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     );
     const footerData: IFooter = await responseFooter.json();
 
+    const responseFollow = await fetch(
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`
+    );
+    const followData: IFooter = await responseFollow.json();
+
     return {
       props: {
         data,
         headerData,
         footerData,
+        followData,
       },
     };
   } catch (error) {
@@ -179,6 +191,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         data: null,
         headerData: null,
         footerData: null,
+        followData: null,
       },
     };
   }
