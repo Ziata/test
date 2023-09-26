@@ -3,7 +3,7 @@ import { formatDate } from "@/utils";
 import Image from "next/image";
 import test from "static/img/test.png";
 import YouTube from "react-youtube";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { IFollow, IFooter, IHeader, IPost } from "@/services/interface";
 import { useContext, useEffect } from "react";
 import { LayoutContext } from "@/context/LayoutContext";
@@ -142,29 +142,7 @@ const Post: React.FC<PostProps> = ({
 
 export default Post;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const languages = ["en", "zh"];
-
-  const postsResponse = await fetch(
-    `${baseUrl}/en/wp-json/nextquestion/v2/all-posts`,
-    { next: { revalidate: 10 } }
-  );
-  const postsData: IPost[] = await postsResponse.json();
-  const posts = postsData.map((post) => post.post_name);
-
-  const paths = languages.flatMap((lang) =>
-    posts.map((post) => ({
-      params: { lang, post },
-    }))
-  );
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const lang = params?.lang;
   const slug = params?.post;
 
