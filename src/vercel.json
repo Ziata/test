@@ -4,7 +4,7 @@
         {
             "src": "/(.*)",
             "headers": {
-                "Cache-Control": "s-maxage=300, stale-while-revalidate"
+                "Cache-Control": "s-maxage=10, stale-while-revalidate"
             }
         }
     ]
