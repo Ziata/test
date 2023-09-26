@@ -41,7 +41,7 @@ const Post: React.FC<PostProps> = ({
     const sendViewsRequest = async () => {
       await fetch(
         `${baseUrl}/wp-json/nextquestion/v2/views/?postId=${data.ID}`,
-        { cache: "no-store" }
+        { next: { revalidate: 10 } }
       );
     };
     sendViewsRequest();
@@ -143,7 +143,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const postsResponse = await fetch(
     `${baseUrl}/en/wp-json/nextquestion/v2/all-posts`,
-    { cache: "no-store" }
+    { next: { revalidate: 10 } }
   );
   const postsData: IPost[] = await postsResponse.json();
   const posts = postsData.map((post) => post.post_name);
@@ -167,31 +167,31 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
     const response = await fetch(
       `${baseUrl}/${lang}/wp-json/nextquestion/v2/post/?slug=${slug}`,
-      { cache: "no-store" }
+      { next: { revalidate: 10 } }
     );
     const data = await response.json();
 
     const responseRecomend = await fetch(
       `${baseUrl}/${lang}/wp-json/nextquestion/v2/all-posts`,
-      { cache: "no-store" }
+      { next: { revalidate: 10 } }
     );
     const recomendData: IPost[] = await responseRecomend.json();
 
     const responseHeader = await fetch(
       `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`,
-      { cache: "no-store" }
+      { next: { revalidate: 10 } }
     );
     const headerData: IHeader = await responseHeader.json();
 
     const responseFooter = await fetch(
       `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`,
-      { cache: "no-store" }
+      { next: { revalidate: 10 } }
     );
     const footerData: IFooter = await responseFooter.json();
 
     const responseFollow = await fetch(
       `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`,
-      { cache: "no-store" }
+      { next: { revalidate: 10 } }
     );
     const followData: IFooter = await responseFollow.json();
 
