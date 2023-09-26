@@ -19,8 +19,6 @@ interface PostProps {
   followData: IFollow;
 }
 
-export const revalidate = 0;
-
 const Post: React.FC<PostProps> = ({
   data,
   recomendData,
@@ -37,6 +35,10 @@ const Post: React.FC<PostProps> = ({
   useEffect(() => {
     setFooterData(footerData); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [footerData]);
+
+  useEffect(() => {
+    console.log(data); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   useEffect(() => {
     if (!data) return;
