@@ -197,6 +197,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         footerData: null,
         followData: null,
       },
+      revalidate: 10,
     };
   }
 };
