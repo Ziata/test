@@ -5,11 +5,17 @@ import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import { useEffect, useState } from "react";
 import { t } from "i18next";
-import { SecondBlock } from "@/services/interface";
+import { IFollow, SecondBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
 import { useRouter } from "next/router";
 
-function HomeSpotlight({ data }: { data: SecondBlock }) {
+function HomeSpotlight({
+  data,
+  followData,
+}: {
+  data: SecondBlock;
+  followData: IFollow;
+}) {
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const router = useRouter();
@@ -111,7 +117,7 @@ function HomeSpotlight({ data }: { data: SecondBlock }) {
             </div>
           </div>
           <div className="tb:w-[358px] tb:min-w-[320px] w-full">
-            <FollowBlock />
+            <FollowBlock followData={followData} />
           </div>
         </div>
       </div>

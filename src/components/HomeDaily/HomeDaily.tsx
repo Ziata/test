@@ -4,23 +4,51 @@ import "slick-carousel/slick/slick-theme.css";
 import { ThirdBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
 import { useRouter } from "next/router";
-import Link from "next/link";
-
-const settings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  arrow: false,
-  centerMode: true,
-  variableWidth: true,
-  adaptiveHeight: true,
-  autoplay: true,
-};
+import { useState } from "react";
 
 function HomeDaily({ data }: { data: ThirdBlock }) {
   const router = useRouter();
+
+  const [allowLinkClick, setAllowLinkClick] = useState(true);
+
+  const handleBeforeChange = () => {
+    setAllowLinkClick(false);
+  };
+
+  const handleAfterChange = () => {
+    setAllowLinkClick(true);
+  };
+
+  const handleDragStart = () => {
+    setAllowLinkClick(false);
+  };
+
+  const handleSlideClick = (event: React.MouseEvent, post_name: string) => {
+    if (!allowLinkClick) {
+      event.stopPropagation();
+      return;
+    }
+
+    router.push(`/${router.query.lang}/post/${post_name}`);
+  };
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrow: false,
+    centerMode: true,
+    variableWidth: true,
+    adaptiveHeight: true,
+    autoplay: true,
+    swipe: true,
+    draggable: true,
+    beforeChange: handleBeforeChange,
+    afterChange: handleAfterChange,
+    onDragStart: handleDragStart,
+  };
 
   return (
     <div className="w-full py-[50px] overflow-hidden">
@@ -29,14 +57,15 @@ function HomeDaily({ data }: { data: ThirdBlock }) {
       </div>
       <Slider {...settings}>
         {data.thirdBlockPosts.map((post) => (
-          <Link
+          <div
             key={generateUniqueId()}
-            href={`/${router.query.lang}/post/${post.post_name}`}
             className="!w-[290px] !h-[416px] md:!w-[350px] mx-[10px]"
           >
             <div
               className="w-full h-full p-[30px] flex items-end justify-start relative"
+              onClick={(event) => handleSlideClick(event, post.post_name)}
               style={{
+                pointerEvents: allowLinkClick ? "auto" : "none",
                 backgroundImage: `url("static/img/test.png")`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
@@ -55,7 +84,7 @@ function HomeDaily({ data }: { data: ThirdBlock }) {
                 </span>
               </div>
             </div>
-          </Link>
+          </div>
         ))}
       </Slider>
     </div>

@@ -3,7 +3,7 @@ import HomeDaily from "@/components/HomeDaily/HomeDaily";
 import HomeInterviews from "@/components/HomeInterviews/HomeInterviews";
 import HomeLastNews from "@/components/HomeLastNews/HomeLastNews";
 import HomeSpotlight from "@/components/HomeSpotlight/HomeSpotlight";
-import { IFooter, IHeader, IHome } from "@/services/interface";
+import { IFollow, IFooter, IHeader, IHome } from "@/services/interface";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { LayoutContext } from "@/context/LayoutContext";
 
@@ -11,9 +11,15 @@ interface HomeProps {
   data: IHome;
   headerData: IHeader;
   footerData: IFooter;
+  followData: IFollow;
 }
 
-const Home: React.FC<HomeProps> = ({ data, footerData, headerData }) => {
+const Home: React.FC<HomeProps> = ({
+  data,
+  footerData,
+  headerData,
+  followData,
+}) => {
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
 
   useEffect(() => {
@@ -24,15 +30,11 @@ const Home: React.FC<HomeProps> = ({ data, footerData, headerData }) => {
     setFooterData(footerData); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [footerData]);
 
-  useEffect(() => {
-    console.log(data); // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-
   return (
     data && (
       <>
         <HomeLastNews data={data.firstBlock} />
-        <HomeSpotlight data={data.secondBlock} />
+        <HomeSpotlight data={data.secondBlock} followData={followData} />
         {data.thirdBlock.thirdBlockPosts.length > 0 && (
           <HomeDaily data={data.thirdBlock} />
         )}
@@ -75,11 +77,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     );
     const footerData: IFooter = await responseFooter.json();
 
+    const responseFollow = await fetch(
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`
+    );
+    const followData: IFooter = await responseFollow.json();
+
     return {
       props: {
         data,
         headerData,
         footerData,
+        followData,
       },
     };
   } catch (error) {
@@ -89,6 +97,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         data: null,
         headerData: null,
         footerData: null,
+        followData: null,
       },
     };
   }

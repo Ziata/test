@@ -4,7 +4,7 @@ import Image from "next/image";
 import test from "static/img/test.png";
 import YouTube from "react-youtube";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { IFooter, IHeader, IPost } from "@/services/interface";
+import { IFollow, IFooter, IHeader, IPost } from "@/services/interface";
 import { useContext, useEffect } from "react";
 import { LayoutContext } from "@/context/LayoutContext";
 import Recomend from "@/components/Recomend/Recomend";
@@ -16,6 +16,7 @@ interface PostProps {
   recomendData: IPost[];
   headerData: IHeader;
   footerData: IFooter;
+  followData: IFollow;
 }
 
 const Post: React.FC<PostProps> = ({
@@ -23,6 +24,7 @@ const Post: React.FC<PostProps> = ({
   recomendData,
   footerData,
   headerData,
+  followData,
 }) => {
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
 
@@ -45,11 +47,12 @@ const Post: React.FC<PostProps> = ({
   }, [data]);
 
   const extractSrcFromIframe = (iframeString: string) => {
-    const regex = /src="([^"]+)"/;
+    const regex = /src\s*=\s*["']([^"']+)["']/;
     const match = iframeString.match(regex);
     if (match && match[1]) {
       return match[1];
     }
+    console.log(iframeString);
     return "";
   };
 
@@ -120,7 +123,7 @@ const Post: React.FC<PostProps> = ({
           </div>
           <div className="w-full flex flex-col-reverse md:flex-row justify-between tb:block tb:w-[360px] tb:min-w-[300px]">
             <div className="mt-[30px] min-w-[300px] md:mr-[20px] tb:min-w-auto tb:mt-[0] tb:mr-[0]">
-              <FollowBlock />
+              <FollowBlock followData={followData} />
             </div>
             <div>
               <Recomend posts={recomendData} />
@@ -180,12 +183,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     );
     const footerData: IFooter = await responseFooter.json();
 
+    const responseFollow = await fetch(
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`
+    );
+    const followData: IFooter = await responseFollow.json();
+
     return {
       props: {
         data,
         headerData,
         recomendData,
         footerData,
+        followData,
       },
     };
   } catch (error) {
@@ -196,6 +205,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         recomendData: null,
         headerData: null,
         footerData: null,
+        followData: null,
       },
     };
   }

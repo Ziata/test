@@ -6,7 +6,13 @@ import Recomend from "@/components/Recomend/Recomend";
 import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
 import Tabs from "@/components/Tabs/Tabs";
 import { LayoutContext } from "@/context/LayoutContext";
-import { ICategory, IFooter, IHeader, IPost } from "@/services/interface";
+import {
+  ICategory,
+  IFollow,
+  IFooter,
+  IHeader,
+  IPost,
+} from "@/services/interface";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useContext, useEffect, useState } from "react";
 
@@ -17,6 +23,7 @@ interface CategoryProps {
   recomendData: IPost[];
   headerData: IHeader;
   footerData: IFooter;
+  followData: IFollow;
 }
 
 const Category: React.FC<CategoryProps> = ({
@@ -24,6 +31,7 @@ const Category: React.FC<CategoryProps> = ({
   recomendData,
   footerData,
   headerData,
+  followData,
 }) => {
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>(
@@ -60,10 +68,6 @@ const Category: React.FC<CategoryProps> = ({
   useEffect(() => {
     setCurrentPage(1);
   }, [data.cat_name]);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   const filteredPosts = selectedSubcategory
     ? currentPosts?.filter((post) =>
@@ -136,7 +140,7 @@ const Category: React.FC<CategoryProps> = ({
           </div>
           <div className="w-full flex flex-col-reverse md:flex-row justify-between tb:block tb:w-[360px] tb:min-w-[300px]">
             <div className="mt-[30px] min-w-[300px] md:mr-[20px] tb:min-w-auto tb:mt-[0] tb:mr-[0]">
-              <FollowBlock />
+              <FollowBlock followData={followData} />
             </div>
             <Recomend posts={recomendData} />
           </div>
@@ -207,12 +211,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     );
     const footerData: IFooter = await responseFooter.json();
 
+    const responseFollow = await fetch(
+      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`
+    );
+    const followData: IFooter = await responseFollow.json();
+
     return {
       props: {
         data,
         recomendData,
         headerData,
         footerData,
+        followData,
       },
     };
   } catch (error) {
@@ -223,6 +233,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         recomendData: null,
         headerData: null,
         footerData: null,
+        followData: null,
       },
     };
   }
