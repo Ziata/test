@@ -211,6 +211,8 @@ export interface IPost {
   youtube_url: string;
   interview_audio: string;
   views: number;
+  reporter?: string;
+  interviewer?: string;
 }
 
 export interface ThirdBlock {

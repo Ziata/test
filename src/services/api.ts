@@ -32,6 +32,13 @@ export const api = createApi({
       query: ({ language, slug }) =>
         `${language}/wp-json/nextquestion/v2/search?s=${slug}`,
     }),
+    sendMessage: builder.mutation<any, { body: any }>({
+      query: ({ body }) => ({
+        url: `/wp-json/contact-form-7/v1/contact-forms/246`,
+        method: "POST",
+        body: body,
+      }),
+    }),
     getPostByCategories: builder.query<
       ICategory,
       { language: string; slug: string }
@@ -56,4 +63,5 @@ export const {
   useGetPostQuery,
   useGetPostByCategoriesQuery,
   useGetSearchQuery,
+  useSendMessageMutation,
 } = api;

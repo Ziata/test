@@ -68,7 +68,7 @@ export default function LanguageSwitch() {
             fontFamily: "sans-serif",
             fontWeight: 500,
             border: "0",
-            borderColor: "#fff",
+            borderColor: "transparent",
             color: state.isSelected ? "#000" : "#8C8C8C",
             backgroundColor: "#F8F8F8",
             whiteSpace: "nowrap",

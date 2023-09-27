@@ -91,10 +91,20 @@ const Post: React.FC<PostProps> = ({
         >
           <div className="tb:mr-[30px] w-full">
             {data?.interview_audio || data?.youtube_url ? (
-              <div className="font-light text-[12px] md:text-sm leading-4 flex items-center font-Din text-[#33566C] gap-[4px] md:gap-[8px] mb-[20px]">
+              <div className="font-light text-[12px] md:text-[18px] leading-4 flex items-center font-Din text-[#33566C] gap-[4px] md:gap-[10px] mb-[20px]">
                 <span>{formatDate(data.post_date)}</span>
-                <span>|</span>
-                <span>By {data.post_author}</span>
+                {data.interviewer && (
+                  <>
+                    <span>Interviewer - </span>
+                    <span>{data.interviewer}</span>
+                  </>
+                )}
+                {data.reporter && (
+                  <>
+                    <span>Reporter - </span>
+                    <span>{data.reporter}</span>
+                  </>
+                )}
               </div>
             ) : (
               data && (
@@ -103,7 +113,8 @@ const Post: React.FC<PostProps> = ({
                     {data.post_title}
                   </h2>
                   <span className="font-light text-base leading-5 flex items-center text-blue-700 font-Din my-[15px]">
-                    {data.categories[1].cat_name || data.categories[0].cat_name}
+                    {data.categories[1]?.cat_name ||
+                      data.categories[0]?.cat_name}
                   </span>
                   <div className="font-light text-[12px] md:text-sm leading-4 flex items-center font-Din text-[#33566C] gap-[4px] md:gap-[8px]">
                     <span>{formatDate(data.post_date)}</span>

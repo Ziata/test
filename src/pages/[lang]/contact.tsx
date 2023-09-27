@@ -1,10 +1,26 @@
 import ContactSelect from "@/components/ContactSelect/ContactSelect";
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import { LayoutContext } from "@/context/LayoutContext";
+import { useSendMessageMutation } from "@/services/api";
 import { IFollow, IFooter, IHeader, Page } from "@/services/interface";
 import { GetServerSideProps } from "next";
 import { useContext, useEffect, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+
+const jsonToFormData = (json: any) => {
+  try {
+    const data = new FormData();
+
+    for (let k in json) {
+      data.append(k, json[k]);
+    }
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
 
 export interface PageProps {
   data: Page;
@@ -25,6 +41,8 @@ const Contact: React.FC<PageProps> = ({
   const [message, setMessage] = useState<string>("");
   const [isNameValid, setIsNameValid] = useState<boolean>(true);
   const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
+  const [sendMessage, { isLoading, isError, isSuccess }] =
+    useSendMessageMutation();
 
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
 
@@ -51,11 +69,14 @@ const Contact: React.FC<PageProps> = ({
     return emailRegex.test(email);
   };
 
-  const handleSubmit = () => {
-    if (isNameValid && isEmailValid) {
-      console.log("Form submitted:", { name, email, type, message });
-    } else {
-      console.log("Form validation failed.");
+  const handleSubmit = async () => {
+    /* if (!isNameValid || !isEmailValid) return; */
+    try {
+      await sendMessage({
+        body: jsonToFormData({ name: "test" }),
+      }).unwrap();
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -76,14 +97,10 @@ const Contact: React.FC<PageProps> = ({
       <div className="container">
         <div className="md:p-[30px] py-[20px] bg-white md:-mt-[70px] flex w-full flex-col tb:flex-row">
           <div className="tb:mr-[50px] w-full font-light text-lg leading-6 font-Din text-[#363636]">
-            <p>
-              Eget metus sapien nunc aliquet ut id. Quis in facilisi lectus at
-              amet. Et viverra sit blandit faucibus mattis laoreet senectus.
-              Volutpat varius donec quam posuere ut a platea. Non fermentum
-              velit tempus mauris nulla vivamus. Scelerisque mi nunc scelerisque
-              orci nisl suspendisse in lectus nibh. Ut varius tempus nisl donec
-              et consectetur.
-            </p>
+            <div
+              className="text-content"
+              dangerouslySetInnerHTML={{ __html: data?.content }}
+            />
             <div className="flex flex-col md:flex-row items-center mt-[30px] gap-[15px] md:gap-[50px]">
               <label className="font-light text-lg leading-6 text-[#040303] w-full md:w-1/3 font-Din pl-[15px]">
                 Name
