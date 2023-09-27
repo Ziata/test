@@ -1,8 +1,10 @@
 import ContactSelect from "@/components/ContactSelect/ContactSelect";
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
+import Loader from "@/components/Loader/Loader";
 import { LayoutContext } from "@/context/LayoutContext";
 import { useSendMessageMutation } from "@/services/api";
 import { IFollow, IFooter, IHeader, Page } from "@/services/interface";
+import { t } from "i18next";
 import { GetServerSideProps } from "next";
 import { useContext, useEffect, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -37,12 +39,12 @@ const Contact: React.FC<PageProps> = ({
 }) => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [type, setType] = useState("type 1");
+  const [type, setType] = useState("test 1");
   const [message, setMessage] = useState<string>("");
-  const [isNameValid, setIsNameValid] = useState<boolean>(true);
-  const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
-  const [sendMessage, { isLoading, isError, isSuccess }] =
-    useSendMessageMutation();
+  const [isNameValid, setIsNameValid] = useState<boolean>(false);
+  const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
+  const [statusMessage, setStatusMessage] = useState<string>("");
+  const [sendMessage, { isLoading }] = useSendMessageMutation();
 
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
 
@@ -70,15 +72,30 @@ const Contact: React.FC<PageProps> = ({
   };
 
   const handleSubmit = async () => {
-    /* if (!isNameValid || !isEmailValid) return; */
-    try {
-      await sendMessage({
-        body: jsonToFormData({ name: "test" }),
-      }).unwrap();
-    } catch (error) {
-      console.error(error);
+    if (!isNameValid || !isEmailValid)
+      setStatusMessage(
+        "One or more fields have an error. Please check and try again."
+      );
+    else {
+      try {
+        const result = (await sendMessage({
+          body: jsonToFormData({
+            "your-name": name,
+            "your-email": email,
+            "your-message": message,
+            "type-enquiry": type,
+          }),
+        })) as { data: { message: string } };
+        setStatusMessage(result?.data?.message);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
+
+  useEffect(() => {
+    statusMessage && setTimeout(() => setStatusMessage(""), 5000);
+  }, [statusMessage]);
 
   return (
     <>
@@ -137,11 +154,14 @@ const Contact: React.FC<PageProps> = ({
                 <ReCAPTCHA sitekey="Your client site key" />
               </div>
             </div>
+            {statusMessage && (
+              <div className="text-orange-600 mt-4">{statusMessage}</div>
+            )}
             <button
               className="bg-[#D0E5F2] font-Din font-normal text-base text-[#002C47] px-[20px] py-[10px] rounded-[10px] transition-all duration-300 hover:bg-[#0071BC] mt-[15px] md:mt-[50px]"
               onClick={handleSubmit}
             >
-              Submit
+              {isLoading ? <Loader customClass="w-6 h-6" /> : t("Submit")}
             </button>
           </div>
           <div className="w-full flex flex-col-reverse md:flex-row justify-between tb:block tb:w-[360px] tb:min-w-[300px]">

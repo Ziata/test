@@ -3,12 +3,12 @@ import Select, { SingleValue } from "react-select";
 
 const options = [
   {
-    value: "type 1",
-    label: "type 1",
+    value: "test 1",
+    label: "test 1",
   },
   {
-    value: "type 2",
-    label: "type 2",
+    value: "test 2",
+    label: "test 2",
   },
 ];
 

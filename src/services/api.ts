@@ -34,7 +34,7 @@ export const api = createApi({
     }),
     sendMessage: builder.mutation<any, { body: any }>({
       query: ({ body }) => ({
-        url: `/wp-json/contact-form-7/v1/contact-forms/246`,
+        url: `/wp-json/contact-form-7/v1/contact-forms/246/feedback`,
         method: "POST",
         body: body,
       }),
