@@ -33,7 +33,14 @@ function SmallPostCard({
         }}
       />
       <div className="w-2/3 flex flex-col justify-between h-[79px]">
-        <span className="font-light text-base leading-5 flex items-center text-blue-700 font-Din whitespace-nowrap overflow-clip">
+        <span
+          className={`${
+            post?.categories[0]?.slug === "meeting-reports" ||
+            post?.categories[1]?.slug === "meeting-reports"
+              ? "text-orange-600"
+              : ""
+          } font-light text-base leading-5 flex items-center text-blue-700 font-Din whitespace-nowrap overflow-clip`}
+        >
           {post.interview_audio || post.youtube_url
             ? "James White"
             : post.categories[1]?.cat_name || post.categories[0]?.cat_name}

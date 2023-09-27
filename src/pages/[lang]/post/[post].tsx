@@ -103,7 +103,7 @@ const Post: React.FC<PostProps> = ({
                     {data.post_title}
                   </h2>
                   <span className="font-light text-base leading-5 flex items-center text-blue-700 font-Din my-[15px]">
-                    From the journals
+                    {data.categories[1].cat_name || data.categories[0].cat_name}
                   </span>
                   <div className="font-light text-[12px] md:text-sm leading-4 flex items-center font-Din text-[#33566C] gap-[4px] md:gap-[8px]">
                     <span>{formatDate(data.post_date)}</span>

@@ -50,9 +50,14 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
         </Link>
       </div>
       <div className="flex gap-[30px] tb:h-[440px] w-full">
-        <div
-          className="hidden md:flex md:w-1/2 tb:w-2/3 tb:h-full px-[17px] py-[28px] items-end justify-start relative lazy-background"
-          /* border-b-2 border-orange-600 border-solid */
+        <Link
+          href={`/${router.query.lang}/post/${data.latestNews[0].post_name}`}
+          className={`${
+            data.latestNews[0].categories[0].slug === "meeting-reports" ||
+            data.latestNews[0].categories[1].slug === "meeting-reports"
+              ? "border-b-2 border-orange-600 border-solid"
+              : ""
+          } hidden md:flex md:w-1/2 tb:w-2/3 tb:h-full px-[17px] py-[28px] items-end justify-start relative lazy-background`}
           style={{
             backgroundImage: `url(${data.latestNews[0].thumbnail})`,
             backgroundSize: "cover",
@@ -61,30 +66,33 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
         >
           <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />
           <div className="z-1 relative">
-            {/* <div className="font-normal text-lg leading-5 text-orange-600 font-Din">
-              Meeting Reports:
-            </div> */}
+            {(data.latestNews[0].categories[0].slug === "meeting-reports" ||
+              data.latestNews[0].categories[1].slug === "meeting-reports") && (
+              <div className="font-normal text-lg leading-5 text-orange-600 font-Din">
+                Meeting Reports:
+              </div>
+            )}
             <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1">
               {data.latestNews[0].post_title}
             </h5>
             <span className="block font-light text-sm leading-4 text-white font-Din mt-1">
               {formatDate(data.latestNews[0].post_date)}
             </span>
-            <Link
-              href={`/${router.query.lang}/post/${data.latestNews[0].post_name}`}
-              className="font-normal text-lg flex items-center text-white font-Din mt-2"
-            >
-              Read the Report{" "}
-              <Image
-                src={whiteShevron}
-                className="ml-4"
-                alt="arrow"
-                width="5"
-                height="10"
-              />
-            </Link>
+            {(data.latestNews[0].categories[0].slug === "meeting-reports" ||
+              data.latestNews[0].categories[1].slug === "meeting-reports") && (
+              <div className="font-normal text-lg flex items-center text-white font-Din mt-2">
+                Read the Report{" "}
+                <Image
+                  src={whiteShevron}
+                  className="ml-4"
+                  alt="arrow"
+                  width="5"
+                  height="10"
+                />
+              </div>
+            )}
           </div>
-        </div>
+        </Link>
         <div className="w-full md:w-1/2 tb:w-1/3 tb:max-w-[430px] h-full flex flex-col justify-between">
           {slicedNews.map((post, index) => (
             <SmallPostCard
