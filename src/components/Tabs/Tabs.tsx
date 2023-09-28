@@ -1,4 +1,6 @@
 import { ICategory } from "@/services/interface";
+import { generateUniqueId } from "@/utils";
+import React from "react";
 
 function Tabs({
   subcategories,
@@ -12,7 +14,7 @@ function Tabs({
   return (
     <div className="w-full mt-[20px] md:mt-0 flex gap-[8px] md:gap-[18px] flex-wrap">
       {subcategories?.map((subcategory, index) => (
-        <>
+        <React.Fragment key={generateUniqueId()}>
           <button
             className={`${
               subcategory.name === selectedSubcategory
@@ -29,7 +31,7 @@ function Tabs({
               |
             </span>
           )}
-        </>
+        </React.Fragment>
       ))}
     </div>
   );

@@ -1,14 +1,11 @@
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import { formatDate } from "@/utils";
-import Image from "next/image";
-import test from "static/img/test.png";
 import YouTube from "react-youtube";
 import { GetServerSideProps } from "next";
 import { IFollow, IFooter, IHeader, IPost } from "@/services/interface";
 import { useContext, useEffect, useRef } from "react";
 import { LayoutContext } from "@/context/LayoutContext";
 import Recomend from "@/components/Recomend/Recomend";
-import Typed from "react-typed";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -28,7 +25,6 @@ const Post: React.FC<PostProps> = ({
   followData,
 }) => {
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
-  const typedRef = useRef(null) as any;
 
   useEffect(() => {
     setHeaderData(headerData); // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,7 +42,6 @@ const Post: React.FC<PostProps> = ({
       );
     };
     sendViewsRequest();
-    typedRef.current && typedRef.current.reset();
   }, [data]);
 
   const extractSrcFromIframe = (iframeString: string) => {
@@ -67,15 +62,23 @@ const Post: React.FC<PostProps> = ({
         />
       ) : (
         data?.interview_audio && (
-          <div className="w-full flex items-center justify-center container">
+          <div
+            className="w-full flex items-center justify-center container h-[270px] md:h-[400px]"
+            style={{
+              backgroundImage: `url('${data.thumbnail}')`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+            }}
+          >
             <iframe
               allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
               height="175"
               style={{
-                width: "100%",
+                width: "400px",
                 overflow: "hidden",
                 borderRadius: "10px",
                 height: "200px",
+                margin: "0 auto",
               }}
               sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
               src={extractSrcFromIframe(data.interview_audio)}
@@ -112,14 +115,7 @@ const Post: React.FC<PostProps> = ({
               data && (
                 <>
                   <h2 className="font-bold text-3xl leading-8 flex items-center text-[#002C47] font-Din">
-                    <Typed
-                      showCursor={false}
-                      strings={[data.post_title]}
-                      typeSpeed={40}
-                      typedRef={(typed: any) => {
-                        typedRef.current = typed;
-                      }}
-                    />
+                    {data.post_title}
                   </h2>
                   <span className="font-light text-base leading-5 flex items-center text-blue-700 font-Din my-[15px]">
                     {data.categories[1]?.cat_name ||
@@ -130,7 +126,14 @@ const Post: React.FC<PostProps> = ({
                     <span>|</span>
                     <span>By {data.post_author}</span>
                   </div>
-                  <Image src={test} alt="banner" className="w-full my-[20px]" />
+                  <div
+                    className="relative w-full my-[20px] h-[350px] bg-center"
+                    style={{
+                      backgroundImage: `url('${data.thumbnail}')`,
+                      backgroundSize: "cover",
+                      backgroundRepeat: "no-repeat",
+                    }}
+                  />
                 </>
               )
             )}

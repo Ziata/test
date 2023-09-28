@@ -7,7 +7,6 @@ import shevron from "static/img/shevron-white.svg";
 import { t } from "i18next";
 import { FourthBlock } from "@/services/interface";
 import { useRouter } from "next/router";
-import Typed from "react-typed";
 
 const settings = {
   dots: true,
@@ -33,7 +32,7 @@ function HomeInterviews({ data }: { data: FourthBlock }) {
     >
       <div className="container flex justify-between items-center pb-[40px]">
         <div className="font-light text-2xl leading-7 flex items-center text-[#fff] font-Din">
-          <Typed showCursor={false} strings={[data.title]} typeSpeed={100} />
+          {data.title}
         </div>
         <Link
           href={`/${router.query.lang}/category/people`}

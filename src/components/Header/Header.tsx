@@ -45,11 +45,11 @@ export default function Header() {
   }, [isMobile]);
 
   return (
-    <header>
+    <header className="fixed w-full z-[19]">
       <Modal isOpen={isOpenModal} parentSelector="body" closeModal={closeModal}>
         <Search closeModal={closeModal} />
       </Modal>
-      <div className="w-full bg-[#F8F8F8] h-[86px] relative z-20">
+      <div className="w-full bg-[#F8F8F8] h-[86px] z-20 relative">
         <div className="container flex items-center w-full h-full justify-between relative tb:justify-end">
           <Link
             href={`/${router.query.lang}/`}

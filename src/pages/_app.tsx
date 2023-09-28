@@ -4,7 +4,6 @@ import Footer from "@/components/Footer/Footer";
 import "@/app/globals.css";
 import "reset-css";
 import "static/fonts/D-DIN/stylesheet.css";
-import "react-typed/dist/animatedCursor.css";
 import { Provider } from "react-redux";
 import store from "@/services/store";
 import { I18nextProvider } from "react-i18next";
@@ -20,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps & { headerData: IHeader }) {
         <LayoutProvider>
           <SearchProvider>
             <Header />
+            <div className="h-[86px] md:h-[156px]" />
             <Component {...pageProps} />
             <Footer />
           </SearchProvider>

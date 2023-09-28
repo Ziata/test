@@ -8,7 +8,6 @@ import { FirstBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Typed from "react-typed";
 
 function HomeLastNews({ data }: { data: FirstBlock }) {
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -34,7 +33,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
     <div className="container pb-[70px]">
       <div className="flex justify-between items-center py-10">
         <div className="font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
-          <Typed showCursor={false} strings={[data.title]} typeSpeed={100} />
+          {data.title}
         </div>
         <Link
           href={`/${router.query.lang}/category/all`}
@@ -64,12 +63,18 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
             backgroundPosition: "center",
           }}
         >
-          <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute group-hover:bg-[#1111116c] group-hover:h-full transition-all duration-500" />
+          <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />
+          <div className="gradient-background opacity-0 w-full h-full bottom-0 left-0 !absolute bg-[#4e4e4e33] group-hover:opacity-100 group-hover:h-full transition-all duration-300" />
           <div className="z-1 relative">
-            {(data.latestNews[0].categories[0].slug === "meeting-reports" ||
-              data.latestNews[0].categories[1].slug === "meeting-reports") && (
+            {data.latestNews[0].categories[0].slug === "meeting-reports" ||
+            data.latestNews[0].categories[1].slug === "meeting-reports" ? (
               <div className="font-normal text-lg leading-5 text-orange-600 font-Din">
                 {t("Meeting Reports")}:
+              </div>
+            ) : (
+              <div className="font-normal text-lg leading-5 text-blue-500 font-Din">
+                {data.latestNews[0]?.categories[1]?.cat_name ||
+                  data.latestNews[0].categories[0].cat_name}
               </div>
             )}
             <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1 group-hover:text-blue-200 transition-all duration-300">

@@ -14,7 +14,6 @@ import {
 } from "@/services/interface";
 import { GetServerSideProps } from "next";
 import { useContext, useEffect, useState, useRef } from "react";
-import Typed from "react-typed";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -34,10 +33,13 @@ const Category: React.FC<CategoryProps> = ({
   followData,
 }) => {
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
-  const typedRef = useRef(null) as any;
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>(
     data.cat_name
   );
+
+  useEffect(() => {
+    console.log(data); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   useEffect(() => {
     setSelectedSubcategory(data.cat_name);
@@ -68,7 +70,6 @@ const Category: React.FC<CategoryProps> = ({
 
   useEffect(() => {
     setCurrentPage(1);
-    typedRef.current && typedRef.current.reset();
   }, [data.cat_name]);
 
   const filteredPosts = selectedSubcategory
@@ -92,15 +93,7 @@ const Category: React.FC<CategoryProps> = ({
         }}
       >
         <h2 className="md:-mt-[70px] font-bold text-5xl text-white font-Din">
-          {data?.cat_name && (
-            <Typed
-              strings={[data.cat_name]}
-              typeSpeed={70}
-              typedRef={(typed: any) => {
-                typedRef.current = typed;
-              }}
-            />
-          )}
+          {data?.cat_name}
         </h2>
       </div>
       <div className="container">

@@ -8,7 +8,6 @@ import { t } from "i18next";
 import { IFollow, SecondBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
 import { useRouter } from "next/router";
-import Typed from "react-typed";
 
 function HomeSpotlight({
   data,
@@ -65,11 +64,7 @@ function HomeSpotlight({
           <div className="flex w-full gap-[8px] flex-col">
             <div className="flex justify-between items-center w-full h-12">
               <div className="font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
-                <Typed
-                  showCursor={false}
-                  strings={[data.category_title]}
-                  typeSpeed={100}
-                />
+                {data.category_title}
               </div>
               <Link
                 href={"/"}
@@ -95,7 +90,8 @@ function HomeSpotlight({
                     backgroundSize: "cover",
                   }}
                 >
-                  <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute group-hover:bg-[#1111116c] group-hover:h-full transition-all duration-500" />
+                  <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />
+                  <div className="gradient-background opacity-0 w-full h-full bottom-0 left-0 !absolute bg-[#4e4e4e33] group-hover:opacity-100 group-hover:h-full transition-all duration-300" />
                   <div className="z-1 relative">
                     <div className="font-normal text-lg leading-5 text-white font-Din group-hover:text-blue-200 transition-all duration-300">
                       {data.secondBlockPosts[0].categories[1]?.cat_name ||

@@ -53,6 +53,7 @@ export default function Search({ closeModal }: { closeModal: () => void }) {
           className="font-semibold text-base leading-7 capitalize text-[#040303] font-sans w-full h-[40px] mx-auto px-[20px] py-[7px] rounded-[10px] outline-none border focus:border-none bg-[#EBEBEB]"
           placeholder={t("Enter search term")}
           value={searchString}
+          autoFocus
           onChange={handleInputChange}
         />
         {searchString && (
