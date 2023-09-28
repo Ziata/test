@@ -7,6 +7,7 @@ import shevron from "static/img/shevron-white.svg";
 import { t } from "i18next";
 import { FourthBlock } from "@/services/interface";
 import { useRouter } from "next/router";
+import Typed from "react-typed";
 
 const settings = {
   dots: true,
@@ -32,16 +33,16 @@ function HomeInterviews({ data }: { data: FourthBlock }) {
     >
       <div className="container flex justify-between items-center pb-[40px]">
         <div className="font-light text-2xl leading-7 flex items-center text-[#fff] font-Din">
-          {data.title}
+          <Typed strings={[data.title]} typeSpeed={100} />
         </div>
         <Link
           href={`/${router.query.lang}/category/people`}
-          className="flex items-center leading-0 font-light text-base leading-5 text-[#fff] font-Din"
+          className="flex items-center leading-0 font-light text-base leading-5 text-[#fff] font-Din group hover:scale-[1.1] transition-all duration-300"
         >
           {t("More")}{" "}
           <Image
             src={shevron}
-            className="ml-4"
+            className="ml-4 group-hover:rotate-[360deg] transition-all duration-300 group-hover:scale-[2]"
             alt="arrow"
             width="5"
             height="10"

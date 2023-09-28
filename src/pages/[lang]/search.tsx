@@ -17,6 +17,7 @@ import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import Loader from "@/components/Loader/Loader";
+import { t } from "i18next";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -112,7 +113,7 @@ const Search: React.FC<PageProps> = ({
               ) : (
                 (currentPosts.length === 0 || isError) && (
                   <div className="w-full h-[300px] justify-center font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
-                    No Data
+                    {t("No Data")}
                   </div>
                 )
               )}

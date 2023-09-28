@@ -15,14 +15,14 @@ function SmallPostCard({
   return (
     <Link
       href={`/${router.query.lang}/post/${post.post_name}`}
-      className={`flex cursor-pointer ${
+      className={`flex cursor-pointer group relative ${
         isHiddenLine
           ? ""
-          : "border-b-2 border-solid border-[#E5E5E5] pb-3 mb-3 md:pb-5 md:mb-5"
+          : "border-b-2 border-solid border-[#E5E5E5] pb-3 mb-3 md:pb-5 md:mb-5 "
       }`}
     >
       <div
-        className={`w-1/3 mr-[15px]`}
+        className={`w-1/3 mr-[15px] group-hover:scale-[1.1] transition-all duration-300`}
         style={{
           backgroundImage: `url(${
             post?.thumbnail || "../../static/img/no-image.svg"
@@ -42,10 +42,10 @@ function SmallPostCard({
           } font-light text-base leading-5 flex items-center text-blue-700 font-Din whitespace-nowrap overflow-clip`}
         >
           {post.interview_audio || post.youtube_url
-            ? "James White"
+            ? post?.reporter
             : post.categories[1]?.cat_name || post.categories[0]?.cat_name}
         </span>
-        <h6 className="text-lg leading-5 flex text-gray-900 font-Din font-bold max-h-[2.4rem] overflow-clip">
+        <h6 className="text-lg leading-5 flex text-gray-900  transition-all duration-300 group-hover:text-blue-700 font-Din font-bold max-h-[2.4rem] overflow-clip">
           {post?.post_title && post.post_title}
         </h6>
         <span className="font-light text-sm leading-4 flex items-center text-[#33566C] font-Din mt-[2px]">

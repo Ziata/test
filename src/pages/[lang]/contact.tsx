@@ -120,7 +120,7 @@ const Contact: React.FC<PageProps> = ({
             />
             <div className="flex flex-col md:flex-row items-center mt-[30px] gap-[15px] md:gap-[50px]">
               <label className="font-light text-lg leading-6 text-[#040303] w-full md:w-1/3 font-Din pl-[15px]">
-                Name
+                {t("Name")}
                 <input
                   className="bg-[#EBEBEB] rounded-[10px] h-[45px] w-full font-Din mt-[10px] outline-none border focus:border-none px-[10px] -ml-[15px]"
                   value={name}
@@ -128,7 +128,7 @@ const Contact: React.FC<PageProps> = ({
                 />
               </label>
               <label className="font-light text-lg leading-6 text-[#040303] w-full md:w-1/3 font-Din pl-[15px]">
-                Email
+                {t("Email")}
                 <input
                   className="bg-[#EBEBEB] rounded-[10px] h-[45px] w-full font-Din mt-[10px] outline-none border focus:border-none px-[10px] -ml-[15px]"
                   value={email}
@@ -136,13 +136,13 @@ const Contact: React.FC<PageProps> = ({
                 />
               </label>
               <div className="font-light text-lg leading-6 text-[#040303] w-full md:w-1/3 font-Din pl-[15px]">
-                Type of Enquiry
+                {t("Type of Enquiry")}
                 <ContactSelect setType={setType} />
               </div>
             </div>
             <div className="flex flex-col md:flex-row mt-[15px] md:mt-[50px] gap-[15px] md:gap-[50px]">
               <label className="font-light text-lg leading-6 text-[#040303] w-full md:w-2/3 font-Din pl-[15px]">
-                Message
+                {t("Message")}
                 <textarea
                   className="bg-[#EBEBEB] rounded-[10px] w-full font-Din mt-[10px] outline-none border focus:border-none p-[10px] -ml-[15px]"
                   rows={6}

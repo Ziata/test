@@ -20,6 +20,10 @@ const config: Config = {
       screens: {
         tb: "1024px",
       },
+      backgroundSize: {
+        "110": "110%",
+        "100": "100%",
+      },
     },
   },
   plugins: [

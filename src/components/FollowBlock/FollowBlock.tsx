@@ -30,7 +30,7 @@ function FollowBlock({ followData }: { followData: IFollow }) {
                 <Link
                   key={generateUniqueId()}
                   href={link.url}
-                  className="font-light text-sm leading-4 flex items-center font-Din text-[#33566C] pb-[20px] border-b-2 border-solid border-[#E5E5E5]"
+                  className="font-light text-sm leading-4 flex items-center font-Din text-[#33566C] pb-[20px] border-b-2 border-solid border-[#E5E5E5] transition-all duration-300 hover:text-blue-700 hover:text-[18px]"
                 >
                   <Image
                     src={link.icon_image.url}

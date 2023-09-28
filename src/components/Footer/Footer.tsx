@@ -12,7 +12,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#fff]">
       <div className="container h-full">
-        <div className="py-[20px] flex items-center justify-center gap-y-[10px] gap-x-[40px] tb:gap-0 tb:justify-between min-h-[102px] flex-wrap tb:flex-nowrap">
+        <div className="py-[20px] flex items-center justify-center gap-y-[10px] gap-x-[40px] tb:gap-0 tb:justify-between min-h-[102px] flex-wrap">
           {data && (
             <>
               <span className="font-normal text-lg leading-5 font-Din text-[#315469]">

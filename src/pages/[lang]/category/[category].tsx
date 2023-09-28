@@ -14,6 +14,7 @@ import {
 } from "@/services/interface";
 import { GetServerSideProps } from "next";
 import { useContext, useEffect, useState } from "react";
+import Typed from "react-typed";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -89,7 +90,7 @@ const Category: React.FC<CategoryProps> = ({
         }}
       >
         <h2 className="md:-mt-[70px] font-bold text-5xl text-white font-Din">
-          {data?.cat_name}
+          <Typed strings={[data?.cat_name]} typeSpeed={100} />
         </h2>
       </div>
       <div className="container">
@@ -160,15 +161,13 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
     if (slug === "all") {
       const response = await fetch(
-        `${baseUrl}/${lang}/wp-json/nextquestion/v2/interview-posts`,
-        { next: { revalidate: 10 } }
+        `${baseUrl}/${lang}/wp-json/nextquestion/v2/interview-posts`
       );
       const allPosts = await response.json();
       data = { cat_name: "All", slug: "all", all_posts: allPosts } as ICategory;
     } else {
       const response = await fetch(
-        `${baseUrl}/${lang}/wp-json/nextquestion/v2/category/?slug=${slug}`,
-        { next: { revalidate: 10 } }
+        `${baseUrl}/${lang}/wp-json/nextquestion/v2/category/?slug=${slug}`
       );
       data = (await response.json()) as ICategory;
     }

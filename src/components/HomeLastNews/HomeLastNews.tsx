@@ -8,6 +8,7 @@ import { FirstBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Typed from "react-typed";
 
 function HomeLastNews({ data }: { data: FirstBlock }) {
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -33,23 +34,23 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
     <div className="container pb-[70px]">
       <div className="flex justify-between items-center py-10">
         <div className="font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
-          {data.title}
+          <Typed strings={[data.title]} typeSpeed={100} />
         </div>
         <Link
           href={`/${router.query.lang}/category/all`}
-          className="flex items-center leading-0 font-light text-base leading-5 text-gray-900 font-Din"
+          className="flex items-center leading-0 font-light text-base leading-5 text-gray-900 font-Din group hover:scale-[1.1] transition-all duration-300"
         >
           {t("More")}{" "}
           <Image
             src={shevron}
-            className="ml-4"
+            className="ml-4 group-hover:rotate-[360deg] transition-all duration-300 group-hover:scale-[2]"
             alt="arrow"
             width="5"
             height="10"
           />
         </Link>
       </div>
-      <div className="flex gap-[30px] tb:h-[440px] w-full">
+      <div className="flex gap-[30px] tb:h-[440px] w-full ">
         <Link
           href={`/${router.query.lang}/post/${data.latestNews[0].post_name}`}
           className={`${
@@ -57,34 +58,33 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
             data.latestNews[0].categories[1].slug === "meeting-reports"
               ? "border-b-2 border-orange-600 border-solid"
               : ""
-          } hidden md:flex md:w-1/2 tb:w-2/3 tb:h-full px-[17px] py-[28px] items-end justify-start relative lazy-background`}
+          } group hidden md:flex md:w-1/2 tb:w-2/3 tb:h-full px-[17px] py-[28px] items-end justify-start relative lazy-background bg-cover group-hover:scale-[1.03] transition-all duration-300`}
           style={{
             backgroundImage: `url(${data.latestNews[0].thumbnail})`,
-            backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
-          <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />
+          <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute group-hover:bg-[#1111116c] group-hover:h-full transition-all duration-500" />
           <div className="z-1 relative">
             {(data.latestNews[0].categories[0].slug === "meeting-reports" ||
               data.latestNews[0].categories[1].slug === "meeting-reports") && (
               <div className="font-normal text-lg leading-5 text-orange-600 font-Din">
-                Meeting Reports:
+                {t("Meeting Reports")}:
               </div>
             )}
-            <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1">
+            <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1 group-hover:text-blue-200 transition-all duration-300">
               {data.latestNews[0].post_title}
             </h5>
-            <span className="block font-light text-sm leading-4 text-white font-Din mt-1">
+            <span className="block font-light text-sm leading-4 text-white font-Din mt-1 group-hover:text-blue-200 transition-all duration-300">
               {formatDate(data.latestNews[0].post_date)}
             </span>
             {(data.latestNews[0].categories[0].slug === "meeting-reports" ||
               data.latestNews[0].categories[1].slug === "meeting-reports") && (
-              <div className="font-normal text-lg flex items-center text-white font-Din mt-2">
-                Read the Report{" "}
+              <div className="font-normal text-lg flex items-center text-white font-Din mt-2 group-hover:text-blue-200 transition-all duration-300">
+                {t("Read the Report")}{" "}
                 <Image
                   src={whiteShevron}
-                  className="ml-4"
+                  className="ml-4 group-hover:rotate-[360deg] transition-all duration-300 group-hover:scale-[2]"
                   alt="arrow"
                   width="5"
                   height="10"

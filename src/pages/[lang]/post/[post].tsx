@@ -8,6 +8,7 @@ import { IFollow, IFooter, IHeader, IPost } from "@/services/interface";
 import { useContext, useEffect } from "react";
 import { LayoutContext } from "@/context/LayoutContext";
 import Recomend from "@/components/Recomend/Recomend";
+import Typed from "react-typed";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -40,8 +41,7 @@ const Post: React.FC<PostProps> = ({
     if (!data) return;
     const sendViewsRequest = async () => {
       await fetch(
-        `${baseUrl}/wp-json/nextquestion/v2/views/?postId=${data.ID}`,
-        { next: { revalidate: 10 } }
+        `${baseUrl}/wp-json/nextquestion/v2/views/?postId=${data.ID}`
       );
     };
     sendViewsRequest();
@@ -110,7 +110,7 @@ const Post: React.FC<PostProps> = ({
               data && (
                 <>
                   <h2 className="font-bold text-3xl leading-8 flex items-center text-[#002C47] font-Din">
-                    {data.post_title}
+                    <Typed strings={[data.post_title]} typeSpeed={100} />
                   </h2>
                   <span className="font-light text-base leading-5 flex items-center text-blue-700 font-Din my-[15px]">
                     {data.categories[1]?.cat_name ||

@@ -51,7 +51,7 @@ export default function Search({ closeModal }: { closeModal: () => void }) {
       <div className="relative">
         <input
           className="font-semibold text-base leading-7 capitalize text-[#040303] font-sans w-full h-[40px] mx-auto px-[20px] py-[7px] rounded-[10px] outline-none border focus:border-none bg-[#EBEBEB]"
-          placeholder="Enter search term"
+          placeholder={t("Enter search term")}
           value={searchString}
           onChange={handleInputChange}
         />
@@ -85,7 +85,7 @@ export default function Search({ closeModal }: { closeModal: () => void }) {
           ) : (
             (!firstThreePost || isError) && (
               <div className="w-full h-[300px] justify-center font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
-                No Data
+                {t("No Data")}
               </div>
             )
           )}

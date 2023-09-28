@@ -44,7 +44,6 @@ function Pagination({
     );
 
     if (startPage > 1) {
-      // Include the "1" button before ellipsis
       visiblePages.push(
         <button
           key={generateUniqueId()}
@@ -89,7 +88,6 @@ function Pagination({
         </button>
       );
 
-      // Include the last page button after ellipsis
       visiblePages.push(
         <button
           key={generateUniqueId()}

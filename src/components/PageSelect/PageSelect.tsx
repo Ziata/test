@@ -1,11 +1,12 @@
+import { t } from "i18next";
 import { Dispatch, SetStateAction, useState } from "react";
 import Select, { SingleValue } from "react-select";
 
-const options = [
-  { value: 5, label: "5 items" },
-  { value: 10, label: "10 items" },
-  { value: 20, label: "20 items" },
-  { value: 50, label: "50 items" },
+export const options = [
+  { value: 5, label: "5 " + t("items") },
+  { value: 10, label: "10 " + t("items") },
+  { value: 20, label: "20 " + t("items") },
+  { value: 50, label: "50 " + t("items") },
 ];
 
 function PageSelect({

@@ -8,6 +8,7 @@ import { t } from "i18next";
 import { IFollow, SecondBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
 import { useRouter } from "next/router";
+import Typed from "react-typed";
 
 function HomeSpotlight({
   data,
@@ -64,16 +65,16 @@ function HomeSpotlight({
           <div className="flex w-full gap-[8px] flex-col">
             <div className="flex justify-between items-center w-full h-12">
               <div className="font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
-                {data.category_title}
+                <Typed strings={[data.category_title]} typeSpeed={100} />
               </div>
               <Link
                 href={"/"}
-                className="flex items-center leading-0 font-light text-base leading-5 text-gray-900 font-Din"
+                className="flex items-center leading-0 font-light text-base leading-5 text-gray-900 font-Din group hover:scale-[1.1] transition-all duration-300"
               >
                 {t("More")}{" "}
                 <Image
                   src={shevron}
-                  className="ml-4"
+                  className="ml-4 group-hover:rotate-[360deg] transition-all duration-300 group-hover:scale-[2]"
                   alt="arrow"
                   width="5"
                   height="10"
@@ -84,22 +85,22 @@ function HomeSpotlight({
               <div className="hidden md:block md:w-1/2 tb:w-full">
                 <Link
                   href={`/${router.query.lang}/post/${data.secondBlockPosts[0].post_name}`}
-                  className="w-full h-full p-[30px] flex items-end justify-start relative cursor-pointer"
+                  className="w-full h-full p-[30px] flex items-end justify-start relative cursor-pointer group"
                   style={{
                     backgroundImage: `url("${data.secondBlockPosts[0].thumbnail}")`,
                     backgroundSize: "cover",
                   }}
                 >
-                  <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />
+                  <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute group-hover:bg-[#1111116c] group-hover:h-full transition-all duration-500" />
                   <div className="z-1 relative">
-                    <div className="font-normal text-lg leading-5 text-white font-Din">
+                    <div className="font-normal text-lg leading-5 text-white font-Din group-hover:text-blue-200 transition-all duration-300">
                       {data.secondBlockPosts[0].categories[1]?.cat_name ||
                         data.secondBlockPosts[0].categories[0]?.cat_name}
                     </div>
-                    <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1">
+                    <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1 group-hover:text-blue-200 transition-all duration-300">
                       {data.secondBlockPosts[0].post_title}
                     </h5>
-                    <span className="block font-light text-sm leading-4 text-white font-Din mt-1">
+                    <span className="block font-light text-sm leading-4 text-white font-Din mt-1 group-hover:text-blue-200 transition-all duration-300">
                       {formatDate(data.secondBlockPosts[0].post_date)}
                     </span>
                   </div>

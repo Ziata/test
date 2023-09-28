@@ -14,21 +14,21 @@ function Post({
   const router = useRouter();
 
   return (
-    <div
+    <Link
+      href={`/${router.query.lang}/post/${post.post_name}`}
       className={` ${
         isInterview
           ? "flex-col w-full md:w-[49%]"
-          : "flex-row w-full h-[170px] md:h-[200px] border-b-2 border-solid border-[#CECECE] pb-[20px] my-[20px]"
-      } flex`}
+          : "flex-row w-full h-[170px] md:h-[200px] border-b-2 border-solid border-[#CECECE] pb-[20px] my-[20px] hover:border-[#424242] transition-all duration-300"
+      } flex group`}
     >
-      <Link
-        href={`/${router.query.lang}/post/${post.post_name}`}
+      <div
         className={`${
           isInterview ? "w-full h-[205px]" : "w-1/3 mr-[10px] md:mr-[20px] "
-        } relative cursor-pointer`}
+        } relative cursor-pointer overflow-hidden`}
       >
         <Image
-          className="w-full h-full"
+          className="w-full h-full group-hover:scale-[1.3] transition-all duration-300"
           src={post.thumbnail || "../../static/img/no-image.svg"}
           fill={true}
           alt="image"
@@ -36,7 +36,7 @@ function Post({
           placeholder="blur"
           blurDataURL={blurPlaceholder()}
         />
-      </Link>
+      </div>
       <div className="w-2/3 flex flex-col justify-between">
         <span
           className={` ${
@@ -44,17 +44,16 @@ function Post({
           } font-light text-base leading-5 flex items-center text-blue-700 font-Din`}
         >
           {isInterview
-            ? "James White"
+            ? post.reporter
             : post.categories[1]?.cat_name || post.categories[0]?.cat_name}
         </span>
-        <Link
-          href={`/${router.query.lang}/post/${post.post_name}`}
+        <div
           className={` ${
             isInterview ? "order-1" : "md:mb-[20px]"
-          } cursor-pointer font-bold text-lg leading-5 flex items-center text-[#002C47] font-Din my-[5px] md:mt-[10px] `}
+          } cursor-pointer font-bold text-lg leading-5 flex items-center text-[#002C47] font-Din my-[5px] md:mt-[10px] transition-all duration-300 group-hover:text-blue-700`}
         >
           {post.post_title}
-        </Link>
+        </div>
         {!isInterview && (
           <div className="h-[70px] relative overflow-hidden">
             <div
@@ -75,7 +74,7 @@ function Post({
           <span>{post.post_author}</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
