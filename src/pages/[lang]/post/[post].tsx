@@ -115,7 +115,7 @@ const Post: React.FC<PostProps> = ({
                     <Typed
                       showCursor={false}
                       strings={[data.post_title]}
-                      typeSpeed={70}
+                      typeSpeed={40}
                       typedRef={(typed: any) => {
                         typedRef.current = typed;
                       }}
