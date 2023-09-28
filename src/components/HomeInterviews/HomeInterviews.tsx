@@ -33,7 +33,7 @@ function HomeInterviews({ data }: { data: FourthBlock }) {
     >
       <div className="container flex justify-between items-center pb-[40px]">
         <div className="font-light text-2xl leading-7 flex items-center text-[#fff] font-Din">
-          <Typed strings={[data.title]} typeSpeed={100} />
+          <Typed showCursor={false} strings={[data.title]} typeSpeed={100} />
         </div>
         <Link
           href={`/${router.query.lang}/category/people`}

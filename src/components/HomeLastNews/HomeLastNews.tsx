@@ -34,7 +34,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
     <div className="container pb-[70px]">
       <div className="flex justify-between items-center py-10">
         <div className="font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
-          <Typed strings={[data.title]} typeSpeed={100} />
+          <Typed showCursor={false} strings={[data.title]} typeSpeed={100} />
         </div>
         <Link
           href={`/${router.query.lang}/category/all`}

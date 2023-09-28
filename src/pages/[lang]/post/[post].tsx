@@ -5,7 +5,7 @@ import test from "static/img/test.png";
 import YouTube from "react-youtube";
 import { GetServerSideProps } from "next";
 import { IFollow, IFooter, IHeader, IPost } from "@/services/interface";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { LayoutContext } from "@/context/LayoutContext";
 import Recomend from "@/components/Recomend/Recomend";
 import Typed from "react-typed";
@@ -28,6 +28,7 @@ const Post: React.FC<PostProps> = ({
   followData,
 }) => {
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
+  const typedRef = useRef(null) as any;
 
   useEffect(() => {
     setHeaderData(headerData); // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,6 +46,7 @@ const Post: React.FC<PostProps> = ({
       );
     };
     sendViewsRequest();
+    typedRef.current && typedRef.current.reset();
   }, [data]);
 
   const extractSrcFromIframe = (iframeString: string) => {
@@ -110,7 +112,14 @@ const Post: React.FC<PostProps> = ({
               data && (
                 <>
                   <h2 className="font-bold text-3xl leading-8 flex items-center text-[#002C47] font-Din">
-                    <Typed strings={[data.post_title]} typeSpeed={100} />
+                    <Typed
+                      showCursor={false}
+                      strings={[data.post_title]}
+                      typeSpeed={70}
+                      typedRef={(typed: any) => {
+                        typedRef.current = typed;
+                      }}
+                    />
                   </h2>
                   <span className="font-light text-base leading-5 flex items-center text-blue-700 font-Din my-[15px]">
                     {data.categories[1]?.cat_name ||

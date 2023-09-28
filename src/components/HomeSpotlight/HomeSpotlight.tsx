@@ -65,7 +65,11 @@ function HomeSpotlight({
           <div className="flex w-full gap-[8px] flex-col">
             <div className="flex justify-between items-center w-full h-12">
               <div className="font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
-                <Typed strings={[data.category_title]} typeSpeed={100} />
+                <Typed
+                  showCursor={false}
+                  strings={[data.category_title]}
+                  typeSpeed={100}
+                />
               </div>
               <Link
                 href={"/"}
