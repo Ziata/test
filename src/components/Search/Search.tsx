@@ -8,6 +8,7 @@ import Loader from "@/components/Loader/Loader";
 import { IPost } from "@/services/interface";
 import { truncateText } from "@/utils";
 import { SearchContext } from "@/context/SearchContext";
+import Link from "next/link";
 
 function stripHTMLTags(text: string): string {
   return text.replace(/(<([^>]+)>)/gi, "");
@@ -71,7 +72,11 @@ export default function Search({ closeModal }: { closeModal: () => void }) {
             <Loader customClass="w-20 h-20 mx-auto" />
           ) : firstThreePost.length > 0 ? (
             firstThreePost.map((post: IPost) => (
-              <div key={post.ID} className="mt-[20px]">
+              <Link
+                href={`/${router.query.lang}/post/${post.post_name}`}
+                key={post.ID}
+                className="mt-[20px] block"
+              >
                 <h6 className="text-lg leading-5 font-Din text-[#323232] font-bold mb-[10px]">
                   {highlightText(post.post_title, searchString)}
                 </h6>
@@ -81,7 +86,7 @@ export default function Search({ closeModal }: { closeModal: () => void }) {
                     searchString
                   )}
                 </p>
-              </div>
+              </Link>
             ))
           ) : (
             (!firstThreePost || isError) && (

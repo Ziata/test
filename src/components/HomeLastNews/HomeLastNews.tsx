@@ -72,7 +72,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
                 {t("Meeting Reports")}:
               </div>
             ) : (
-              <div className="font-normal text-lg leading-5 text-blue-500 font-Din">
+              <div className="font-normal text-lg leading-5 text-white font-Din group-hover:text-blue-200 transition-all duration-300">
                 {data.latestNews[0]?.categories[1]?.cat_name ||
                   data.latestNews[0].categories[0].cat_name}
               </div>

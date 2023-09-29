@@ -2,7 +2,7 @@ import { useGetSearchQuery } from "@/services/api";
 import { IPost } from "@/services/interface";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import { useRouter } from "next/router";
-import React, { ReactNode, createContext, useState } from "react";
+import React, { ReactNode, createContext, useEffect, useState } from "react";
 
 interface SearchtProps {
   data: IPost[] | undefined;
@@ -33,7 +33,13 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <SearchContext.Provider
-      value={{ data, isLoading, isError, searchString, setSearchString }}
+      value={{
+        data: isError ? [] : data,
+        isLoading,
+        isError,
+        searchString,
+        setSearchString,
+      }}
     >
       {children}
     </SearchContext.Provider>

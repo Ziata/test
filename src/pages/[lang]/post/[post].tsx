@@ -63,13 +63,16 @@ const Post: React.FC<PostProps> = ({
       ) : (
         data?.interview_audio && (
           <div
-            className="w-full flex items-center justify-center container h-[270px] md:h-[400px]"
+            className="w-full flex flex-col items-center justify-evenly container h-[270px] md:h-[400px]"
             style={{
               backgroundImage: `url('${data.thumbnail}')`,
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
             }}
           >
+            <h2 className="font-bold text-3xl leading-8 flex items-center text-white font-Din">
+              {data.post_title}
+            </h2>
             <iframe
               allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
               height="175"

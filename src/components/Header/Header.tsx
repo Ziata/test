@@ -19,7 +19,7 @@ export default function Header() {
   const router = useRouter();
 
   const handleResize = () => {
-    setIsMobile(window.innerWidth <= 768);
+    setIsMobile(false);
   };
 
   useEffect(() => {
