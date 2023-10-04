@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { ThirdBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function HomeDaily({ data }: { data: ThirdBlock }) {
   const router = useRouter();
@@ -52,7 +52,7 @@ function HomeDaily({ data }: { data: ThirdBlock }) {
 
   return (
     <div className="w-full py-[50px] overflow-hidden">
-      <div className="font-light text-2xl leading-7 flex items-center text-gray-900 font-Din w-full justify-center mb-[30px]">
+      <div className="font-light text-2xl leading-7 flex items-center text-[#002c47] font-Din w-full justify-center mb-[30px]">
         {data.title}
       </div>
       <Slider {...settings}>
@@ -62,11 +62,11 @@ function HomeDaily({ data }: { data: ThirdBlock }) {
             className="!w-[290px] !h-[416px] md:!w-[350px] mx-[10px]"
           >
             <div
-              className="w-full h-full p-[30px] flex items-end justify-start relative"
+              className="w-full h-full p-[30px] flex items-end justify-start relative hover:scale-[1.03] transition-all duration-300 cursor-pointer"
               onClick={(event) => handleSlideClick(event, post.post_name)}
               style={{
                 pointerEvents: allowLinkClick ? "auto" : "none",
-                backgroundImage: `url("static/img/test.png")`,
+                backgroundImage: `url("${post.thumbnail}")`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -74,7 +74,7 @@ function HomeDaily({ data }: { data: ThirdBlock }) {
               <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />
               <div className="z-1 relative">
                 <div className="font-normal text-lg leading-5 text-white font-Din">
-                  {post.post_title}
+                  {post.categories[1]?.cat_name || post.categories[0]?.cat_name}
                 </div>
                 <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1">
                   {post.post_title}

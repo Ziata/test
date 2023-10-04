@@ -20,14 +20,14 @@ function Tabs({
               subcategory.name === selectedSubcategory
                 ? "font-bold underline"
                 : ""
-            }  text-base leading-5 flex items-center font-Din text-[#33566C] hover:text-[#0071BC] transition-all duration-300`}
+            }  text-base leading-5 flex items-center font-Din text-[#002c47] hover:text-[#0071BC] transition-all duration-300`}
             onClick={() => onSubcategoryClick(subcategory.name)}
           >
             {subcategory.name}
             {}
           </button>
           {index !== subcategories.length - 1 && (
-            <span className="text-base leading-5 flex items-center font-Din text-[#33566C] hover:text-[#0071BC] transition-all duration-300">
+            <span className="text-base leading-5 flex items-center font-Din text-[#002c47] hover:text-[#0071BC] transition-all duration-300">
               |
             </span>
           )}

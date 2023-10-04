@@ -113,13 +113,13 @@ const Contact: React.FC<PageProps> = ({
       </div>
       <div className="container">
         <div className="md:p-[30px] py-[20px] bg-white md:-mt-[70px] flex w-full flex-col tb:flex-row">
-          <div className="tb:mr-[50px] w-full font-light text-lg leading-6 font-Din text-[#363636]">
+          <div className="tb:mr-[50px] w-full font-light text-lg leading-6 font-Din text-[#002c47]">
             <div
               className="text-content"
               dangerouslySetInnerHTML={{ __html: data?.content }}
             />
             <div className="flex flex-col md:flex-row items-center mt-[30px] gap-[15px] md:gap-[50px]">
-              <label className="font-light text-lg leading-6 text-[#040303] w-full md:w-1/3 font-Din pl-[15px]">
+              <label className="font-light text-lg leading-6 text-[#002c47] w-full md:w-1/3 font-Din pl-[15px]">
                 {t("Name")}
                 <input
                   className="bg-[#EBEBEB] rounded-[10px] h-[45px] w-full font-Din mt-[10px] outline-none border focus:border-none px-[10px] -ml-[15px]"
@@ -127,7 +127,7 @@ const Contact: React.FC<PageProps> = ({
                   onChange={handleNameChange}
                 />
               </label>
-              <label className="font-light text-lg leading-6 text-[#040303] w-full md:w-1/3 font-Din pl-[15px]">
+              <label className="font-light text-lg leading-6 text-[#002c47] w-full md:w-1/3 font-Din pl-[15px]">
                 {t("Email")}
                 <input
                   className="bg-[#EBEBEB] rounded-[10px] h-[45px] w-full font-Din mt-[10px] outline-none border focus:border-none px-[10px] -ml-[15px]"
@@ -135,13 +135,13 @@ const Contact: React.FC<PageProps> = ({
                   onChange={handleEmailChange}
                 />
               </label>
-              <div className="font-light text-lg leading-6 text-[#040303] w-full md:w-1/3 font-Din pl-[15px]">
+              <div className="font-light text-lg leading-6 text-[#002c47] w-full md:w-1/3 font-Din pl-[15px]">
                 {t("Type of Enquiry")}
                 <ContactSelect setType={setType} />
               </div>
             </div>
             <div className="flex flex-col md:flex-row mt-[15px] md:mt-[50px] gap-[15px] md:gap-[50px]">
-              <label className="font-light text-lg leading-6 text-[#040303] w-full md:w-2/3 font-Din pl-[15px]">
+              <label className="font-light text-lg leading-6 text-[#002c47] w-full md:w-2/3 font-Din pl-[15px]">
                 {t("Message")}
                 <textarea
                   className="bg-[#EBEBEB] rounded-[10px] w-full font-Din mt-[10px] outline-none border focus:border-none p-[10px] -ml-[15px]"

@@ -39,16 +39,16 @@ function SmallPostCard({
             post?.categories[1]?.slug === "meeting-reports"
               ? "text-orange-600"
               : ""
-          } font-light text-base leading-5 flex items-center text-blue-700 font-Din whitespace-nowrap overflow-clip`}
+          } font-light text-base leading-[0.8] flex items-center text-[#0071BC] font-Din whitespace-nowrap overflow-clip`}
         >
           {post.interview_audio || post.youtube_url
             ? post?.reporter
             : post.categories[1]?.cat_name || post.categories[0]?.cat_name}
         </span>
-        <h6 className="text-lg leading-5 flex text-gray-900  transition-all duration-300 group-hover:text-blue-700 font-Din font-bold max-h-[2.4rem] overflow-clip">
+        <h6 className="text-lg leading-5 flex text-[#002c47] transition-all duration-300 font-Din font-bold max-h-[2.4rem] overflow-clip">
           {post?.post_title && post.post_title}
         </h6>
-        <span className="font-light text-sm leading-4 flex items-center text-[#33566C] font-Din mt-[2px]">
+        <span className="font-light text-sm leading-[0.8] flex items-center text-[#33566c] font-Din">
           {formatDate(post?.post_date)}
         </span>
       </div>

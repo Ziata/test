@@ -17,8 +17,9 @@ function HomeSpotlight({
   followData: IFollow;
 }) {
   const [isMobile, setIsMobile] = useState<boolean>(false);
-
   const router = useRouter();
+
+  const currentLanguage = router.query.lang as string;
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
@@ -49,26 +50,30 @@ function HomeSpotlight({
     <div>
       <div
         style={backgroundImageStyle}
-        className="flex items-center justify-center flex-col"
+        className="flex items-center justify-center flex-col relative"
       >
-        <h3 className="text-[26px] md:text-5xl text-white font-Din font-bold text-center">
+        <div
+          className={`bg-[#000] absolute w-full h-full`}
+          style={{ opacity: data.background_image_opacity }}
+        />
+        <h3 className="text-[26px] md:text-5xl text-white font-Din font-bold text-center relative">
           {data.title}
         </h3>
         <span
-          className="font-[200] text-[24px] md:text-2xl leading-7 flex items-center text-center text-white font-Din mt-[30px] md:mb-[50px]"
+          className="font-[200] text-[24px] md:text-2xl leading-7 flex items-center text-center text-white font-Din mt-[30px] md:mb-[50px] relative"
           dangerouslySetInnerHTML={{ __html: data.subtitle }}
-        ></span>
+        ></span>{" "}
       </div>
       <div className="container bg-[#fff] md:bg-transperent">
-        <div className="flex flex-col tb:flex-row w-full gap-[30px] bg-white md:-mt-[70px] py-[10px] md:px-0 md:p-[30px] tb:h-[690px]">
+        <div className="flex flex-col tb:flex-row w-full gap-[30px] bg-white md:-mt-[70px] py-[10px] md:p-[30px] tb:h-[690px] relative z-1 ">
           <div className="flex w-full gap-[8px] flex-col">
             <div className="flex justify-between items-center w-full h-12">
-              <div className="font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
+              <div className="font-light text-2xl leading-7 flex items-center text-[#002c47] font-Din">
                 {data.category_title}
               </div>
               <Link
-                href={"/"}
-                className="flex items-center leading-0 font-light text-base leading-5 text-gray-900 font-Din group hover:scale-[1.1] transition-all duration-300"
+                href={`/${currentLanguage}/category/nextquestion-spotlight`}
+                className="flex items-center leading-0 font-light text-base leading-5 text-[#002c47] font-Din group hover:scale-[1.1] transition-all duration-300"
               >
                 {t("More")}{" "}
                 <Image

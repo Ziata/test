@@ -87,7 +87,7 @@ const Search: React.FC<PageProps> = ({
       >
         <div className="max-w-[600px] relative w-full px-2 -mt-[50px]">
           <input
-            className="font-semibold text-base leading-7 capitalize text-[#040303] font-sans w-full h-[40px] mx-auto px-[20px] py-[7px] rounded-[10px] outline-none border focus:border-none bg-[#EBEBEB]"
+            className="font-semibold text-base leading-7 capitalize text-[#002c47] font-sans w-full h-[40px] mx-auto px-[20px] py-[7px] rounded-[10px] outline-none border focus:border-none bg-[#EBEBEB]"
             placeholder={`${data.placeholder_for_search_input}`}
             value={searchString}
             onChange={handleInputChange}

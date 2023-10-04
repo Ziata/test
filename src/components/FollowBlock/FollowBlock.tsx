@@ -23,14 +23,14 @@ function FollowBlock({ followData }: { followData: IFollow }) {
         <div className="flex flex-col justify-between bg-[#fff] p-[20px] gap-[18px] h-full">
           {followData && (
             <>
-              <h4 className="font-light text-center text-2xl leading-7 text-gray-900 font-Din w-full">
+              <h4 className="font-light text-center text-2xl leading-7 text-[#002c47] font-Din w-full">
                 {followData.title_follow_next_question}
               </h4>
               {followData.social_media_list.map((link) => (
                 <Link
                   key={generateUniqueId()}
                   href={link.url}
-                  className="font-light text-sm leading-4 flex items-center font-Din text-[#33566C] pb-[20px] border-b-2 border-solid border-[#E5E5E5] transition-all duration-300 hover:text-blue-700 hover:text-[18px]"
+                  className="font-light text-sm leading-4 flex items-center font-Din text-[#002c47] pb-[20px] border-b-2 border-solid border-[#E5E5E5] transition-all duration-300 hover:text-blue-700 hover:text-[18px]"
                 >
                   <Image
                     src={link.icon_image.url}

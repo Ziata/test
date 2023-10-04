@@ -6,6 +6,7 @@ import { IFollow, IFooter, IHeader, IPost } from "@/services/interface";
 import { useContext, useEffect, useRef } from "react";
 import { LayoutContext } from "@/context/LayoutContext";
 import Recomend from "@/components/Recomend/Recomend";
+import { t } from "i18next";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -56,28 +57,41 @@ const Post: React.FC<PostProps> = ({
   return (
     <>
       {data?.youtube_url ? (
-        <YouTube
-          videoId={data.youtube_url}
-          iframeClassName={"w-full h-[250px] md:h-[600px]"}
-        />
+        <div className="w-full h-[250px] md:h-[500px] relative">
+          <video
+            className="w-full h-[250px] md:h-[500px] object-cover"
+            src={data?.background_video_file.url}
+            autoPlay
+            loop
+            muted
+          />
+          <button className="font-normal text-[18px] md:text-lg leading-0 text-white font-Din flex flex-row justify-center items-center bg-[#0071BC] w-full max-w-[230px] h-[40px] md:h-[60px] rounded-[50px] mt-[20px] md:mt-0 md:mr-[40px] transition-all duration-300 hover:bg-[#0081DA] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            {t("Watch the video")}
+          </button>
+        </div>
       ) : (
         data?.interview_audio && (
           <div
-            className="w-full flex flex-col items-center justify-evenly container h-[270px] md:h-[400px]"
+            className="w-full flex flex-col items-center justify-evenly container h-[370px] md:h-[600px]"
             style={{
               backgroundImage: `url('${data.thumbnail}')`,
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
             }}
           >
-            <h2 className="font-bold text-3xl leading-8 flex items-center text-white font-Din">
+            <h4 className="font-bold text-2xl leading-8 flex items-center text-white font-Din md:-mb-[50px]">
+              {data.categories[1]?.cat_name || data.categories[0]?.cat_name}
+            </h4>
+            <h2 className="font-bold text-3xl leading-8 flex items-center text-white font-Din text-center">
               {data.post_title}
             </h2>
+
             <iframe
               allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
               height="175"
               style={{
-                width: "400px",
+                width: "100%",
+                maxWidth: "400px",
                 overflow: "hidden",
                 borderRadius: "10px",
                 height: "200px",
@@ -99,7 +113,7 @@ const Post: React.FC<PostProps> = ({
         >
           <div className="tb:mr-[30px] w-full">
             {data?.interview_audio || data?.youtube_url ? (
-              <div className="font-light text-[12px] md:text-[18px] leading-4 flex items-center font-Din text-[#33566C] gap-[4px] md:gap-[10px] mb-[20px]">
+              <div className="font-light text-[12px] md:text-[18px] leading-4 flex items-center font-Din text-[#002c47] gap-[4px] md:gap-[10px] mb-[20px]">
                 <span>{formatDate(data.post_date)}</span>
                 {data.interviewer && (
                   <>
@@ -117,17 +131,17 @@ const Post: React.FC<PostProps> = ({
             ) : (
               data && (
                 <>
-                  <h2 className="font-bold text-3xl leading-8 flex items-center text-[#002C47] font-Din">
+                  <h2 className="font-bold text-3xl leading-8 flex items-center text-[#002c47] font-Din">
                     {data.post_title}
                   </h2>
-                  <span className="font-light text-base leading-5 flex items-center text-blue-700 font-Din my-[15px]">
+                  <span className="font-light text-base leading-5 flex items-center text-[#0071BC] font-Din my-[15px]">
                     {data.categories[1]?.cat_name ||
                       data.categories[0]?.cat_name}
                   </span>
                   <div className="font-light text-[12px] md:text-sm leading-4 flex items-center font-Din text-[#33566C] gap-[4px] md:gap-[8px]">
                     <span>{formatDate(data.post_date)}</span>
                     <span>|</span>
-                    <span>By {data.post_author}</span>
+                    <span>By {data.author_name}</span>
                   </div>
                   <div
                     className="relative w-full my-[20px] h-[350px] bg-center"
@@ -142,7 +156,7 @@ const Post: React.FC<PostProps> = ({
             )}
             {data && (
               <div
-                className="font-light text-lg leading-6 items-center font-Din text-[#363636] text-content"
+                className="font-light text-lg leading-6 items-center font-Din text-[#002c47] text-content"
                 dangerouslySetInnerHTML={{ __html: data.post_content }}
               />
             )}

@@ -34,7 +34,7 @@ export default function Menu({
             key={generateUniqueId()}
             onClick={() => setIsOpen(false)}
             className={`font-Din font-bold text-base capitalize ${
-              isActive ? "text-[#0071BC]" : "text-black"
+              isActive ? "text-[#0071BC]" : "text-[#002c47]"
             } transition-all duration-300 hover:text-[#0071BC]`}
           >
             {item.category_name}

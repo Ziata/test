@@ -29,7 +29,7 @@ function PageSelect({
   };
 
   return (
-    <div className="flex items-center font-normal text-base leading-5 text-[#002C47] font-Din">
+    <div className="flex items-center font-normal text-base leading-5 text-[#002c47] font-Din">
       Show{" "}
       <Select
         instanceId="react-select-instance"

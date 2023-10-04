@@ -38,7 +38,7 @@ const About: React.FC<PageProps> = ({
       <div className="container">
         <div className="md:p-[30px] py-[20px] bg-white md:-mt-[70px] flex w-full flex-col tb:flex-row">
           <div
-            className="tb:mr-[30px] w-full font-light text-lg leading-6 font-Din text-[#363636] text-content"
+            className="tb:mr-[30px] w-full font-light text-lg leading-6 font-Din text-[#002c47] text-content"
             dangerouslySetInnerHTML={{ __html: data.content }}
           />
           <div className="w-full flex flex-col-reverse md:flex-row justify-between tb:block tb:w-[360px] tb:min-w-[300px]">

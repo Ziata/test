@@ -47,11 +47,17 @@ export default function Search({ closeModal }: { closeModal: () => void }) {
     });
   };
 
+  const redirect = (post: IPost) => {
+    router.push(`/${currentLanguage}/post/${post.post_name}`).then(() => {
+      closeModal();
+    });
+  };
+
   return (
     <div className="md:w-[650px] min-w-[300px] mx-[10px]">
       <div className="relative">
         <input
-          className="font-semibold text-base leading-7 capitalize text-[#040303] font-sans w-full h-[40px] mx-auto px-[20px] py-[7px] rounded-[10px] outline-none border focus:border-none bg-[#EBEBEB]"
+          className="font-semibold text-base leading-7 capitalize text-[#002c47] font-sans w-full h-[40px] mx-auto px-[20px] py-[7px] rounded-[10px] outline-none border focus:border-none bg-[#EBEBEB]"
           placeholder={t("Enter search term")}
           value={searchString}
           autoFocus
@@ -72,25 +78,25 @@ export default function Search({ closeModal }: { closeModal: () => void }) {
             <Loader customClass="w-20 h-20 mx-auto" />
           ) : firstThreePost.length > 0 ? (
             firstThreePost.map((post: IPost) => (
-              <Link
-                href={`/${router.query.lang}/post/${post.post_name}`}
+              <div
+                onClick={() => redirect(post)}
                 key={post.ID}
-                className="mt-[20px] block"
+                className="mt-[20px] block cursor-pointer"
               >
-                <h6 className="text-lg leading-5 font-Din text-[#323232] font-bold mb-[10px]">
+                <h6 className="text-lg leading-5 font-Din text-[#002c47] font-bold mb-[10px]">
                   {highlightText(post.post_title, searchString)}
                 </h6>
-                <p className="font-light text-lg leading-6 text-[#323232] font-Din">
+                <p className="font-light text-lg leading-6 text-[#002c47] font-Din">
                   {highlightText(
                     truncateText(post.post_content, 1500),
                     searchString
                   )}
                 </p>
-              </Link>
+              </div>
             ))
           ) : (
             (!firstThreePost || isError) && (
-              <div className="w-full h-[300px] justify-center font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
+              <div className="w-full h-[300px] justify-center font-light text-2xl leading-7 flex items-center text-[#002c47] font-Din">
                 {t("No Data")}
               </div>
             )
@@ -99,7 +105,7 @@ export default function Search({ closeModal }: { closeModal: () => void }) {
             <div className="w-full justify-end flex">
               <button
                 onClick={clickMore}
-                className="flex items-center leading-0 font-light text-base leading-5 text-[#323232] font-Din mt-[20px]"
+                className="flex items-center leading-0 font-light text-base leading-5 text-[#002c47] font-Din mt-[20px]"
               >
                 {t("More")}{" "}
                 <Image

@@ -13,7 +13,7 @@ import {
   IPost,
 } from "@/services/interface";
 import { GetServerSideProps } from "next";
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -36,10 +36,6 @@ const Category: React.FC<CategoryProps> = ({
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>(
     data.cat_name
   );
-
-  useEffect(() => {
-    console.log(data); // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
 
   useEffect(() => {
     setSelectedSubcategory(data.cat_name);
@@ -72,13 +68,14 @@ const Category: React.FC<CategoryProps> = ({
     setCurrentPage(1);
   }, [data.cat_name]);
 
-  const filteredPosts = selectedSubcategory
-    ? currentPosts?.filter((post) =>
-        post.categories.some(
-          (category) => category.name === selectedSubcategory
+  const filteredPosts =
+    selectedSubcategory && data.cat_name !== "All"
+      ? currentPosts?.filter((post) =>
+          post.categories.some(
+            (category) => category.name === selectedSubcategory
+          )
         )
-      )
-    : currentPosts;
+      : currentPosts;
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -122,7 +119,7 @@ const Category: React.FC<CategoryProps> = ({
                   />
                 ))
               ) : (
-                <div className="w-full h-[300px] justify-center font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
+                <div className="w-full h-[300px] justify-center font-light text-2xl leading-7 flex items-center text-[#002c47] font-Din">
                   No Data
                 </div>
               )}
@@ -164,7 +161,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
     if (slug === "all") {
       const response = await fetch(
-        `${baseUrl}/${lang}/wp-json/nextquestion/v2/interview-posts`
+        `${baseUrl}/${lang}/wp-json/nextquestion/v2/all-posts`
       );
       const allPosts = await response.json();
       data = { cat_name: "All", slug: "all", all_posts: allPosts } as ICategory;

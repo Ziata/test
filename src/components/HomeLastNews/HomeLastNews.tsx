@@ -32,12 +32,12 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
   return (
     <div className="container pb-[70px]">
       <div className="flex justify-between items-center py-10">
-        <div className="font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
+        <div className="font-light text-2xl leading-7 flex items-center text-[#002c47] font-Din">
           {data.title}
         </div>
         <Link
           href={`/${router.query.lang}/category/all`}
-          className="flex items-center leading-0 font-light text-base leading-5 text-gray-900 font-Din group hover:scale-[1.1] transition-all duration-300"
+          className="flex items-center leading-0 font-light text-base leading-5 text-[#002c47] font-Din group hover:scale-[1.1] transition-all duration-300"
         >
           {t("More")}{" "}
           <Image
@@ -49,15 +49,15 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
           />
         </Link>
       </div>
-      <div className="flex gap-[30px] tb:h-[440px] w-full ">
+      <div className="flex gap-[30px] tb:h-[440px] w-full">
         <Link
           href={`/${router.query.lang}/post/${data.latestNews[0].post_name}`}
           className={`${
-            data.latestNews[0].categories[0].slug === "meeting-reports" ||
-            data.latestNews[0].categories[1].slug === "meeting-reports"
+            data.latestNews[0]?.categories[0]?.slug === "meeting-reports" ||
+            data.latestNews[0]?.categories[1]?.slug === "meeting-reports"
               ? "border-b-2 border-orange-600 border-solid"
               : ""
-          } group hidden md:flex md:w-1/2 tb:w-2/3 tb:h-full px-[17px] py-[28px] items-end justify-start relative lazy-background bg-cover group-hover:scale-[1.03] transition-all duration-300`}
+          } group hidden md:flex md:w-1/2 tb:w-2/3 tb:h-full px-[17px] py-[28px] items-end justify-start relative lazy-background bg-cover transition-all duration-300 hover:scale-[1.02]`}
           style={{
             backgroundImage: `url(${data.latestNews[0].thumbnail})`,
             backgroundPosition: "center",
@@ -66,26 +66,27 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
           <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />
           <div className="gradient-background opacity-0 w-full h-full bottom-0 left-0 !absolute bg-[#4e4e4e33] group-hover:opacity-100 group-hover:h-full transition-all duration-300" />
           <div className="z-1 relative">
-            {data.latestNews[0].categories[0].slug === "meeting-reports" ||
-            data.latestNews[0].categories[1].slug === "meeting-reports" ? (
+            {data.latestNews[0]?.categories[0]?.slug === "meeting-reports" ||
+            data.latestNews[0]?.categories[1]?.slug === "meeting-reports" ? (
               <div className="font-normal text-lg leading-5 text-orange-600 font-Din">
                 {t("Meeting Reports")}:
               </div>
             ) : (
-              <div className="font-normal text-lg leading-5 text-white font-Din group-hover:text-blue-200 transition-all duration-300">
+              <div className="font-normal text-lg leading-5 text-white font-Din transition-all duration-300">
                 {data.latestNews[0]?.categories[1]?.cat_name ||
-                  data.latestNews[0].categories[0].cat_name}
+                  data.latestNews[0]?.categories[0]?.cat_name}
               </div>
             )}
-            <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1 group-hover:text-blue-200 transition-all duration-300">
+            <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1  transition-all duration-300">
               {data.latestNews[0].post_title}
             </h5>
-            <span className="block font-light text-sm leading-4 text-white font-Din mt-1 group-hover:text-blue-200 transition-all duration-300">
+            <span className="block font-light text-sm leading-4 text-white font-Din mt-1 transition-all duration-300">
               {formatDate(data.latestNews[0].post_date)}
             </span>
-            {(data.latestNews[0].categories[0].slug === "meeting-reports" ||
-              data.latestNews[0].categories[1].slug === "meeting-reports") && (
-              <div className="font-normal text-lg flex items-center text-white font-Din mt-2 group-hover:text-blue-200 transition-all duration-300">
+            {(data.latestNews[0]?.categories[0]?.slug === "meeting-reports" ||
+              data.latestNews[0]?.categories[1]?.slug ===
+                "meeting-reports") && (
+              <div className="font-normal text-lg flex items-center text-white font-Din mt-2 transition-all duration-300">
                 {t("Read the Report")}{" "}
                 <Image
                   src={whiteShevron}

@@ -70,7 +70,7 @@ function HomeInterviews({ data }: { data: FourthBlock }) {
                 <div className="font-normal text-[18px] md:text-2xl leading-7 flex w-full flex-col-reverse md:flex-row items-center text-white font-Din">
                   <Link
                     href={`/${router.query.lang}/post/${post.post_name}`}
-                    className="font-normal text-[18px] md:text-lg leading-0 text-white font-Din flex flex-row justify-center items-center bg-[#0071BC] w-full max-w-[230px] h-[60px] rounded-[50px] mt-[20px] md:mt-0 md:mr-[40px] transition-all duration-300 hover:bg-[#001cbc]"
+                    className="font-normal text-[18px] md:text-lg leading-0 text-white font-Din flex flex-row justify-center items-center bg-[#0071BC] w-full max-w-[230px] h-[60px] rounded-[50px] mt-[20px] md:mt-0 md:mr-[40px] transition-all duration-300 hover:bg-[#0081DA]"
                   >
                     {data.fourth_block_button_name}
                   </Link>

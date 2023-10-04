@@ -3,6 +3,7 @@ import { blurPlaceholder, formatDate, truncateText } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 function Post({
   post,
@@ -39,9 +40,12 @@ function Post({
       </div>
       <div className="w-2/3 flex flex-col justify-between">
         <span
-          className={` ${
-            isInterview && "order-2 mb-[5px]"
-          } font-light text-base leading-5 flex items-center text-blue-700 font-Din`}
+          className={` ${isInterview && "order-2 mb-[5px]"} ${
+            post.categories[1]?.cat_name === "Meeting Reports" ||
+            post.categories[0]?.cat_name === "Meeting Reports"
+              ? "text-[#f05022]"
+              : "text-[#0071BC]"
+          } font-light text-base leading-5 flex items-center font-Din`}
         >
           {isInterview
             ? post.reporter
@@ -50,14 +54,14 @@ function Post({
         <div
           className={` ${
             isInterview ? "order-1" : "md:mb-[20px]"
-          } cursor-pointer font-bold text-lg leading-5 flex items-center text-[#002C47] font-Din my-[5px] md:mt-[10px] transition-all duration-300 group-hover:text-blue-700`}
+          } cursor-pointer font-bold text-lg leading-5 flex items-center text-[#002c47] font-Din my-[5px] md:mt-[10px] transition-all duration-300`}
         >
           {post.post_title}
         </div>
         {!isInterview && (
           <div className="h-[70px] relative overflow-hidden">
             <div
-              className="font-light text-[14px] md:text-[18px] leading-[1.3rem] md:leading-6 font-Din text-[#363636]"
+              className="font-light text-[14px] md:text-[18px] leading-[1.3rem] md:leading-6 font-Din text-[#002c47]"
               dangerouslySetInnerHTML={{
                 __html: truncateText(post.post_content, 240),
               }}
@@ -67,11 +71,11 @@ function Post({
         <div
           className={` ${
             isInterview && "order-3"
-          } font-light  text-[12px] md:text-sm leading-4 flex items-center font-Din text-[#33566C] gap-[4px] md:gap-[8px]`}
+          } font-light  text-[12px] md:text-sm leading-4 flex items-center font-Din text-[#33566c] gap-[4px] md:gap-[8px]`}
         >
           <span>{formatDate(post.post_date)}</span>
           <span>|</span>
-          <span>{post.post_author}</span>
+          <span>{post.author_name}</span>
         </div>
       </div>
     </Link>

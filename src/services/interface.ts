@@ -127,6 +127,7 @@ export interface SecondBlock {
   category_title: string;
   right_image: Image;
   secondBlockPosts: IPost[];
+  background_image_opacity: string;
 }
 
 export interface BackgroundImage {
@@ -213,6 +214,10 @@ export interface IPost {
   views: number;
   reporter?: string;
   interviewer?: string;
+  author_name?: string;
+  background_video_file: {
+    url: string;
+  };
 }
 
 export interface ThirdBlock {
