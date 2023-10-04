@@ -7,6 +7,7 @@ import { useContext, useEffect, useRef } from "react";
 import { LayoutContext } from "@/context/LayoutContext";
 import Recomend from "@/components/Recomend/Recomend";
 import { t } from "i18next";
+import Link from "next/link";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -65,9 +66,12 @@ const Post: React.FC<PostProps> = ({
             loop
             muted
           />
-          <button className="font-normal text-[18px] md:text-lg leading-0 text-white font-Din flex flex-row justify-center items-center bg-[#0071BC] w-full max-w-[230px] h-[40px] md:h-[60px] rounded-[50px] mt-[20px] md:mt-0 md:mr-[40px] transition-all duration-300 hover:bg-[#0081DA] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <Link
+            href={data?.youtube_url}
+            className="font-normal text-[18px] md:text-lg leading-0 text-white font-Din flex flex-row justify-center items-center bg-[#0071BC] w-full max-w-[230px] h-[40px] md:h-[60px] rounded-[50px] mt-[20px] md:mt-0 md:mr-[40px] transition-all duration-300 hover:bg-[#0081DA] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          >
             {t("Watch the video")}
-          </button>
+          </Link>
         </div>
       ) : (
         data?.interview_audio && (
