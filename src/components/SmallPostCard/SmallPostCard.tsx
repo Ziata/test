@@ -39,16 +39,14 @@ function SmallPostCard({
             post?.categories[1]?.slug === "meeting-reports"
               ? "text-orange-600"
               : ""
-          } font-light text-base leading-[0.8] flex items-center text-[#0071BC] font-Din whitespace-nowrap overflow-clip`}
+          } h-[18px] font-light leading-[0.8] text-base flex items-center text-[#0071BC] font-Din whitespace-nowrap overflow-clip`}
         >
-          {post.interview_audio || post.youtube_url
-            ? post?.reporter
-            : post.categories[1]?.cat_name || post.categories[0]?.cat_name}
+          {post.categories[0]?.cat_name || post.categories[1]?.cat_name}
         </span>
-        <h6 className="text-lg leading-5 flex text-[#002c47] transition-all duration-300 font-Din font-bold max-h-[2.4rem] overflow-clip">
+        <h6 className="text-[17px] mt-[-4px] leading-5 flex text-[#002c47] transition-all duration-300 font-Din font-bold max-h-[2.4rem] overflow-clip">
           {post?.post_title && post.post_title}
         </h6>
-        <span className="font-light text-sm leading-[0.8] flex items-center text-[#33566c] font-Din">
+        <span className="font-light text-sm leading-[0.8] flex items-center text-[#33566c] font-Din h-[10px]">
           {formatDate(post?.post_date)}
         </span>
       </div>

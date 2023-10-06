@@ -55,23 +55,45 @@ const Post: React.FC<PostProps> = ({
     return "";
   };
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
     <>
       {data?.youtube_url ? (
-        <div className="w-full h-[250px] md:h-[500px] relative">
-          <video
-            className="w-full h-[250px] md:h-[500px] object-cover"
-            src={data?.background_video_file.url}
-            autoPlay
-            loop
-            muted
-          />
-          <Link
-            href={data?.youtube_url}
-            className="font-normal text-[18px] md:text-lg leading-0 text-white font-Din flex flex-row justify-center items-center bg-[#0071BC] w-full max-w-[230px] h-[40px] md:h-[60px] rounded-[50px] mt-[20px] md:mt-0 md:mr-[40px] transition-all duration-300 hover:bg-[#0081DA] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-          >
-            {t("Watch the video")}
-          </Link>
+        <div
+          className="w-full h-[250px] md:h-[500px] relative"
+          style={{
+            backgroundImage: `url('${data.thumbnail}')`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          {data?.background_video_file?.url && (
+            <video
+              className="w-full h-[250px] md:h-[500px] object-cover"
+              src={data.background_video_file.url}
+              autoPlay
+              loop
+              muted
+            />
+          )}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+            <h4 className="font-light text-center text-2xl leading-7 w-full text-white font-Din">
+              {data.categories[1]?.cat_name || data.categories[0]?.cat_name}
+            </h4>
+            <h2 className="font-bold text-3xl leading-8 flex items-center text-white font-Din text-center mt-[40px] mb-[45px]">
+              {data.post_title}
+            </h2>
+            <Link
+              href={data?.youtube_url}
+              target={data?.open_in_new_tab === "Yes" ? "__blank" : "_self"}
+              className="font-normal text-[18px] md:text-lg leading-0 text-white font-Din flex flex-row justify-center items-center bg-[#0071BC] w-full max-w-[230px] h-[40px] md:h-[60px] rounded-[50px] mt-[20px] md:mt-0  transition-all duration-300 hover:bg-[#0081DA] px-[20px]"
+            >
+              {t("Watch the video")}
+            </Link>
+          </div>
         </div>
       ) : (
         data?.interview_audio && (
@@ -83,27 +105,29 @@ const Post: React.FC<PostProps> = ({
               backgroundRepeat: "no-repeat",
             }}
           >
-            <h4 className="font-bold text-2xl leading-8 flex items-center text-white font-Din md:-mb-[50px]">
-              {data.categories[1]?.cat_name || data.categories[0]?.cat_name}
-            </h4>
-            <h2 className="font-bold text-3xl leading-8 flex items-center text-white font-Din text-center">
-              {data.post_title}
-            </h2>
+            <div className="flex w-full flex-col items-center justify-center">
+              <h4 className="font-light text-2xl leading-8 flex items-center text-white font-Din">
+                {data.categories[1]?.cat_name || data.categories[0]?.cat_name}
+              </h4>
+              <h2 className="font-bold text-3xl leading-8 flex items-center text-white font-Din text-center mt-[40px] mb-[50px]">
+                {data.post_title}
+              </h2>
 
-            <iframe
-              allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-              height="175"
-              style={{
-                width: "100%",
-                maxWidth: "400px",
-                overflow: "hidden",
-                borderRadius: "10px",
-                height: "200px",
-                margin: "0 auto",
-              }}
-              sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-              src={extractSrcFromIframe(data.interview_audio)}
-            />
+              <iframe
+                allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+                height="175"
+                style={{
+                  width: "100%",
+                  maxWidth: "400px",
+                  overflow: "hidden",
+                  borderRadius: "10px",
+                  height: "200px",
+                  margin: "0 auto",
+                }}
+                sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+                src={extractSrcFromIframe(data.interview_audio)}
+              />
+            </div>
           </div>
         )
       )}
@@ -117,18 +141,18 @@ const Post: React.FC<PostProps> = ({
         >
           <div className="tb:mr-[30px] w-full">
             {data?.interview_audio || data?.youtube_url ? (
-              <div className="font-light text-[12px] md:text-[18px] leading-4 flex items-center font-Din text-[#002c47] gap-[4px] md:gap-[10px] mb-[20px]">
+              <div className="font-light text-[12px] md:text-[18px] leading-4 flex items-center font-Din text-[#002c47] gap-[4px] md:gap-[15px] mb-[20px]">
                 <span>{formatDate(data.post_date)}</span>
                 {data.interviewer && (
                   <>
-                    <span>Interviewer - </span>
-                    <span>{data.interviewer}</span>
+                    <span>|</span>
+                    <span>Interviewer - {data.interviewer}</span>
                   </>
                 )}
                 {data.reporter && (
                   <>
-                    <span>Reporter - </span>
-                    <span>{data.reporter}</span>
+                    <span>|</span>
+                    <span>Reporter - {data.reporter}</span>
                   </>
                 )}
               </div>

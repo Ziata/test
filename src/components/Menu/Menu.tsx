@@ -20,8 +20,8 @@ export default function Menu({
   return (
     <div
       className={`${
-        isOpen ? "top-0 pt-[110px]" : "-top-[100%]"
-      } container fixed h-full flex flex-col justify-start md:top-0 md:relative md:flex-row md:h-[70px] md:justify-center items-center gap-[50px] teansition-all duration-500 bg-[#fff] overflow-auto hidden-scrollbar z-[18]`}
+        isOpen ? "top-0 pt-[110px] h-[100vh] absolute" : "-top-[100vh] fixed"
+      } !max-w-full container h-full flex flex-col justify-start md:top-0 md:relative md:flex-row md:h-[70px] md:justify-center items-center gap-[50px] teansition-all duration-500 bg-[#fff] overflow-auto hidden-scrollbar z-[18]`}
     >
       {categories.map((item) => {
         const isActive =

@@ -218,6 +218,7 @@ export interface IPost {
   background_video_file: {
     url: string;
   };
+  open_in_new_tab: string;
 }
 
 export interface ThirdBlock {
@@ -257,6 +258,7 @@ export interface ICategory {
   category_parent: number;
   all_posts: IPost[];
   subcategories?: ICategory[];
+  thumbnail: string;
 }
 
 export interface Page {

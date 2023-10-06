@@ -19,7 +19,7 @@ export default function Header() {
   const router = useRouter();
 
   const handleResize = () => {
-    setIsMobile(false);
+    setIsMobile(window.innerWidth < 768);
   };
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export default function Header() {
       {data && (
         <Menu
           categories={data.category_menu}
-          isOpen={isOpen && isMobile}
+          isOpen={isMobile && isOpen}
           setIsOpen={setIsOpen}
         />
       )}

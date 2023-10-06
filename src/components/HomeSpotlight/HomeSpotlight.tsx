@@ -89,7 +89,7 @@ function HomeSpotlight({
               <div className="hidden md:block md:w-1/2 tb:w-full">
                 <Link
                   href={`/${router.query.lang}/post/${data.secondBlockPosts[0].post_name}`}
-                  className="w-full h-full p-[30px] flex items-end justify-start relative cursor-pointer group"
+                  className="w-full h-full p-[30px] flex items-end justify-start relative cursor-pointer group transition-all duration-300 hover:scale-[1.02]"
                   style={{
                     backgroundImage: `url("${data.secondBlockPosts[0].thumbnail}")`,
                     backgroundSize: "cover",
@@ -98,14 +98,14 @@ function HomeSpotlight({
                   <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />
                   <div className="gradient-background opacity-0 w-full h-full bottom-0 left-0 !absolute bg-[#4e4e4e33] group-hover:opacity-100 group-hover:h-full transition-all duration-300" />
                   <div className="z-1 relative">
-                    <div className="font-normal text-lg leading-5 text-white font-Din group-hover:text-blue-200 transition-all duration-300">
+                    <div className="font-normal text-lg leading-5 text-white font-Din">
                       {data.secondBlockPosts[0].categories[1]?.cat_name ||
                         data.secondBlockPosts[0].categories[0]?.cat_name}
                     </div>
-                    <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1 group-hover:text-blue-200 transition-all duration-300">
+                    <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1 ">
                       {data.secondBlockPosts[0].post_title}
                     </h5>
-                    <span className="block font-light text-sm leading-4 text-white font-Din mt-1 group-hover:text-blue-200 transition-all duration-300">
+                    <span className="block font-light text-sm leading-4 text-white font-Din mt-1">
                       {formatDate(data.secondBlockPosts[0].post_date)}
                     </span>
                   </div>

@@ -84,7 +84,9 @@ const Category: React.FC<CategoryProps> = ({
       <div
         className="w-full h-[200px] md:h-[330px] flex items-center justify-center"
         style={{
-          backgroundImage: "url(../../static/img/catBg.png)",
+          backgroundImage: `url("${
+            data.thumbnail ? data.thumbnail : "../../static/img/catBg.png"
+          }")`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
