@@ -123,7 +123,7 @@ const Post: React.FC<PostProps> = ({
               <h4 className="font-light text-2xl leading-8 flex items-center text-white font-Din">
                 {data.categories[1]?.cat_name || data.categories[0]?.cat_name}
               </h4>
-              <h2 className="font-bold text-3xl leading-8 flex items-center text-white font-Din text-center mt-[40px] mb-[50px]">
+              <h2 className="font-bold text-xl md:text-3xl leading-8 flex items-center text-white font-Din text-center mt-[10px] md:mt-[40px] mb-[20px] md:mb-[50px]">
                 {data.post_title}
               </h2>
 
@@ -228,7 +228,7 @@ const Post: React.FC<PostProps> = ({
                   >
                     <button
                       onClick={toggleShowAll}
-                      className="mx-auto mb-[100px] font-light text-lg leading-[23px] flex items-center text-[rgba(0,44,71,0.8)]"
+                      className="mx-auto mb-[60px] md:mb-[80px] font-light text-lg leading-[23px] flex items-center text-[rgba(0,44,71,0.8)]"
                     >
                       Read More
                     </button>
