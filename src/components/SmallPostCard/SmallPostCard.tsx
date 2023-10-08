@@ -32,7 +32,7 @@ function SmallPostCard({
           backgroundRepeat: "no-repeat",
         }}
       />
-      <div className="w-2/3 flex flex-col justify-between h-[79px]">
+      <div className="w-2/3 flex flex-col justify-between h-[80px]">
         <span
           className={`${
             post?.categories[0]?.slug === "meeting-reports" ||
@@ -43,10 +43,19 @@ function SmallPostCard({
         >
           {post.categories[0]?.cat_name || post.categories[1]?.cat_name}
         </span>
-        <h6 className="text-[17px] mt-[-4px] leading-5 flex text-[#002c47] transition-all duration-300 font-Din font-bold max-h-[2.4rem] overflow-clip">
+        <h6
+          className="text-[17px] leading-5 flex text-[#002c47] transition-all duration-300 font-Din font-bold overflow-clip"
+          style={{
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
           {post?.post_title && post.post_title}
         </h6>
-        <span className="font-light text-sm leading-[0.8] flex items-center text-[#33566c] font-Din h-[10px]">
+        <span className="font-light text-sm leading-[0.8] flex items-center text-[#33566c] font-Din">
           {formatDate(post?.post_date)}
         </span>
       </div>

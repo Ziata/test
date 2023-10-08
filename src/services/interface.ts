@@ -219,6 +219,8 @@ export interface IPost {
     url: string;
   };
   open_in_new_tab: string;
+  background_opacity: string;
+  resource: string;
 }
 
 export interface ThirdBlock {

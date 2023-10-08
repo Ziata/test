@@ -1,9 +1,8 @@
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import { formatDate } from "@/utils";
-import YouTube from "react-youtube";
 import { GetServerSideProps } from "next";
 import { IFollow, IFooter, IHeader, IPost } from "@/services/interface";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LayoutContext } from "@/context/LayoutContext";
 import Recomend from "@/components/Recomend/Recomend";
 import { t } from "i18next";
@@ -27,6 +26,8 @@ const Post: React.FC<PostProps> = ({
   followData,
 }) => {
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
+  const [showAll, setShowAll] = useState(false);
+  const toggleShowAll = () => setShowAll(!showAll);
 
   useEffect(() => {
     setHeaderData(headerData); // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,6 +60,11 @@ const Post: React.FC<PostProps> = ({
     console.log(data);
   }, [data]);
 
+  const hiddenHeight =
+    data?.youtube_url || data?.interview_audio ? "1000px" : "700px";
+  const hiddentextLength =
+    data?.youtube_url || data?.interview_audio ? 2500 : 1500;
+
   return (
     <>
       {data?.youtube_url ? (
@@ -70,6 +76,10 @@ const Post: React.FC<PostProps> = ({
             backgroundRepeat: "no-repeat",
           }}
         >
+          <div
+            className={`bg-[#000] absolute w-full h-full`}
+            style={{ opacity: data.background_opacity }}
+          />
           {data?.background_video_file?.url && (
             <video
               className="w-full h-[250px] md:h-[500px] object-cover"
@@ -79,7 +89,7 @@ const Post: React.FC<PostProps> = ({
               muted
             />
           )}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-1">
             <h4 className="font-light text-center text-2xl leading-7 w-full text-white font-Din">
               {data.categories[1]?.cat_name || data.categories[0]?.cat_name}
             </h4>
@@ -98,14 +108,18 @@ const Post: React.FC<PostProps> = ({
       ) : (
         data?.interview_audio && (
           <div
-            className="w-full flex flex-col items-center justify-evenly container h-[370px] md:h-[600px]"
+            className="w-full relative flex flex-col items-center justify-evenly container h-[370px] md:h-[600px]"
             style={{
               backgroundImage: `url('${data.thumbnail}')`,
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
             }}
           >
-            <div className="flex w-full flex-col items-center justify-center">
+            <div
+              className={`bg-[#000] absolute w-full h-full`}
+              style={{ opacity: data.background_opacity }}
+            />
+            <div className="flex w-full flex-col items-center justify-center relative z-1">
               <h4 className="font-light text-2xl leading-8 flex items-center text-white font-Din">
                 {data.categories[1]?.cat_name || data.categories[0]?.cat_name}
               </h4>
@@ -168,8 +182,12 @@ const Post: React.FC<PostProps> = ({
                   </span>
                   <div className="font-light text-[12px] md:text-sm leading-4 flex items-center font-Din text-[#33566C] gap-[4px] md:gap-[8px]">
                     <span>{formatDate(data.post_date)}</span>
-                    <span>|</span>
-                    <span>By {data.author_name}</span>
+                    {data.author_name && (
+                      <>
+                        <span>|</span>
+                        <span>By {data.author_name}</span>
+                      </>
+                    )}
                   </div>
                   <div
                     className="relative w-full my-[20px] h-[350px] bg-center"
@@ -183,10 +201,40 @@ const Post: React.FC<PostProps> = ({
               )
             )}
             {data && (
-              <div
-                className="font-light text-lg leading-6 items-center font-Din text-[#002c47] text-content"
-                dangerouslySetInnerHTML={{ __html: data.post_content }}
-              />
+              <div className="relative">
+                <div
+                  style={{
+                    maxHeight: showAll ? "none" : hiddenHeight,
+                  }}
+                  className="transition-all duration-500 overflow-hidden font-light text-lg leading-6 items-center font-Din text-[#002c47] text-content"
+                  dangerouslySetInnerHTML={{ __html: data.post_content }}
+                />
+                {data?.resource && (
+                  <>
+                    <div className="my-[50px] h-[1px] w-full bg-[#B3B3B3]" />
+                    <div className="font-light text-lg leading-6 items-center font-Din text-[#002c47] text-content mb-[50px] pl-[15px] md:pl-[40px] border-l-[5px] border-solid border-[#0071BC]">
+                      <strong className="font-bold">Resource: </strong>
+                      {data.resource}
+                    </div>
+                  </>
+                )}
+                {!showAll && data.post_content.length > hiddentextLength && (
+                  <div
+                    style={{
+                      background:
+                        "linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(255, 255, 255) 80%)",
+                    }}
+                    className="w-full h-[520px] absolute flex items-end bottom-0"
+                  >
+                    <button
+                      onClick={toggleShowAll}
+                      className="mx-auto mb-[100px] font-light text-lg leading-[23px] flex items-center text-[rgba(0,44,71,0.8)]"
+                    >
+                      Read More
+                    </button>
+                  </div>
+                )}
+              </div>
             )}
           </div>
           <div className="w-full flex flex-col-reverse md:flex-row justify-between tb:block tb:w-[360px] tb:min-w-[300px]">

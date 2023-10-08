@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { ThirdBlock } from "@/services/interface";
 import { formatDate, generateUniqueId } from "@/utils";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function HomeDaily({ data }: { data: ThirdBlock }) {
   const router = useRouter();
@@ -74,7 +74,7 @@ function HomeDaily({ data }: { data: ThirdBlock }) {
               <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />
               <div className="z-1 relative">
                 <div className="font-normal text-lg leading-5 text-white font-Din">
-                  {post.categories[1]?.cat_name || post.categories[0]?.cat_name}
+                  {post.categories[0]?.cat_name || post.categories[1]?.cat_name}
                 </div>
                 <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1">
                   {post.post_title}
