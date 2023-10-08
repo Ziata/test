@@ -56,10 +56,6 @@ const Post: React.FC<PostProps> = ({
     return "";
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   const hiddenHeight =
     data?.youtube_url || data?.interview_audio ? "1000px" : "700px";
   const hiddentextLength =
@@ -209,31 +205,32 @@ const Post: React.FC<PostProps> = ({
                   className="transition-all duration-500 overflow-hidden font-light text-lg leading-6 items-center font-Din text-[#002c47] text-content"
                   dangerouslySetInnerHTML={{ __html: data.post_content }}
                 />
-                {data?.resource && (
-                  <>
-                    <div className="my-[50px] h-[1px] w-full bg-[#B3B3B3]" />
-                    <div className="font-light text-lg leading-6 items-center font-Din text-[#002c47] text-content mb-[50px] pl-[15px] md:pl-[40px] border-l-[5px] border-solid border-[#0071BC]">
-                      <strong className="font-bold">Resource: </strong>
-                      {data.resource}
-                    </div>
-                  </>
-                )}
                 {!showAll && data.post_content.length > hiddentextLength && (
                   <div
                     style={{
                       background:
-                        "linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(255, 255, 255) 80%)",
+                        "linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(255, 255, 255) 50%)",
                     }}
-                    className="w-full h-[520px] absolute flex items-end bottom-0"
+                    className="w-full h-[300px] absolute flex items-end bottom-0"
                   >
                     <button
                       onClick={toggleShowAll}
-                      className="mx-auto mb-[60px] md:mb-[80px] font-light text-lg leading-[23px] flex items-center text-[rgba(0,44,71,0.8)]"
+                      className="mx-auto mb-[80px] font-light text-lg leading-[23px] flex items-center text-[rgba(0,44,71,0.8)]"
                     >
                       Read More
                     </button>
                   </div>
                 )}
+                {data?.resource &&
+                  (showAll || data.post_content.length < hiddentextLength) && (
+                    <>
+                      <div className="my-[50px] h-[1px] w-full bg-[#B3B3B3]" />
+                      <div className="font-light text-lg leading-6 items-center font-Din text-[#002c47] text-content mb-[50px] pl-[15px] md:pl-[40px] border-l-[5px] border-solid border-[#0071BC]">
+                        <strong className="font-bold">Resource: </strong>
+                        {data.resource}
+                      </div>
+                    </>
+                  )}
               </div>
             )}
           </div>
