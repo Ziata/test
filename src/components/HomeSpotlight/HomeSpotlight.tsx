@@ -88,10 +88,10 @@ function HomeSpotlight({
             <div className="flex flex-col md:flex-row w-full gap-[30px] h-full">
               <div className="hidden md:block md:w-1/2 tb:w-full">
                 <Link
-                  href={`/${router.query.lang}/post/${data.secondBlockPosts[0].post_name}`}
+                  href={`/${router.query.lang}/post/${data?.secondBlockPosts?.[0]?.post_name}`}
                   className="w-full h-full p-[30px] flex items-end justify-start relative cursor-pointer group transition-all duration-300 hover:scale-[1.02]"
                   style={{
-                    backgroundImage: `url("${data.secondBlockPosts[0].thumbnail}")`,
+                    backgroundImage: `url("${data?.secondBlockPosts?.[0]?.thumbnail}")`,
                     backgroundSize: "cover",
                   }}
                 >
@@ -99,13 +99,14 @@ function HomeSpotlight({
                   <div className="gradient-background opacity-0 w-full h-full bottom-0 left-0 !absolute bg-[#4e4e4e33] group-hover:opacity-100 group-hover:h-full transition-all duration-300" />
                   <div className="z-1 relative">
                     <div className="font-normal text-lg leading-5 text-white font-Din">
-                      {findFirstCategory(data.secondBlockPosts[0].categories)}
+                      {data?.secondBlockPosts?.[0]?.categories &&
+                        findFirstCategory(data.secondBlockPosts[0].categories)}
                     </div>
                     <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1 ">
-                      {data.secondBlockPosts[0].post_title}
+                      {data?.secondBlockPosts?.[0]?.post_title}
                     </h5>
                     <span className="block font-light text-sm leading-4 text-white font-Din mt-1">
-                      {formatDate(data.secondBlockPosts[0].post_date)}
+                      {formatDate(data?.secondBlockPosts?.[0]?.post_date)}
                     </span>
                   </div>
                 </Link>

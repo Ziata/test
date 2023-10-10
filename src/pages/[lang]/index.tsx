@@ -33,12 +33,18 @@ const Home: React.FC<HomeProps> = ({
   return (
     data && (
       <>
-        <HomeLastNews data={data.firstBlock} />
-        <HomeSpotlight data={data.secondBlock} followData={followData} />
+        {data.firstBlock.latestNews.length > 0 && (
+          <HomeLastNews data={data.firstBlock} />
+        )}
+        {data.secondBlock.secondBlockPosts.length > 0 && (
+          <HomeSpotlight data={data.secondBlock} followData={followData} />
+        )}
         {data.thirdBlock?.thirdBlockPosts.length > 0 && (
           <HomeDaily data={data.thirdBlock} />
         )}
-        <HomeInterviews data={data.fourthBlock} />
+        {data.fourthBlock?.fourthBlockPosts.length > 0 && (
+          <HomeInterviews data={data.fourthBlock} />
+        )}
       </>
     )
   );
