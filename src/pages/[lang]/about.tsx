@@ -58,22 +58,30 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   try {
     const response = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/about-page`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/about-page`
     );
     const data: Page = await response.json();
 
     const responseHeader = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/header`
     );
     const headerData: IHeader = await responseHeader.json();
 
     const responseFooter = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/footer`
     );
     const footerData: IFooter = await responseFooter.json();
 
     const responseFollow = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/follownextquestion`
     );
     const followData: IFooter = await responseFollow.json();
 

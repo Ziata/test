@@ -1,5 +1,5 @@
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
-import { formatDate } from "@/utils";
+import { findFirstCategory, formatDate } from "@/utils";
 import { GetServerSideProps } from "next";
 import { IFollow, IFooter, IHeader, IPost } from "@/services/interface";
 import { useContext, useEffect, useState } from "react";
@@ -87,7 +87,7 @@ const Post: React.FC<PostProps> = ({
           )}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-1">
             <h4 className="font-light text-center text-2xl leading-7 w-full text-white font-Din">
-              {data.categories[1]?.cat_name || data.categories[0]?.cat_name}
+              {findFirstCategory(data.categories)}
             </h4>
             <h2 className="font-bold text-3xl leading-8 flex items-center text-white font-Din text-center mt-[40px] mb-[45px]">
               {data.post_title}
@@ -117,7 +117,7 @@ const Post: React.FC<PostProps> = ({
             />
             <div className="flex w-full flex-col items-center justify-center relative z-1">
               <h4 className="font-light text-2xl leading-8 flex items-center text-white font-Din">
-                {data.categories[1]?.cat_name || data.categories[0]?.cat_name}
+                {findFirstCategory(data.categories)}
               </h4>
               <h2 className="font-bold text-xl md:text-3xl leading-8 flex items-center text-white font-Din text-center mt-[10px] md:mt-[40px] mb-[20px] md:mb-[50px]">
                 {data.post_title}
@@ -147,7 +147,7 @@ const Post: React.FC<PostProps> = ({
             !data?.interview_audio && !data?.youtube_url
               ? "border-t-2 border-solid border-[#B3B3B3]"
               : ""
-          } flex w-full flex-col tb:flex-row bg-white  pt-[25px]`}
+          } flex w-full flex-col tb:flex-row bg-white pt-[25px] pb-[4rem]`}
         >
           <div className="tb:mr-[30px] w-full">
             {data?.interview_audio || data?.youtube_url ? (
@@ -173,8 +173,7 @@ const Post: React.FC<PostProps> = ({
                     {data.post_title}
                   </h2>
                   <span className="font-light text-base leading-5 flex items-center text-[#0071BC] font-Din my-[15px]">
-                    {data.categories[1]?.cat_name ||
-                      data.categories[0]?.cat_name}
+                    {findFirstCategory(data.categories)}
                   </span>
                   <div className="font-light text-[12px] md:text-sm leading-4 flex items-center font-Din text-[#33566C] gap-[4px] md:gap-[8px]">
                     <span>{formatDate(data.post_date)}</span>
@@ -202,7 +201,7 @@ const Post: React.FC<PostProps> = ({
                   style={{
                     maxHeight: showAll ? "none" : hiddenHeight,
                   }}
-                  className="transition-all duration-500 overflow-hidden font-light text-lg leading-6 items-center font-Din text-[#002c47] text-content"
+                  className="transition-all duration-500 overflow-hidden font-light text-lg leading-6 items-center font-Din text-[#73737] text-content"
                   dangerouslySetInnerHTML={{ __html: data.post_content }}
                 />
                 {!showAll && data.post_content.length > hiddentextLength && (
@@ -225,9 +224,12 @@ const Post: React.FC<PostProps> = ({
                   (showAll || data.post_content.length < hiddentextLength) && (
                     <>
                       <div className="my-[50px] h-[1px] w-full bg-[#B3B3B3]" />
-                      <div className="font-light text-lg leading-6 items-center font-Din text-[#002c47] text-content mb-[50px] pl-[15px] md:pl-[40px] border-l-[5px] border-solid border-[#0071BC]">
-                        <strong className="font-bold">Resource: </strong>
-                        {data.resource}
+                      <div className="font-light text-lg leading-6 items-center font-Din text-[#73737] text-content mb-[50px] pl-[15px] md:pl-[40px] border-l-[5px] border-solid border-[#0071BC]">
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: data.resource,
+                          }}
+                        />
                       </div>
                     </>
                   )}
@@ -256,27 +258,37 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   try {
     const response = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/post/?slug=${slug}`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/post/?slug=${slug}`
     );
     const data = await response.json();
 
     const responseRecomend = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/all-posts`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/all-posts`
     );
     const recomendData: IPost[] = await responseRecomend.json();
 
     const responseHeader = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/header`
     );
     const headerData: IHeader = await responseHeader.json();
 
     const responseFooter = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/footer`
     );
     const footerData: IFooter = await responseFooter.json();
 
     const responseFollow = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/follownextquestion`
     );
     const followData: IFooter = await responseFollow.json();
 

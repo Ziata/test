@@ -2,7 +2,6 @@ import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import PageSelect from "@/components/PageSelect/PageSelect";
 import Pagination from "@/components/Pagination/Pagination";
 import Post from "@/components/Post/Post";
-import close from "static/img/x.svg";
 import { LayoutContext } from "@/context/LayoutContext";
 import { SearchContext } from "@/context/SearchContext";
 import {
@@ -14,9 +13,7 @@ import {
   SearchPage,
 } from "@/services/interface";
 import { GetServerSideProps } from "next";
-import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
-import Loader from "@/components/Loader/Loader";
 import { t } from "i18next";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -35,13 +32,7 @@ const Search: React.FC<PageProps> = ({
   followData,
 }) => {
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
-  const {
-    data: searchData,
-    isLoading,
-    isError,
-    searchString,
-    setSearchString,
-  } = useContext(SearchContext);
+  const { searchPosts, searchString } = useContext(SearchContext);
 
   useEffect(() => {
     setHeaderData(headerData); // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,22 +49,12 @@ const Search: React.FC<PageProps> = ({
   useEffect(() => {
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    setCurrentPosts(searchData?.slice(indexOfFirstPost, indexOfLastPost) || []);
-  }, [currentPage, postsPerPage, searchData]);
+    setCurrentPosts(
+      searchPosts[1]?.slice(indexOfFirstPost, indexOfLastPost) || []
+    );
+  }, [currentPage, postsPerPage, searchPosts]);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newSearchValue = e.target.value;
-    setSearchString(newSearchValue);
-  };
-
-  useEffect(() => {
-    if (searchString === "" || isError) {
-      setCurrentPage(1);
-      setCurrentPosts([]);
-    }
-  }, [searchString, isError]);
 
   return (
     <>
@@ -86,45 +67,36 @@ const Search: React.FC<PageProps> = ({
         }}
       >
         <div className="max-w-[600px] relative w-full px-2 -mt-[50px]">
-          <input
-            className="font-semibold text-base leading-7 capitalize text-[#002c47] font-sans w-full h-[40px] mx-auto px-[20px] py-[7px] rounded-[10px] outline-none border focus:border-none bg-[#EBEBEB]"
-            placeholder={`${data.placeholder_for_search_input}`}
-            value={searchString}
-            onChange={handleInputChange}
-          />
-          {searchString && (
-            <button
-              className="absolute right-[20px] top-1/2 -translate-y-1/2"
-              onClick={() => setSearchString("")}
-            >
-              <Image src={close} alt="close" />
-            </button>
-          )}
+          <h2 className="font-bold text-xl md:text-3xl leading-8 flex items-center text-[#cecece] font-Din text-center mt-[10px] md:mt-[40px] mb-[20px] md:mb-[50px]">
+            {searchPosts?.[0] && (
+              <>
+                <span className="text-white">{searchPosts[0]}</span>&nbsp;
+                {t("Search result for:")}&nbsp;
+                <span className="text-white">{searchString}</span>
+              </>
+            )}
+          </h2>
         </div>
       </div>
       <div className="container">
         <div className="md:p-[30px] bg-white md:-mt-[70px] flex w-full flex-col tb:flex-row">
           <div className="tb:mr-[30px] w-full">
             <div className={`mt-[20px]`}>
-              {isLoading ? (
-                <Loader customClass="w-20 h-20 mx-auto mt-20" />
-              ) : currentPosts?.length > 0 ? (
-                currentPosts.map((post) => <Post key={post.ID} post={post} />)
-              ) : (
-                (currentPosts.length === 0 || isError) && (
-                  <div className="w-full h-[300px] justify-center font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
-                    {t("No Data")}
-                  </div>
-                )
-              )}
+              {currentPosts?.length > 0
+                ? currentPosts.map((post) => <Post key={post.ID} post={post} />)
+                : currentPosts.length === 0 && (
+                    <div className="w-full h-[300px] justify-center font-light text-2xl leading-7 flex items-center text-gray-900 font-Din">
+                      {t("No Data")}
+                    </div>
+                  )}
             </div>
             <div className="flex flex-col-reverse md:flex-row justify-between items-center ">
-              {searchData && currentPosts.length > 0 && (
+              {searchPosts[1]?.length > 0 && currentPosts.length > 0 && (
                 <>
                   <PageSelect setPostsPerPage={setPostsPerPage} />
                   <Pagination
                     postsPerPage={postsPerPage}
-                    totalPosts={searchData.length}
+                    totalPosts={searchPosts[1].length}
                     currentPage={currentPage}
                     paginate={paginate}
                   />

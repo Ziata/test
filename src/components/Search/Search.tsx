@@ -6,9 +6,8 @@ import { t } from "i18next";
 import { useRouter } from "next/router";
 import Loader from "@/components/Loader/Loader";
 import { IPost } from "@/services/interface";
-import { truncateText } from "@/utils";
+import { findFirstCategory, generateUniqueId, truncateText } from "@/utils";
 import { SearchContext } from "@/context/SearchContext";
-import Link from "next/link";
 
 function stripHTMLTags(text: string): string {
   return text.replace(/(<([^>]+)>)/gi, "");
@@ -29,8 +28,9 @@ function highlightText(text: string, query: string): React.ReactNode[] {
 }
 
 export default function Search({ closeModal }: { closeModal: () => void }) {
-  const { data, isLoading, isError, searchString, setSearchString } =
+  const { data, isLoading, searchString, setSearchString, setSearchPosts } =
     useContext(SearchContext);
+
   const router = useRouter();
   const currentLanguage = router.query.lang as string;
 
@@ -39,10 +39,9 @@ export default function Search({ closeModal }: { closeModal: () => void }) {
     setSearchString(newSearchValue);
   };
 
-  const firstThreePost = data?.slice(0, 3) || [];
-
-  const clickMore = () => {
-    router.push(`/${currentLanguage}/search`).then(() => {
+  const clickMore = (item: [string, IPost[]]) => {
+    setSearchPosts(item);
+    router.push(`/${currentLanguage}/searchresult`).then(() => {
       closeModal();
     });
   };
@@ -52,6 +51,21 @@ export default function Search({ closeModal }: { closeModal: () => void }) {
       closeModal();
     });
   };
+
+  const categorizedPosts: { [key: string]: IPost[] } | undefined = data?.reduce(
+    (acc, post) => {
+      const category = findFirstCategory(post.categories);
+      if (!category) return acc;
+
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+
+      acc[category].push(post);
+      return acc;
+    },
+    {} as { [key: string]: IPost[] }
+  );
 
   return (
     <div className="md:w-[650px] min-w-[300px] mx-[10px]">
@@ -76,46 +90,49 @@ export default function Search({ closeModal }: { closeModal: () => void }) {
         <div className="bg-[#EBEBEB] mt-[10px] w-full rounded-[10px] p-[20px] overflow-scroll max-h-[85vh] hidden-scrollbar">
           {isLoading ? (
             <Loader customClass="w-20 h-20 mx-auto" />
-          ) : firstThreePost.length > 0 ? (
-            firstThreePost.map((post: IPost) => (
-              <div
-                onClick={() => redirect(post)}
-                key={post.ID}
-                className="mt-[20px] block cursor-pointer"
-              >
-                <h6 className="text-lg leading-5 font-Din text-[#002c47] font-bold mb-[10px]">
-                  {highlightText(post.post_title, searchString)}
-                </h6>
-                <p className="font-light text-lg leading-6 text-[#002c47] font-Din">
-                  {highlightText(
-                    truncateText(post.post_content, 1500),
-                    searchString
-                  )}
-                </p>
+          ) : categorizedPosts && Object.keys(categorizedPosts).length > 0 ? (
+            Object.entries(categorizedPosts).map((item) => (
+              <div key={generateUniqueId()} className="mt-[20px] mb-[50px]">
+                <h2 className="text-3xl leading-5 font-Din text-[#002c47] font-bold mb-[20px]">
+                  {item[0]}
+                </h2>
+                {item[1].slice(0, 3).map((post: IPost) => (
+                  <div
+                    onClick={() => redirect(post)}
+                    key={post.ID}
+                    className="mt-[10px] block cursor-pointer mb-[20px]"
+                  >
+                    <h6 className="text-lg leading-5 font-Din text-[#002c47] font-bold mb-[10px]">
+                      {highlightText(post.post_title, searchString)}
+                    </h6>
+                    <p className="font-light text-lg leading-6 text-[#002c47] font-Din">
+                      {highlightText(
+                        truncateText(post.post_content, 250, searchString),
+                        searchString
+                      )}
+                    </p>
+                  </div>
+                ))}
+                <div className="w-full justify-end flex">
+                  <button
+                    onClick={() => clickMore(item)}
+                    className="flex items-center leading-0 font-light text-base leading-5 text-[#002c47] font-Din mt-[20px]"
+                  >
+                    {t("More")}{" "}
+                    <Image
+                      src={shevron}
+                      className="ml-4"
+                      alt="arrow"
+                      width="5"
+                      height="10"
+                    />
+                  </button>
+                </div>
               </div>
             ))
           ) : (
-            (!firstThreePost || isError) && (
-              <div className="w-full h-[300px] justify-center font-light text-2xl leading-7 flex items-center text-[#002c47] font-Din">
-                {t("No Data")}
-              </div>
-            )
-          )}
-          {firstThreePost.length > 0 && (
-            <div className="w-full justify-end flex">
-              <button
-                onClick={clickMore}
-                className="flex items-center leading-0 font-light text-base leading-5 text-[#002c47] font-Din mt-[20px]"
-              >
-                {t("More")}{" "}
-                <Image
-                  src={shevron}
-                  className="ml-4"
-                  alt="arrow"
-                  width="5"
-                  height="10"
-                />
-              </button>
+            <div className="w-full h-[300px] justify-center font-light text-2xl leading-7 flex items-center text-[#002c47] font-Din">
+              {t("No Data")}
             </div>
           )}
         </div>

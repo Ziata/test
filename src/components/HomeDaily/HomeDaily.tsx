@@ -2,7 +2,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ThirdBlock } from "@/services/interface";
-import { formatDate, generateUniqueId } from "@/utils";
+import { findFirstCategory, formatDate, generateUniqueId } from "@/utils";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -74,7 +74,7 @@ function HomeDaily({ data }: { data: ThirdBlock }) {
               <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />
               <div className="z-1 relative">
                 <div className="font-normal text-lg leading-5 text-white font-Din">
-                  {post.categories[0]?.cat_name || post.categories[1]?.cat_name}
+                  {findFirstCategory(post.categories)}
                 </div>
                 <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1">
                   {post.post_title}

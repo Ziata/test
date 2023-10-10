@@ -79,6 +79,10 @@ const Category: React.FC<CategoryProps> = ({
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
     <>
       <div
@@ -163,34 +167,46 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
     if (slug === "all") {
       const response = await fetch(
-        `${baseUrl}/${lang}/wp-json/nextquestion/v2/all-posts`
+        `${baseUrl}/${lang}/wp-json/nextquestion${
+          lang === "zh" ? lang : ""
+        }/v2/all-posts`
       );
       const allPosts = await response.json();
       data = { cat_name: "All", slug: "all", all_posts: allPosts } as ICategory;
     } else {
       const response = await fetch(
-        `${baseUrl}/${lang}/wp-json/nextquestion/v2/category/?slug=${slug}`
+        `${baseUrl}/${lang}/wp-json/nextquestion${
+          lang === "zh" ? lang : ""
+        }/v2/category/?slug=${slug}`
       );
       data = (await response.json()) as ICategory;
     }
 
     const responseRecomend = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/all-posts`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/all-posts`
     );
     const recomendData: IPost[] = await responseRecomend.json();
 
     const responseHeader = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/header`
     );
     const headerData: IHeader = await responseHeader.json();
 
     const responseFooter = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/footer`
     );
     const footerData: IFooter = await responseFooter.json();
 
     const responseFollow = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/follownextquestion`
     );
     const followData: IFooter = await responseFollow.json();
 

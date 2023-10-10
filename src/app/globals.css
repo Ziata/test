@@ -83,6 +83,18 @@ input[type="range"]::-webkit-slider-thumb {
   @apply mt-5;
 }
 
+.text-content strong {
+  font-weight: bold;
+}
+
+.text-content a {
+  color: #002c47;
+}
+
+.text-content a:hover {
+  color: #0071bc;
+}
+
 @-webkit-keyframes spinner {
   0% {
     -webkit-transform: rotate(0deg);

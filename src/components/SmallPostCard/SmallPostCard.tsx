@@ -1,5 +1,5 @@
 import { IPost } from "@/services/interface";
-import { formatDate } from "@/utils";
+import { findFirstCategory, formatDate } from "@/utils";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -41,7 +41,7 @@ function SmallPostCard({
               : ""
           } h-[18px] font-light leading-[0.8] text-base flex items-center text-[#0071BC] font-Din whitespace-nowrap overflow-clip`}
         >
-          {post.categories[0]?.cat_name || post.categories[1]?.cat_name}
+          {findFirstCategory(post.categories)}
         </span>
         <h6
           className="text-[17px] leading-5 flex text-[#002c47] transition-all duration-300 font-Din font-bold overflow-clip"

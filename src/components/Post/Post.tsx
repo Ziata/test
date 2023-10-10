@@ -1,5 +1,10 @@
 import { IPost } from "@/services/interface";
-import { blurPlaceholder, formatDate, truncateText } from "@/utils";
+import {
+  blurPlaceholder,
+  findFirstCategory,
+  formatDate,
+  truncateText,
+} from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -46,7 +51,7 @@ function Post({
               : "text-[#0071BC]"
           } font-light text-base leading-5 flex items-center font-Din`}
         >
-          {post.categories[0]?.cat_name || post.categories[1]?.cat_name}
+          {findFirstCategory(post.categories)}
         </span>
 
         <div

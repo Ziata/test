@@ -5,7 +5,7 @@ import whiteShevron from "static/img/shevron-white.svg";
 import SmallPostCard from "@/components/SmallPostCard/SmallPostCard";
 import { t } from "i18next";
 import { FirstBlock } from "@/services/interface";
-import { formatDate, generateUniqueId } from "@/utils";
+import { findFirstCategory, formatDate, generateUniqueId } from "@/utils";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
@@ -73,8 +73,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
               </div>
             ) : (
               <div className="font-normal text-lg leading-5 text-white font-Din transition-all duration-300">
-                {data.latestNews[0]?.categories[1]?.cat_name ||
-                  data.latestNews[0]?.categories[0]?.cat_name}
+                {findFirstCategory(data.latestNews[0].categories)}
               </div>
             )}
             <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1  transition-all duration-300">

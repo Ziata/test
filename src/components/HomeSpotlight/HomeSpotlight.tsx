@@ -6,7 +6,7 @@ import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import { useEffect, useState } from "react";
 import { t } from "i18next";
 import { IFollow, SecondBlock } from "@/services/interface";
-import { formatDate, generateUniqueId } from "@/utils";
+import { findFirstCategory, formatDate, generateUniqueId } from "@/utils";
 import { useRouter } from "next/router";
 
 function HomeSpotlight({
@@ -99,8 +99,7 @@ function HomeSpotlight({
                   <div className="gradient-background opacity-0 w-full h-full bottom-0 left-0 !absolute bg-[#4e4e4e33] group-hover:opacity-100 group-hover:h-full transition-all duration-300" />
                   <div className="z-1 relative">
                     <div className="font-normal text-lg leading-5 text-white font-Din">
-                      {data.secondBlockPosts[0].categories[1]?.cat_name ||
-                        data.secondBlockPosts[0].categories[0]?.cat_name}
+                      {findFirstCategory(data.secondBlockPosts[0].categories)}
                     </div>
                     <h5 className="text-lg leading-5 flex items-center text-white font-Din font-bold mt-1 ">
                       {data.secondBlockPosts[0].post_title}

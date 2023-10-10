@@ -10,6 +10,8 @@ interface SearchtProps {
   isLoading: boolean;
   isError: boolean;
   setSearchString: React.Dispatch<React.SetStateAction<string>>;
+  searchPosts: any;
+  setSearchPosts: React.Dispatch<React.SetStateAction<any>>;
 }
 
 export const SearchContext = createContext<SearchtProps>({
@@ -18,11 +20,13 @@ export const SearchContext = createContext<SearchtProps>({
   isLoading: false,
   isError: false,
   setSearchString: () => {},
+  searchPosts: [],
+  setSearchPosts: () => {},
 });
 
 export const SearchProvider = ({ children }: { children: ReactNode }) => {
   const [searchString, setSearchString] = useState<string>("");
-
+  const [searchPosts, setSearchPosts] = useState<IPost[]>([]);
   const router = useRouter();
 
   const currentLanguage = router.query.lang as string;
@@ -39,6 +43,8 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
         isError,
         searchString,
         setSearchString,
+        searchPosts,
+        setSearchPosts,
       }}
     >
       {children}

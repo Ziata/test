@@ -35,7 +35,7 @@ const Home: React.FC<HomeProps> = ({
       <>
         <HomeLastNews data={data.firstBlock} />
         <HomeSpotlight data={data.secondBlock} followData={followData} />
-        {data.thirdBlock.thirdBlockPosts.length > 0 && (
+        {data.thirdBlock?.thirdBlockPosts.length > 0 && (
           <HomeDaily data={data.thirdBlock} />
         )}
         <HomeInterviews data={data.fourthBlock} />
@@ -50,22 +50,30 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   try {
     const response = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/home-page`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/home-page`
     );
     const data: IHome = await response.json();
 
     const responseHeader = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/header`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/header`
     );
     const headerData: IHeader = await responseHeader.json();
 
     const responseFooter = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/footer`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/footer`
     );
     const footerData: IFooter = await responseFooter.json();
 
     const responseFollow = await fetch(
-      `${baseUrl}/${lang}/wp-json/nextquestion/v2/follownextquestion`
+      `${baseUrl}/${lang}/wp-json/nextquestion${
+        lang === "zh" ? lang : ""
+      }/v2/follownextquestion`
     );
     const followData: IFooter = await responseFollow.json();
 
