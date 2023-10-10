@@ -6,7 +6,11 @@ import { t } from "i18next";
 import { useRouter } from "next/router";
 import Loader from "@/components/Loader/Loader";
 import { IPost } from "@/services/interface";
-import { findFirstCategory, generateUniqueId, truncateText } from "@/utils";
+import {
+  findFirstCategory,
+  generateUniqueId,
+  truncateTexSearch,
+} from "@/utils";
 import { SearchContext } from "@/context/SearchContext";
 
 function stripHTMLTags(text: string): string {
@@ -107,7 +111,7 @@ export default function Search({ closeModal }: { closeModal: () => void }) {
                     </h6>
                     <p className="font-light text-lg leading-6 text-[#002c47] font-Din">
                       {highlightText(
-                        truncateText(post.post_content, 250, searchString),
+                        truncateTexSearch(post.post_content, 250, searchString),
                         searchString
                       )}
                     </p>

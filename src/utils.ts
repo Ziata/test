@@ -1,6 +1,13 @@
 import { ICategory } from "@/services/interface";
 
-export function truncateText(
+export function truncateText(text: string, maxLength: number): string {
+  if (text.length <= maxLength) {
+    return text;
+  } else {
+    return text.slice(0, maxLength - 3) + "...";
+  }
+}
+export function truncateTexSearch(
   text: string,
   maxLength: number,
   highlightText: string
