@@ -8,6 +8,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 function Post({
   post,
@@ -17,6 +18,10 @@ function Post({
   isInterview?: boolean;
 }) {
   const router = useRouter();
+
+  useEffect(() => {
+    console.log(post);
+  }, [post]);
 
   return (
     <Link
@@ -45,8 +50,7 @@ function Post({
       <div className="w-full flex flex-col justify-between gap-[0.5rem]">
         <span
           className={` ${isInterview && "order-2 mb-[5px]"} ${
-            post.categories[1]?.cat_name === "Meeting Reports" ||
-            post.categories[0]?.cat_name === "Meeting Reports"
+            post.categories.some((obj) => obj.cat_ID === 2)
               ? "text-[#f05022]"
               : "text-[#0071BC]"
           } font-light text-base leading-5 flex items-center font-Din`}
@@ -77,7 +81,7 @@ function Post({
               overflow: "hidden",
               textOverflow: "ellipsis",
             }}
-            className="font-light text-[14px] md:text-[18px] leading-[1.2rem] md:leading-6 font-Din text-[#002c47]"
+            className="font-light text-[14px] md:text-[18px] leading-[1.2rem] md:leading-6 font-Din text-[#737373]"
             dangerouslySetInnerHTML={{
               __html: truncateText(post.post_content, 240),
             }}

@@ -29,6 +29,10 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
     ? data.latestNews.slice(0, 4)
     : data.latestNews.slice(1, 5);
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
     <div className="container pb-[70px]">
       <div className="flex justify-between items-center py-10">
@@ -49,12 +53,11 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
           />
         </Link>
       </div>
-      <div className="flex gap-[30px] tb:h-[440px] w-full">
+      <div className="flex gap-[30px] tb:h-[450px] w-full">
         <Link
           href={`/${router.query.lang}/post/${data?.latestNews[0]?.post_name}`}
           className={`${
-            data?.latestNews[0]?.categories[0]?.slug === "meeting-reports" ||
-            data?.latestNews[0]?.categories[1]?.slug === "meeting-reports"
+            data?.latestNews[0]?.categories.some((obj) => obj.cat_ID === 2)
               ? "border-b-2 border-orange-600 border-solid"
               : ""
           } group hidden md:flex md:w-1/2 tb:w-2/3 tb:h-full px-[17px] py-[28px] items-end justify-start relative lazy-background bg-cover transition-all duration-300 hover:scale-[1.02]`}
@@ -66,8 +69,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
           <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />
           <div className="gradient-background opacity-0 w-full h-full bottom-0 left-0 !absolute bg-[#4e4e4e33] group-hover:opacity-100 group-hover:h-full transition-all duration-300" />
           <div className="z-1 relative">
-            {data?.latestNews[0]?.categories[0]?.slug === "meeting-reports" ||
-            data?.latestNews[0]?.categories[1]?.slug === "meeting-reports" ? (
+            {data?.latestNews[0]?.categories.some((obj) => obj.cat_ID === 2) ? (
               <div className="font-normal text-lg leading-5 text-orange-600 font-Din">
                 {t("Meeting Reports")}:
               </div>
@@ -82,9 +84,9 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
             <span className="block font-light text-sm leading-4 text-white font-Din mt-1 transition-all duration-300">
               {formatDate(data?.latestNews[0]?.post_date)}
             </span>
-            {(data?.latestNews[0]?.categories[0]?.slug === "meeting-reports" ||
-              data?.latestNews[0]?.categories[1]?.slug ===
-                "meeting-reports") && (
+            {data?.latestNews[0]?.categories.some(
+              (obj) => obj.cat_ID === 2
+            ) && (
               <div className="font-normal text-lg flex items-center text-white font-Din mt-2 transition-all duration-300">
                 {t("Read the Report")}{" "}
                 <Image

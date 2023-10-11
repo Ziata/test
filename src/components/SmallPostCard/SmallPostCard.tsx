@@ -35,8 +35,7 @@ function SmallPostCard({
       <div className="w-2/3 flex flex-col justify-between h-[80px]">
         <span
           className={`${
-            post?.categories[0]?.slug === "meeting-reports" ||
-            post?.categories[1]?.slug === "meeting-reports"
+            post?.categories.some((obj) => obj.cat_ID === 2)
               ? "text-orange-600"
               : ""
           } h-[18px] font-light leading-[0.8] text-base flex items-center text-[#0071BC] font-Din whitespace-nowrap overflow-clip`}

@@ -111,7 +111,7 @@ function HomeSpotlight({
                   </div>
                 </Link>
               </div>
-              <div className="w-full md:w-1/2 tb:w-[358px] tb:min-w-[300px] flex flex-col justify-between">
+              <div className="w-full md:w-1/2 tb:w-[358px] tb:min-w-[300px] flex flex-col justify-start">
                 {slicedNews.map((post, index) => (
                   <SmallPostCard
                     post={post}

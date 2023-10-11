@@ -55,13 +55,31 @@ export const generateUniqueId = () => {
 };
 
 export const formatDate = (inputDate: string): string => {
+  const inputDateTime: Date = new Date(inputDate);
+
+  const currentDateTime: Date = new Date();
+  const currentDateTimeUTC: Date = new Date(
+    currentDateTime.getTime() + currentDateTime.getTimezoneOffset() * 60000
+  );
+
+  const timeDifference = currentDateTimeUTC.getTime() - inputDateTime.getTime();
+
+  if (timeDifference < 60 * 60 * 1000) {
+    const minutesAgo = Math.floor(timeDifference / (60 * 1000));
+    return `${minutesAgo} minutes ago`;
+  }
+
+  if (timeDifference < 24 * 60 * 60 * 1000) {
+    const hoursAgo = Math.floor(timeDifference / (60 * 60 * 1000));
+    return `${hoursAgo} hours ago`;
+  }
+
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
     day: "numeric",
   };
-  const date: Date = new Date(inputDate);
-  return date.toLocaleDateString("en-US", options);
+  return inputDateTime.toLocaleDateString("en-US", options);
 };
 
 export function findFirstCategory(categories: ICategory[]): string | null {

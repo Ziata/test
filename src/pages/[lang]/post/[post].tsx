@@ -7,6 +7,7 @@ import { LayoutContext } from "@/context/LayoutContext";
 import Recomend from "@/components/Recomend/Recomend";
 import { t } from "i18next";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -16,6 +17,7 @@ interface PostProps {
   headerData: IHeader;
   footerData: IFooter;
   followData: IFollow;
+  lang: string;
 }
 
 const Post: React.FC<PostProps> = ({
@@ -24,10 +26,12 @@ const Post: React.FC<PostProps> = ({
   footerData,
   headerData,
   followData,
+  lang,
 }) => {
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
   const [showAll, setShowAll] = useState(false);
   const toggleShowAll = () => setShowAll(!showAll);
+  const pathname = useParams();
 
   useEffect(() => {
     setHeaderData(headerData); // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,7 +63,13 @@ const Post: React.FC<PostProps> = ({
   const hiddenHeight =
     data?.youtube_url || data?.interview_audio ? "1000px" : "700px";
   const hiddentextLength =
-    data?.youtube_url || data?.interview_audio ? 2500 : 1500;
+    data?.youtube_url || data?.interview_audio
+      ? lang === "zh"
+        ? 2300
+        : 2500
+      : lang === "zh"
+      ? 1300
+      : 1500;
 
   return (
     <>
@@ -201,7 +211,7 @@ const Post: React.FC<PostProps> = ({
                   style={{
                     maxHeight: showAll ? "none" : hiddenHeight,
                   }}
-                  className="transition-all duration-500 overflow-hidden font-light text-lg leading-6 items-center font-Din text-[#73737] text-content"
+                  className="transition-all duration-500 overflow-hidden font-light text-lg leading-6 items-center font-Din text-[#737373] text-content"
                   dangerouslySetInnerHTML={{ __html: data.post_content }}
                 />
                 {!showAll && data.post_content.length > hiddentextLength && (
@@ -224,7 +234,7 @@ const Post: React.FC<PostProps> = ({
                   (showAll || data.post_content.length < hiddentextLength) && (
                     <>
                       <div className="my-[50px] h-[1px] w-full bg-[#B3B3B3]" />
-                      <div className="font-light text-lg leading-6 items-center font-Din text-[#73737] text-content mb-[50px] pl-[15px] md:pl-[40px] border-l-[5px] border-solid border-[#0071BC]">
+                      <div className="font-light text-lg leading-6 items-center font-Din text-[#737373] text-content mb-[50px] pl-[15px] md:pl-[40px] border-l-[5px] border-solid border-[#0071BC]">
                         <div
                           dangerouslySetInnerHTML={{
                             __html: data.resource,
@@ -299,6 +309,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         recomendData,
         footerData,
         followData,
+        lang,
       },
     };
   } catch (error) {
@@ -310,6 +321,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         headerData: null,
         footerData: null,
         followData: null,
+        lang: null,
       },
     };
   }
