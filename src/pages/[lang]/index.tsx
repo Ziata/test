@@ -30,6 +30,10 @@ const Home: React.FC<HomeProps> = ({
     setFooterData(footerData); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [footerData]);
 
+  useEffect(() => {
+    console.log(data); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   return (
     data && (
       <>
@@ -88,7 +92,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         data,
         headerData,
         footerData,
-        followData,
+        followData: { ...followData, img: data.secondBlock.right_image.url },
       },
     };
   } catch (error) {

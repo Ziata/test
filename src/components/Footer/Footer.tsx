@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="py-[20px] flex items-center justify-center gap-y-[10px] gap-x-[40px] tb:gap-0 tb:justify-between min-h-[102px] flex-wrap">
           {data && (
             <>
-              <span className="font-normal text-lg leading-5 font-Din text-[#002c47]">
+              <span className="font-300 text-lg leading-5 font-Din text-[#002c47]">
                 {data.site_rights}
               </span>
               <span className="hidden md:block font-normal text-lg leading-5 font-Din text-[#002c47]">
@@ -27,7 +27,7 @@ export default function Footer() {
                     href={`/${router.query.lang}${
                       link.url.startsWith("/") ? "" : "/"
                     }${link.url}`}
-                    className="font-normal text-lg leading-5 font-Din text-[#002c47]  transition-all duration-300 hover:text-[#0071BC]"
+                    className="font-300 text-lg leading-5 font-Din text-[#002c47]  transition-all duration-300 hover:text-[#0071BC]"
                   >
                     {link.name}
                   </Link>

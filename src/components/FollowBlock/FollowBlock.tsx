@@ -4,15 +4,20 @@ import follow from "static/img/follow.png";
 import { useRouter } from "next/router";
 import { generateUniqueId } from "@/utils";
 import { IFollow } from "@/services/interface";
+import { useEffect } from "react";
 
 function FollowBlock({ followData }: { followData: IFollow }) {
   const router = useRouter();
 
+  useEffect(() => {
+    console.log(followData);
+  }, [followData]);
+
   return (
     <div className="bg-[#D0E5F2] flex flex-col tb:flex-col md:flex-row h-fit w-full py-[20px] px-[18px]">
-      {router.pathname === `/[lang]` && (
-        <div className="w-full md:w-1/2 mr-[30px] tb:mr-[0] tb:w-full h-auto mb-[30px] md:mb-[0] tb:mb-[18px]">
-          <Image src={follow} alt="follow" />
+      {router.pathname === `/[lang]` && followData?.img && (
+        <div className="relative w-full md:w-1/2 mr-[30px] tb:mr-[0] tb:w-full h-auto mb-[30px] md:mb-[0] tb:mb-[18px]">
+          <img src={followData.img} alt="follow" />
         </div>
       )}
       <div

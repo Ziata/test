@@ -19,10 +19,6 @@ function Post({
 }) {
   const router = useRouter();
 
-  useEffect(() => {
-    console.log(post);
-  }, [post]);
-
   return (
     <Link
       href={`/${router.query.lang}/post/${post.post_name}`}

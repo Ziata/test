@@ -77,6 +77,7 @@ export interface FooterSocialMedum {
 export interface IFollow {
   title_follow_next_question: string;
   social_media_list: SocialMediaList[];
+  img?: string;
 }
 
 export interface SocialMediaList {

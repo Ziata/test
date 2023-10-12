@@ -2,12 +2,11 @@ import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import { findFirstCategory, formatDate } from "@/utils";
 import { GetServerSideProps } from "next";
 import { IFollow, IFooter, IHeader, IPost } from "@/services/interface";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { LayoutContext } from "@/context/LayoutContext";
 import Recomend from "@/components/Recomend/Recomend";
 import { t } from "i18next";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -31,7 +30,8 @@ const Post: React.FC<PostProps> = ({
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
   const [showAll, setShowAll] = useState(false);
   const toggleShowAll = () => setShowAll(!showAll);
-  const pathname = useParams();
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  const [contentHeight, setContentHeight] = useState(0);
 
   useEffect(() => {
     setHeaderData(headerData); // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,16 +60,14 @@ const Post: React.FC<PostProps> = ({
     return "";
   };
 
-  const hiddenHeight =
-    data?.youtube_url || data?.interview_audio ? "1000px" : "700px";
-  const hiddentextLength =
-    data?.youtube_url || data?.interview_audio
-      ? lang === "zh"
-        ? 2300
-        : 2500
-      : lang === "zh"
-      ? 1300
-      : 1500;
+  const hiddenHeight = 1200;
+
+  useEffect(() => {
+    if (contentRef.current) {
+      const contentHeight = contentRef.current.clientHeight;
+      setContentHeight(contentHeight);
+    }
+  }, [data]);
 
   return (
     <>
@@ -151,7 +149,7 @@ const Post: React.FC<PostProps> = ({
           </div>
         )
       )}
-      <div className="container">
+      <div className="container overflow-hidden" ref={contentRef}>
         <div
           className={`${
             !data?.interview_audio && !data?.youtube_url
@@ -159,7 +157,12 @@ const Post: React.FC<PostProps> = ({
               : ""
           } flex w-full flex-col tb:flex-row bg-white pt-[25px] pb-[4rem]`}
         >
-          <div className="tb:mr-[30px] w-full">
+          <div
+            className="tb:mr-[30px] w-full relative overflow-hidden"
+            style={{
+              maxHeight: showAll ? "none" : hiddenHeight + "px",
+            }}
+          >
             {data?.interview_audio || data?.youtube_url ? (
               <div className="font-light text-[12px] md:text-[18px] leading-4 flex items-center font-Din text-[#002c47] gap-[4px] md:gap-[15px] mb-[20px]">
                 <span>{formatDate(data.post_date)}</span>
@@ -206,15 +209,12 @@ const Post: React.FC<PostProps> = ({
               )
             )}
             {data && (
-              <div className="relative">
+              <div>
                 <div
-                  style={{
-                    maxHeight: showAll ? "none" : hiddenHeight,
-                  }}
                   className="transition-all duration-500 overflow-hidden font-light text-lg leading-6 items-center font-Din text-[#737373] text-content"
                   dangerouslySetInnerHTML={{ __html: data.post_content }}
                 />
-                {!showAll && data.post_content.length > hiddentextLength && (
+                {!showAll && contentHeight > hiddenHeight && (
                   <div
                     style={{
                       background:
@@ -231,7 +231,7 @@ const Post: React.FC<PostProps> = ({
                   </div>
                 )}
                 {data?.resource &&
-                  (showAll || data.post_content.length < hiddentextLength) && (
+                  (showAll || contentHeight < hiddenHeight) && (
                     <>
                       <div className="my-[50px] h-[1px] w-full bg-[#B3B3B3]" />
                       <div className="font-light text-lg leading-6 items-center font-Din text-[#737373] text-content mb-[50px] pl-[15px] md:pl-[40px] border-l-[5px] border-solid border-[#0071BC]">
