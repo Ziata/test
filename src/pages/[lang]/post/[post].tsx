@@ -226,7 +226,7 @@ const Post: React.FC<PostProps> = ({
                       onClick={toggleShowAll}
                       className="mx-auto mb-[80px] font-light text-lg leading-[23px] flex items-center text-[rgba(0,44,71,0.8)]"
                     >
-                      Read More
+                      {t("Read More")}
                     </button>
                   </div>
                 )}
