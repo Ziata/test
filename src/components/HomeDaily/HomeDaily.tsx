@@ -8,6 +8,7 @@ import { useState } from "react";
 
 function HomeDaily({ data }: { data: ThirdBlock }) {
   const router = useRouter();
+  const currentLanguage = router.query.lang as string;
 
   const [allowLinkClick, setAllowLinkClick] = useState(true);
 
@@ -80,7 +81,7 @@ function HomeDaily({ data }: { data: ThirdBlock }) {
                   {post.post_title}
                 </h5>
                 <span className="block font-light text-sm leading-4 text-white font-Din mt-2">
-                  {formatDate(post.post_date)}
+                  {formatDate(post.post_date, currentLanguage)}
                 </span>
               </div>
             </div>

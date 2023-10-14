@@ -7,6 +7,7 @@ import shevron from "static/img/shevron-white.svg";
 import { t } from "i18next";
 import { FourthBlock } from "@/services/interface";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const settings = {
   dots: true,
@@ -72,7 +73,9 @@ function HomeInterviews({ data }: { data: FourthBlock }) {
                     href={`/${router.query.lang}/post/${post.post_name}`}
                     className="font-normal text-[18px] md:text-lg leading-0 text-white font-Din flex flex-row justify-center items-center bg-[#0071BC] w-full max-w-[230px] h-[60px] rounded-[50px] mt-[20px] md:mt-0 md:mr-[40px] transition-all duration-300 hover:bg-[#0081DA]"
                   >
-                    {data.fourth_block_button_name}
+                    {post.select_type_video_or_audio === "Youtube"
+                      ? data.fourth_block_button_name_for_video
+                      : data.fourth_block_button_name_for_audio}
                   </Link>
                   <span>{post.post_title}</span>
                 </div>

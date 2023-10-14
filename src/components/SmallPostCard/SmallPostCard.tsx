@@ -11,6 +11,7 @@ function SmallPostCard({
   isHiddenLine?: boolean;
 }) {
   const router = useRouter();
+  const currentLanguage = router.query.lang as string;
 
   return (
     <Link
@@ -55,7 +56,7 @@ function SmallPostCard({
           {post?.post_title && post.post_title}
         </h6>
         <span className="font-light text-sm leading-[0.8] flex items-center text-[#33566c] font-Din">
-          {formatDate(post?.post_date)}
+          {formatDate(post?.post_date, currentLanguage)}
         </span>
       </div>
     </Link>

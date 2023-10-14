@@ -79,6 +79,14 @@ input[type="range"]::-webkit-slider-thumb {
   width: 0.8rem;
 }
 
+.text-content ol {
+  list-style-type: decimal;
+}
+
+.text-content ul {
+  list-style-type: initial;
+}
+
 .text-content p {
   @apply mt-5;
 }

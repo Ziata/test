@@ -7,6 +7,7 @@ import { LayoutContext } from "@/context/LayoutContext";
 import Recomend from "@/components/Recomend/Recomend";
 import { t } from "i18next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -25,13 +26,14 @@ const Post: React.FC<PostProps> = ({
   footerData,
   headerData,
   followData,
-  lang,
 }) => {
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
   const [showAll, setShowAll] = useState(false);
   const toggleShowAll = () => setShowAll(!showAll);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const [contentHeight, setContentHeight] = useState(0);
+  const router = useRouter();
+  const currentLanguage = router.query.lang as string;
 
   useEffect(() => {
     setHeaderData(headerData); // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -165,7 +167,7 @@ const Post: React.FC<PostProps> = ({
           >
             {data?.interview_audio || data?.youtube_url ? (
               <div className="font-light text-[12px] md:text-[18px] leading-4 flex items-center font-Din text-[#002c47] gap-[4px] md:gap-[15px] mb-[20px]">
-                <span>{formatDate(data.post_date)}</span>
+                <span>{formatDate(data.post_date, currentLanguage)}</span>
                 {data.interviewer && (
                   <>
                     <span>|</span>
@@ -189,7 +191,7 @@ const Post: React.FC<PostProps> = ({
                     {findFirstCategory(data.categories)}
                   </span>
                   <div className="font-light text-[12px] md:text-sm leading-4 flex items-center font-Din text-[#33566C] gap-[4px] md:gap-[8px]">
-                    <span>{formatDate(data.post_date)}</span>
+                    <span>{formatDate(data.post_date, currentLanguage)}</span>
                     {data.author_name && (
                       <>
                         <span>|</span>

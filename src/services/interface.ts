@@ -222,6 +222,7 @@ export interface IPost {
   open_in_new_tab: string;
   background_opacity: string;
   resource: string;
+  select_type_video_or_audio: string;
 }
 
 export interface ThirdBlock {
@@ -234,6 +235,8 @@ export interface FourthBlock {
   fourth_block_button_name: string;
   fourth_block_background_image: Image;
   fourthBlockPosts: IPost[];
+  fourth_block_button_name_for_video?: string;
+  fourth_block_button_name_for_audio?: string;
 }
 
 export interface PostContentLangs {

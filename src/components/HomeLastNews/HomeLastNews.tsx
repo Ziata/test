@@ -13,6 +13,8 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const router = useRouter();
 
+  const currentLanguage = router.query.lang as string;
+
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
   };
@@ -28,10 +30,6 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
   const slicedNews = isMobile
     ? data.latestNews.slice(0, 4)
     : data.latestNews.slice(1, 5);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   return (
     <div className="container pb-[70px]">
@@ -82,7 +80,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
               {data?.latestNews[0]?.post_title}
             </h5>
             <span className="block font-light text-sm leading-4 text-white font-Din mt-1 transition-all duration-300">
-              {formatDate(data?.latestNews[0]?.post_date)}
+              {formatDate(data?.latestNews[0]?.post_date, currentLanguage)}
             </span>
             {data?.latestNews[0]?.categories.some(
               (obj) => obj.cat_ID === 2

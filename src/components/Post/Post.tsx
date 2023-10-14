@@ -18,6 +18,7 @@ function Post({
   isInterview?: boolean;
 }) {
   const router = useRouter();
+  const currentLanguage = router.query.lang as string;
 
   return (
     <Link
@@ -88,7 +89,7 @@ function Post({
             isInterview ? "order-3" : ""
           } font-light text-[12px] md:text-sm flex items-center font-Din text-[#33566c] gap-[4px] md:gap-[8px]`}
         >
-          <span>{formatDate(post.post_date)}</span>
+          <span>{formatDate(post.post_date, currentLanguage)}</span>
           {post?.reporter && post.reporter.length > 0 && (
             <>
               <span>|</span>

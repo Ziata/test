@@ -54,7 +54,7 @@ export const generateUniqueId = () => {
   return `${timestamp}-${randomNumber}`;
 };
 
-export const formatDate = (inputDate: string): string => {
+export const formatDate = (inputDate: string, lang: string): string => {
   const inputDateTime: Date = new Date(inputDate);
 
   const currentDateTime: Date = new Date();
@@ -66,12 +66,12 @@ export const formatDate = (inputDate: string): string => {
 
   if (timeDifference < 60 * 60 * 1000) {
     const minutesAgo = Math.floor(timeDifference / (60 * 1000));
-    return `${minutesAgo} minutes ago`;
+    return lang === "zh" ? `${minutesAgo} 分钟前` : `${minutesAgo} minutes ago`;
   }
 
   if (timeDifference < 24 * 60 * 60 * 1000) {
     const hoursAgo = Math.floor(timeDifference / (60 * 60 * 1000));
-    return `${hoursAgo} hours ago`;
+    return lang === "zh" ? `${hoursAgo} 小时前` : `${hoursAgo} hours ago`;
   }
 
   const options: Intl.DateTimeFormatOptions = {
@@ -79,7 +79,13 @@ export const formatDate = (inputDate: string): string => {
     month: "long",
     day: "numeric",
   };
-  return inputDateTime.toLocaleDateString("en-US", options);
+
+  // Check the lang parameter and format the date accordingly
+  if (lang === "zh") {
+    return inputDateTime.toLocaleDateString("zh-CN", options);
+  } else {
+    return inputDateTime.toLocaleDateString("en-US", options);
+  }
 };
 
 export function findFirstCategory(categories: ICategory[]): string | null {

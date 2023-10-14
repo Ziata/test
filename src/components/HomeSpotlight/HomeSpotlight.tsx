@@ -106,7 +106,10 @@ function HomeSpotlight({
                       {data?.secondBlockPosts?.[0]?.post_title}
                     </h5>
                     <span className="block font-light text-sm leading-4 text-white font-Din mt-1">
-                      {formatDate(data?.secondBlockPosts?.[0]?.post_date)}
+                      {formatDate(
+                        data?.secondBlockPosts?.[0]?.post_date,
+                        currentLanguage
+                      )}
                     </span>
                   </div>
                 </Link>
