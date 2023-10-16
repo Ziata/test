@@ -3,6 +3,9 @@ export interface IHeader {
   search_image: Image;
   language_image: Image;
   category_menu: CategoryMenu[];
+  site_icon: string;
+  site_title: string;
+  tagline: string;
 }
 
 export interface Sizes {

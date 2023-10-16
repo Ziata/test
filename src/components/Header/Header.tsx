@@ -10,6 +10,7 @@ import Modal from "@/components/Modal/Modal";
 import Search from "@/components/Search/Search";
 import { LayoutContext } from "@/context/LayoutContext";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function Header() {
   const { headerData: data } = useContext(LayoutContext);
@@ -44,8 +45,19 @@ export default function Header() {
     }
   }, [isMobile]);
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
     <header className="fixed w-full z-[19]">
+      {data && (
+        <Head>
+          <title>{data.site_title}</title>
+          <meta name="description" content={data.tagline} />
+          <link rel="icon" href={data.site_icon} />
+        </Head>
+      )}
       <Modal isOpen={isOpenModal} parentSelector="body" closeModal={closeModal}>
         <Search closeModal={closeModal} />
       </Modal>
