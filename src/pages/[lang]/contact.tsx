@@ -76,10 +76,6 @@ const Contact: React.FC<PageProps> = ({
     return emailRegex.test(email);
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   const handleSubmit = async () => {
     if (!isNameValid || !isEmailValid || !data.form_id)
       setStatusMessage(
@@ -179,7 +175,7 @@ const Contact: React.FC<PageProps> = ({
               <div className="text-orange-600 mt-4">{statusMessage}</div>
             )}
             <button
-              className="bg-[#D0E5F2] font-Din font-normal text-base text-[#002C47] px-[20px] py-[10px] rounded-[10px] transition-all duration-300 hover:bg-[#0071BC] mt-[15px] md:mt-[50px]"
+              className="bg-[#D0E5F2] font-Din font-normal text-base text-[#002C47] px-[20px] py-[10px] rounded-[10px] transition-all duration-300 hover:bg-[#0071BC] hover:text-white mt-[15px] md:mt-[50px]"
               onClick={handleSubmit}
             >
               {isLoading ? (

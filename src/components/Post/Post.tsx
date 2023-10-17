@@ -46,15 +46,11 @@ function Post({
       </div>
       <div className="w-full flex flex-col justify-between gap-[0.5rem]">
         <span
-          /* className={` ${isInterview && "order-2 mb-[5px]"} ${
+          className={` ${isInterview && "order-2 mb-[5px]"} ${
             post.categories.some((obj) => obj.cat_ID === 2)
               ? "text-[#f05022]"
               : "text-[#0071BC]"
-          } font-light text-base leading-5 flex items-center font-Din`} */
-
-          className={` ${
-            isInterview && "order-2 mb-[5px]"
-          } text-[#0071BC] font-light text-base leading-5 flex items-center font-Din`}
+          } font-light text-base leading-5 flex items-center font-Din`}
         >
           {post.display_this_category?.name ||
             findFirstCategory(post.categories)}

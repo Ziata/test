@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { generateUniqueId } from "@/utils";
 import { IFollow } from "@/services/interface";
-import { useEffect } from "react";
 
 function FollowBlock({ followData }: { followData: IFollow }) {
   const router = useRouter();
