@@ -278,6 +278,7 @@ export interface Page {
   featured_image_alt: string;
   content: string;
   form: FormField[];
+  form_id?: string;
 }
 
 interface FormField {

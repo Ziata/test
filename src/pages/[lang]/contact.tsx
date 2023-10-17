@@ -28,6 +28,7 @@ export interface PageProps {
   headerData: IHeader;
   footerData: IFooter;
   followData: IFollow;
+  form_id?: string;
 }
 
 const Contact: React.FC<PageProps> = ({
@@ -75,14 +76,19 @@ const Contact: React.FC<PageProps> = ({
     return emailRegex.test(email);
   };
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   const handleSubmit = async () => {
-    if (!isNameValid || !isEmailValid)
+    if (!isNameValid || !isEmailValid || !data.form_id)
       setStatusMessage(
         "One or more fields have an error. Please check and try again."
       );
     else {
       try {
         const result = (await sendMessage({
+          id: data.form_id,
           body: jsonToFormData({
             "your-name": name,
             "your-email": email,
