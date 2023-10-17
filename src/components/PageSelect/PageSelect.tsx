@@ -29,8 +29,8 @@ function PageSelect({
   };
 
   return (
-    <div className="flex items-center font-normal text-base leading-5 text-[#002c47] font-Din">
-      Show{" "}
+    <div className="flex items-center font-normal text-base text-[#002c47] font-Din">
+      <div className="mt-1">Show</div>{" "}
       <Select
         instanceId="react-select-instance"
         defaultValue={selectedOption}
