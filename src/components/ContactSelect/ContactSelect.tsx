@@ -1,20 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
 import Select, { SingleValue } from "react-select";
 
-const options = [
-  {
-    value: "test 1",
-    label: "test 1",
-  },
-  {
-    value: "test 2",
-    label: "test 2",
-  },
-];
-
 export default function ContactSelect({
+  options,
   setType,
 }: {
+  options: { value: string; label: string }[];
   setType: Dispatch<SetStateAction<string>>;
 }) {
   const handleChange = (
@@ -23,6 +14,9 @@ export default function ContactSelect({
     if (!option) return;
     setType(option.value);
   };
+
+  if (!options[0]) return;
+
   return (
     <Select
       instanceId="react-select-contact"

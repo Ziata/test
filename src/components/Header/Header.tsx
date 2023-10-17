@@ -45,10 +45,6 @@ export default function Header() {
     }
   }, [isMobile]);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
     <header className="fixed w-full z-[19]">
       {data && (

@@ -13,6 +13,7 @@ import {
   IPost,
 } from "@/services/interface";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -32,6 +33,8 @@ const Category: React.FC<CategoryProps> = ({
   headerData,
   followData,
 }) => {
+  const router = useRouter();
+  const { lang, category, page } = router.query;
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>(
     data.cat_name
@@ -51,22 +54,18 @@ const Category: React.FC<CategoryProps> = ({
 
   const handleSubcategoryClick = (subcategory: string) => {
     setSelectedSubcategory(subcategory);
+    router.push(`/${lang}/category/${category}?page=1`);
   };
 
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const currentPage = typeof page === "string" ? parseInt(page, 10) || 1 : 1;
   const [postsPerPage, setPostsPerPage] = useState<number>(10);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-
   const currentPosts = data?.all_posts?.slice(
     indexOfFirstPost,
     indexOfLastPost
   );
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [data.cat_name]);
 
   const filteredPosts =
     selectedSubcategory && data.cat_name !== "All"
@@ -77,7 +76,18 @@ const Category: React.FC<CategoryProps> = ({
         )
       : currentPosts;
 
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const pagesLength =
+    selectedSubcategory && data.cat_name !== "All"
+      ? data.all_posts.filter((post) =>
+          post.categories.some(
+            (category) => category.name === selectedSubcategory
+          )
+        ).length
+      : data.all_posts.length;
+
+  const paginate = (pageNumber: number) => {
+    router.push(`/${lang}/category/${category}?page=${pageNumber}`);
+  };
 
   useEffect(() => {
     console.log(data);
@@ -136,7 +146,7 @@ const Category: React.FC<CategoryProps> = ({
                   <PageSelect setPostsPerPage={setPostsPerPage} />
                   <Pagination
                     postsPerPage={postsPerPage}
-                    totalPosts={data.all_posts.length}
+                    totalPosts={pagesLength}
                     currentPage={currentPage}
                     paginate={paginate}
                   />

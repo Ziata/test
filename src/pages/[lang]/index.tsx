@@ -30,10 +30,6 @@ const Home: React.FC<HomeProps> = ({
     setFooterData(footerData); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [footerData]);
 
-  useEffect(() => {
-    console.log(data); // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-
   return (
     data && (
       <>

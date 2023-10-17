@@ -4,7 +4,6 @@ import Loader from "@/components/Loader/Loader";
 import { LayoutContext } from "@/context/LayoutContext";
 import { useSendMessageMutation } from "@/services/api";
 import { IFollow, IFooter, IHeader, Page } from "@/services/interface";
-import { t } from "i18next";
 import { GetServerSideProps } from "next";
 import { useContext, useEffect, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -39,14 +38,19 @@ const Contact: React.FC<PageProps> = ({
 }) => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [type, setType] = useState("test 1");
+  const [type, setType] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+  const [values, setValues] = useState<{ value: string; label: string }[]>([]);
   const [isNameValid, setIsNameValid] = useState<boolean>(false);
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
   const [statusMessage, setStatusMessage] = useState<string>("");
   const [sendMessage, { isLoading }] = useSendMessageMutation();
 
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
+
+  useEffect(() => {
+    console.log(data); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   useEffect(() => {
     setHeaderData(headerData); // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -97,6 +101,17 @@ const Contact: React.FC<PageProps> = ({
     statusMessage && setTimeout(() => setStatusMessage(""), 5000);
   }, [statusMessage]);
 
+  useEffect(() => {
+    if (!data.form[2].values) return;
+
+    const transformedArray = data.form[2].values.map((item) => ({
+      value: item,
+      label: item,
+    }));
+    setValues(transformedArray);
+    setType(transformedArray[0].value);
+  }, [data]);
+
   return (
     <>
       <div
@@ -120,7 +135,7 @@ const Contact: React.FC<PageProps> = ({
             />
             <div className="flex flex-col md:flex-row items-center mt-[30px] gap-[15px] md:gap-[50px]">
               <label className="font-light text-lg leading-6 text-[#002c47] w-full md:w-1/3 font-Din pl-[15px]">
-                {t("Name")}
+                {data.form[0].values[0]}
                 <input
                   className="bg-[#EBEBEB] rounded-[10px] h-[45px] w-full font-Din mt-[10px] outline-none border focus:border-none px-[10px] -ml-[15px]"
                   value={name}
@@ -128,7 +143,7 @@ const Contact: React.FC<PageProps> = ({
                 />
               </label>
               <label className="font-light text-lg leading-6 text-[#002c47] w-full md:w-1/3 font-Din pl-[15px]">
-                {t("Email")}
+                {data.form[1].values[0]}
                 <input
                   className="bg-[#EBEBEB] rounded-[10px] h-[45px] w-full font-Din mt-[10px] outline-none border focus:border-none px-[10px] -ml-[15px]"
                   value={email}
@@ -136,13 +151,13 @@ const Contact: React.FC<PageProps> = ({
                 />
               </label>
               <div className="font-light text-lg leading-6 text-[#002c47] w-full md:w-1/3 font-Din pl-[15px]">
-                {t("Type of Enquiry")}
-                <ContactSelect setType={setType} />
+                {data.form[3].values[0]}
+                <ContactSelect options={values} setType={setType} />
               </div>
             </div>
             <div className="flex flex-col md:flex-row mt-[15px] md:mt-[50px] gap-[15px] md:gap-[50px]">
               <label className="font-light text-lg leading-6 text-[#002c47] w-full md:w-2/3 font-Din pl-[15px]">
-                {t("Message")}
+                {data.form[4].values[0]}
                 <textarea
                   className="bg-[#EBEBEB] rounded-[10px] w-full font-Din mt-[10px] outline-none border focus:border-none p-[10px] -ml-[15px]"
                   rows={6}
@@ -161,7 +176,11 @@ const Contact: React.FC<PageProps> = ({
               className="bg-[#D0E5F2] font-Din font-normal text-base text-[#002C47] px-[20px] py-[10px] rounded-[10px] transition-all duration-300 hover:bg-[#0071BC] mt-[15px] md:mt-[50px]"
               onClick={handleSubmit}
             >
-              {isLoading ? <Loader customClass="w-6 h-6" /> : t("Submit")}
+              {isLoading ? (
+                <Loader customClass="w-6 h-6" />
+              ) : (
+                data.form[5].values[0]
+              )}
             </button>
           </div>
           <div className="w-full flex flex-col-reverse md:flex-row justify-between tb:block tb:w-[360px] tb:min-w-[300px]">

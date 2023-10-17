@@ -87,6 +87,11 @@ input[type="range"]::-webkit-slider-thumb {
   list-style-type: initial;
 }
 
+.post-content.text-content ul,
+.post-content.text-content ol {
+  padding-left: 20px;
+}
+
 .text-content p {
   @apply mt-5;
 }

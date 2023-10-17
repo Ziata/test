@@ -87,6 +87,7 @@ export interface SocialMediaList {
   icon_image: Image;
   social_name: string;
   url: string;
+  open_in_new_tab: "Yes" | "No";
 }
 
 export interface IHome {
@@ -226,6 +227,7 @@ export interface IPost {
   background_opacity: string;
   resource: string;
   select_type_video_or_audio: string;
+  display_this_category?: ICategory;
 }
 
 export interface ThirdBlock {
@@ -274,6 +276,21 @@ export interface Page {
   title: string;
   featured_image: string;
   featured_image_alt: string;
+  content: string;
+  form: FormField[];
+}
+
+interface FormField {
+  type: string;
+  basetype: string;
+  raw_name: string;
+  name: string;
+  options: string[];
+  raw_values: string[];
+  values: string[];
+  pipes: Record<string, any>;
+  labels: string[];
+  attr: string;
   content: string;
 }
 

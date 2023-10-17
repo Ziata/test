@@ -19,7 +19,7 @@ function SmallPostCard({
       className={`flex cursor-pointer group relative ${
         isHiddenLine
           ? ""
-          : "border-b-2 border-solid border-[#E5E5E5] pb-3 mb-3 md:pb-5 md:mb-5 "
+          : "border-b-2 border-solid border-[#E5E5E5] pb-3 mb-3 md:pb-5 md:mb-5 overflow-visible"
       }`}
     >
       <div
@@ -39,12 +39,13 @@ function SmallPostCard({
             post?.categories.some((obj) => obj.cat_ID === 2)
               ? "text-orange-600"
               : ""
-          } h-[18px] font-light leading-[0.8] text-base flex items-center text-[#0071BC] font-Din whitespace-nowrap overflow-clip`}
+          }  font-light text-base leading-5 flex items-center text-[#0071BC] font-Din whitespace-nowrap overflow-clip`}
         >
-          {findFirstCategory(post.categories)}
+          {post.display_this_category?.name ||
+            findFirstCategory(post.categories)}
         </span>
         <h6
-          className="text-[17px] leading-5 flex text-[#002c47] transition-all duration-300 font-Din font-bold overflow-clip"
+          className="text-[17px] leading-none flex text-[#002c47] transition-all duration-300 font-Din font-bold overflow-clip"
           style={{
             display: "-webkit-box",
             WebkitLineClamp: 2,
@@ -55,7 +56,7 @@ function SmallPostCard({
         >
           {post?.post_title && post.post_title}
         </h6>
-        <span className="font-light text-sm leading-[0.8] flex items-center text-[#33566c] font-Din">
+        <span className="font-light leading-none text-sm flex items-center text-[#33566c] font-Din">
           {formatDate(post?.post_date, currentLanguage)}
         </span>
       </div>

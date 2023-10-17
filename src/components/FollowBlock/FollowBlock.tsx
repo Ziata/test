@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import follow from "static/img/follow.png";
 import { useRouter } from "next/router";
 import { generateUniqueId } from "@/utils";
 import { IFollow } from "@/services/interface";
@@ -8,10 +7,6 @@ import { useEffect } from "react";
 
 function FollowBlock({ followData }: { followData: IFollow }) {
   const router = useRouter();
-
-  useEffect(() => {
-    console.log(followData);
-  }, [followData]);
 
   return (
     <div className="bg-[#D0E5F2] flex flex-col tb:flex-col md:flex-row h-fit w-full py-[20px] px-[18px]">
@@ -35,6 +30,7 @@ function FollowBlock({ followData }: { followData: IFollow }) {
                 <Link
                   key={generateUniqueId()}
                   href={link.url}
+                  target={link.open_in_new_tab === "Yes" ? "_blank" : "_self"}
                   className="font-light text-sm leading-4 flex items-center font-Din text-[#002c47] pb-[20px] border-b-2 border-solid border-[#E5E5E5] transition-all duration-300 hover:text-blue-700 hover:text-[18px]"
                 >
                   <Image
