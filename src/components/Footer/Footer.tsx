@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { generateUniqueId } from "@/utils";
@@ -38,7 +38,11 @@ export default function Footer() {
               ))}
               <div className="flex gap-[15px]">
                 {data.footer_social_media.map((link) => (
-                  <Link href={link.url} key={generateUniqueId()}>
+                  <Link
+                    href={link.url}
+                    target={link.open_in_new_tab === "Yes" ? "_blank" : "_self"}
+                    key={generateUniqueId()}
+                  >
                     <Image
                       src={link.icon_image.url}
                       alt={link.icon_image.name}

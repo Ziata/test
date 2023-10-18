@@ -45,7 +45,7 @@ function SmallPostCard({
             findFirstCategory(post.categories)}
         </span>
         <h6
-          className="text-[17px] leading-none flex text-[#002c47] transition-all duration-300 font-Din font-bold overflow-clip"
+          className="text-[17px] leading-[1.3rem] flex text-[#002c47] transition-all duration-300 font-Din font-bold overflow-clip"
           style={{
             display: "-webkit-box",
             WebkitLineClamp: 2,
@@ -56,7 +56,7 @@ function SmallPostCard({
         >
           {post?.post_title && post.post_title}
         </h6>
-        <span className="font-light leading-none text-sm flex items-center text-[#33566c] font-Din">
+        <span className="font-light leading-[0.875rem] text-sm flex items-center text-[#33566c] font-Din">
           {formatDate(post?.post_date, currentLanguage)}
         </span>
       </div>

@@ -89,10 +89,6 @@ const Category: React.FC<CategoryProps> = ({
     router.push(`/${lang}/category/${category}?page=${pageNumber}`);
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
     <>
       <div

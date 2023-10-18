@@ -1,5 +1,5 @@
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
-import { findFirstCategory, formatDate } from "@/utils";
+import { findFirstCategory, findFirstCategorySlug, formatDate } from "@/utils";
 import { GetServerSideProps } from "next";
 import { IFollow, IFooter, IHeader, IPost } from "@/services/interface";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -62,7 +62,7 @@ const Post: React.FC<PostProps> = ({
     return "";
   };
 
-  const hiddenHeight = 1200;
+  const hiddenHeight = 1150;
 
   useEffect(() => {
     if (contentRef.current) {
@@ -158,7 +158,7 @@ const Post: React.FC<PostProps> = ({
             !data?.interview_audio && !data?.youtube_url
               ? "border-t-2 border-solid border-[#B3B3B3]"
               : ""
-          } flex w-full flex-col tb:flex-row bg-white pt-[25px] pb-[4rem]`}
+          } flex w-full flex-col tb:flex-row bg-white pt-[25px]`}
         >
           <div
             className="tb:mr-[30px] w-full relative overflow-hidden"
@@ -188,9 +188,14 @@ const Post: React.FC<PostProps> = ({
                   <h2 className="font-bold text-3xl leading-8 flex items-center text-[#002c47] font-Din">
                     {data.post_title}
                   </h2>
-                  <span className="font-light text-base leading-5 flex items-center text-[#0071BC] font-Din my-[15px]">
+                  <Link
+                    href={`/${currentLanguage}/category/${findFirstCategorySlug(
+                      data.categories
+                    )}`}
+                    className="font-light text-base leading-5 inline-flex items-center text-[#0071BC] hover:opacity-[0.8] transition-all duration-300 font-Din my-[15px]"
+                  >
                     {findFirstCategory(data.categories)}
-                  </span>
+                  </Link>
                   <div className="font-light text-[12px] md:text-sm leading-4 flex items-center font-Din text-[#33566C] gap-[4px] md:gap-[8px]">
                     <span>{formatDate(data.post_date, currentLanguage)}</span>
                     {data.author_name && (
@@ -223,11 +228,11 @@ const Post: React.FC<PostProps> = ({
                       background:
                         "linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(255, 255, 255) 50%)",
                     }}
-                    className="w-full h-[300px] absolute flex items-end bottom-0"
+                    className="w-full h-[250px] absolute flex items-end bottom-0"
                   >
                     <button
                       onClick={toggleShowAll}
-                      className="mx-auto mb-[80px] font-light text-lg leading-[23px] flex items-center text-[rgba(0,44,71,0.8)]"
+                      className="mx-auto mb-[50px] font-light text-lg leading-[23px] flex items-center text-[rgba(0,44,71,0.8)]"
                     >
                       {t("Read More")}
                     </button>

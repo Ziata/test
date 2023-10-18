@@ -50,10 +50,6 @@ const Contact: React.FC<PageProps> = ({
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
 
   useEffect(() => {
-    console.log(data); // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-
-  useEffect(() => {
     setHeaderData(headerData); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerData]);
 

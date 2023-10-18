@@ -75,6 +75,7 @@ export interface FooterLink {
 export interface FooterSocialMedum {
   icon_image: Image;
   url: string;
+  open_in_new_tab: "Yes" | "No";
 }
 
 export interface IFollow {
