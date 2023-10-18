@@ -51,6 +51,7 @@ export default function Header() {
         <Head>
           <title>{data.site_title}</title>
           <meta name="description" content={data.tagline} />
+          <meta property="og:image" content={data.site_icon}></meta>
           <link rel="icon" href={data.site_icon} />
         </Head>
       )}
