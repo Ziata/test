@@ -34,15 +34,17 @@ const Category: React.FC<CategoryProps> = ({
   followData,
 }) => {
   const router = useRouter();
-  const { lang, category, page } = router.query;
+  const { lang, category, page, subCategory } = router.query;
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>(
     data.cat_name
   );
 
   useEffect(() => {
-    setSelectedSubcategory(data.cat_name);
-  }, [data.cat_name]);
+    setSelectedSubcategory(
+      subCategory ? (subCategory as string) : data.cat_name
+    );
+  }, [data.cat_name, subCategory]);
 
   useEffect(() => {
     setHeaderData(headerData); // eslint-disable-next-line react-hooks/exhaustive-deps

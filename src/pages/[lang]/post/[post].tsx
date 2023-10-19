@@ -1,5 +1,10 @@
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
-import { findFirstCategory, findFirstCategorySlug, formatDate } from "@/utils";
+import {
+  findFirstCategory,
+  findFirstCategorySlug,
+  findFirstParentCategorySlug,
+  formatDate,
+} from "@/utils";
 import { GetServerSideProps } from "next";
 import { IFollow, IFooter, IHeader, IPost } from "@/services/interface";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -70,6 +75,16 @@ const Post: React.FC<PostProps> = ({
       setContentHeight(contentHeight);
     }
   }, [data]);
+
+  const handleLinkClick = () => {
+    const subCategory = findFirstCategory(data.categories);
+    router.push({
+      pathname: `/${currentLanguage}/category/${findFirstParentCategorySlug(
+        data.categories
+      )}`,
+      query: { subCategory },
+    });
+  };
 
   return (
     <>
@@ -188,14 +203,12 @@ const Post: React.FC<PostProps> = ({
                   <h2 className="font-bold text-3xl leading-8 flex items-center text-[#002c47] font-Din">
                     {data.post_title}
                   </h2>
-                  <Link
-                    href={`/${currentLanguage}/category/${findFirstCategorySlug(
-                      data.categories
-                    )}`}
-                    className="font-light text-base leading-5 inline-flex items-center text-[#0071BC] hover:opacity-[0.8] transition-all duration-300 font-Din my-[15px]"
+                  <div
+                    onClick={() => handleLinkClick()}
+                    className="font-light cursor-pointer text-base leading-5 inline-flex items-center text-[#0071BC] hover:opacity-[0.8] transition-all duration-300 font-Din my-[15px]"
                   >
                     {findFirstCategory(data.categories)}
-                  </Link>
+                  </div>
                   <div className="font-light text-[12px] md:text-sm leading-4 flex items-center font-Din text-[#33566C] gap-[4px] md:gap-[8px]">
                     <span>{formatDate(data.post_date, currentLanguage)}</span>
                     {data.author_name && (

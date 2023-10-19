@@ -24,9 +24,7 @@ export default function Footer() {
               {data.footer_links.map((link) => (
                 <React.Fragment key={generateUniqueId()}>
                   <Link
-                    href={`/${router.query.lang}${
-                      link.url.startsWith("/") ? "" : "/"
-                    }${link.url}`}
+                    href={`${link.url}`}
                     className="font-300 text-lg leading-5 font-Din text-[#002c47]  transition-all duration-300 hover:text-[#0071BC]"
                   >
                     {link.name}
