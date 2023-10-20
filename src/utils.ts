@@ -104,13 +104,33 @@ export function findFirstCategory(categories: ICategory[]): string | null {
 export function findFirstCategorySlug(categories: ICategory[]): string | null {
   for (const category of categories) {
     if (category.category_parent !== 0) {
-      return category.name;
+      return category.slug;
     }
   }
 
   if (categories.length > 0) {
     return categories[0].slug;
   }
+  return null;
+}
+
+export function findMeetingReportsName(categories: ICategory[]): string | null {
+  for (const category of categories) {
+    if (category.cat_ID === 2) {
+      return category.name;
+    }
+  }
+
+  return null;
+}
+
+export function findMeetingReportsSlug(categories: ICategory[]): string | null {
+  for (const category of categories) {
+    if (category.cat_ID === 2) {
+      return category.slug;
+    }
+  }
+
   return null;
 }
 

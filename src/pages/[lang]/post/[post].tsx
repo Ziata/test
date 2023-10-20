@@ -3,6 +3,8 @@ import {
   findFirstCategory,
   findFirstCategorySlug,
   findFirstParentCategorySlug,
+  findMeetingReportsName,
+  findMeetingReportsSlug,
   formatDate,
 } from "@/utils";
 import { GetServerSideProps } from "next";
@@ -79,9 +81,10 @@ const Post: React.FC<PostProps> = ({
   const handleLinkClick = () => {
     const subCategory = findFirstCategory(data.categories);
     router.push({
-      pathname: `/${currentLanguage}/category/${findFirstParentCategorySlug(
-        data.categories
-      )}`,
+      pathname: `/${currentLanguage}/category/${
+        findMeetingReportsSlug(data.categories) ||
+        findFirstParentCategorySlug(data.categories)
+      }`,
       query: { subCategory },
     });
   };
@@ -182,7 +185,7 @@ const Post: React.FC<PostProps> = ({
             }}
           >
             {data?.interview_audio || data?.youtube_url ? (
-              <div className="font-light text-[12px] md:text-[18px] leading-4 flex items-center font-Din text-[#002c47] gap-[4px] md:gap-[15px] mb-[20px]">
+              <div className="font-light text-[12px] md:text-[18px] leading-6 flex items-center font-Din text-[#002c47] gap-[4px] md:gap-[15px] mb-[20px]">
                 <span>{formatDate(data.post_date, currentLanguage)}</span>
                 {data.interviewer && (
                   <>
@@ -207,9 +210,10 @@ const Post: React.FC<PostProps> = ({
                     onClick={() => handleLinkClick()}
                     className="font-light cursor-pointer text-base leading-5 inline-flex items-center text-[#0071BC] hover:opacity-[0.8] transition-all duration-300 font-Din my-[15px]"
                   >
-                    {findFirstCategory(data.categories)}
+                    {findMeetingReportsName(data.categories) ||
+                      findFirstCategory(data.categories)}
                   </div>
-                  <div className="font-light text-[12px] md:text-sm leading-4 flex items-center font-Din text-[#33566C] gap-[4px] md:gap-[8px]">
+                  <div className="font-light text-[12px] md:text-sm leading-6 flex items-center font-Din text-[#33566C] gap-[4px] md:gap-[8px]">
                     <span>{formatDate(data.post_date, currentLanguage)}</span>
                     {data.author_name && (
                       <>
@@ -232,7 +236,7 @@ const Post: React.FC<PostProps> = ({
             {data && (
               <div>
                 <div
-                  className="transition-all duration-500 overflow-hidden font-light text-lg leading-6 items-center font-Din text-[#737373] text-content post-content"
+                  className="transition-all duration-500 overflow-hidden font-light text-lg leading-6 items-center font-Din text-[#737373] text-content post-content mb-[4rem]"
                   dangerouslySetInnerHTML={{ __html: data.post_content }}
                 />
                 {!showAll && contentHeight > hiddenHeight && (
