@@ -27,6 +27,7 @@ export default function Footer() {
                     href={`${
                       link.url.startsWith("/") ? `/${router.query.lang}` : ""
                     }${link.url}`}
+                    target={link.open_in_new_tab === "Yes" ? "_blank" : "_self"}
                     className="font-300 text-lg leading-5 font-Din text-[#002c47]  transition-all duration-300 hover:text-[#0071BC]"
                   >
                     {link.name}

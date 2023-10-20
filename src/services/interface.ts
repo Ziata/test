@@ -70,6 +70,7 @@ export interface IFooter {
 export interface FooterLink {
   name: string;
   url: string;
+  open_in_new_tab: string;
 }
 
 export interface FooterSocialMedum {
