@@ -8,7 +8,6 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 function Post({
   post,
@@ -79,7 +78,7 @@ function Post({
               overflow: "hidden",
               textOverflow: "ellipsis",
             }}
-            className="font-light text-[14px] md:text-[18px] leading-[1.2rem] md:leading-6 font-Din text-[#737373]"
+            className="font-light text-[14px] md:text-[0.95rem] leading-5 md:leading-6 font-Din text-[#737373]"
             dangerouslySetInnerHTML={{
               __html: truncateText(post.post_content, 240),
             }}

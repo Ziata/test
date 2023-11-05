@@ -108,6 +108,46 @@ input[type="range"]::-webkit-slider-thumb {
   color: #0071bc;
 }
 
+.text-content h1 {
+  @apply text-[1.125rem];
+}
+
+.text-content h2 {
+  @apply text-[1rem];
+}
+
+.text-content h3 {
+  @apply text-[0.94rem];
+}
+
+.text-content h4 {
+  @apply text-[0.88rem];
+}
+
+.text-content h5 {
+  @apply text-[0.75rem];
+}
+
+.text-content h6 {
+  @apply text-[0.63rem];
+}
+
+.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.alignleft {
+  float: left;
+  margin: 0.5em 1em 0.5em 0;
+}
+
+.alignright {
+  float: right;
+  margin: 0.5em 0 0.5em 1em;
+}
+
 @-webkit-keyframes spinner {
   0% {
     -webkit-transform: rotate(0deg);

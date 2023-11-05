@@ -236,7 +236,7 @@ const Post: React.FC<PostProps> = ({
             {data && (
               <div>
                 <div
-                  className="transition-all duration-500 overflow-hidden font-light text-lg leading-6 items-center font-Din text-[#737373] text-content post-content mb-[4rem]"
+                  className="transition-all duration-500 overflow-hidden font-light text-[0.95rem] leading-5 items-center font-Din text-[#737373] text-content post-content mb-[4rem]"
                   dangerouslySetInnerHTML={{ __html: data.post_content }}
                 />
                 {!showAll && contentHeight > hiddenHeight && (
@@ -259,7 +259,7 @@ const Post: React.FC<PostProps> = ({
                   (showAll || contentHeight < hiddenHeight) && (
                     <>
                       <div className="my-[50px] h-[1px] w-full bg-[#B3B3B3]" />
-                      <div className="font-light text-lg leading-6 items-center font-Din text-[#737373] text-content mb-[50px] pl-[15px] md:pl-[40px] border-l-[5px] border-solid border-[#0071BC]">
+                      <div className="font-light text-[0.95rem] leading-5 items-center font-Din text-[#737373] text-content mb-[50px] pl-[15px] md:pl-[40px] border-l-[5px] border-solid border-[#0071BC]">
                         <div
                           dangerouslySetInnerHTML={{
                             __html: data.resource,

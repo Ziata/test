@@ -1,10 +1,13 @@
 import { ICategory } from "@/services/interface";
 
 export function truncateText(text: string, maxLength: number): string {
-  if (text.length <= maxLength) {
-    return text;
+  const imgAndBrTagRegex = /<img\s+[^>]*>(?:\s*<br\s*\/?>)*/g;
+  const textWithoutImagesAndBr = text.replace(imgAndBrTagRegex, "");
+
+  if (textWithoutImagesAndBr.length <= maxLength) {
+    return textWithoutImagesAndBr;
   } else {
-    return text.slice(0, maxLength - 3) + "...";
+    return textWithoutImagesAndBr.slice(0, maxLength - 3) + "...";
   }
 }
 export function truncateTexSearch(
