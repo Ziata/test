@@ -132,6 +132,10 @@ input[type="range"]::-webkit-slider-thumb {
   @apply text-[0.63rem];
 }
 
+.wp-caption-text {
+  @apply text-[0.75rem] text-[#A0A0A0];
+}
+
 .aligncenter {
   display: block;
   margin-left: auto;
