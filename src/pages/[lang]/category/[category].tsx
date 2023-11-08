@@ -80,12 +80,12 @@ const Category: React.FC<CategoryProps> = ({
 
   const pagesLength =
     selectedSubcategory && data.cat_name !== "All"
-      ? data.all_posts.filter((post) =>
+      ? data.all_posts?.filter((post) =>
           post.categories.some(
             (category) => category.name === selectedSubcategory
           )
         ).length
-      : data.all_posts.length;
+      : data.all_posts?.length;
 
   const paginate = (pageNumber: number) => {
     router.push(`/${lang}/category/${category}?page=${pageNumber}`);
