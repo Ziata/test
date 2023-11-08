@@ -63,9 +63,10 @@ function Post({
             overflow: "hidden",
             textOverflow: "ellipsis",
           }}
-          className={` ${
-            isInterview ? "order-1 mt-[15px]" : ""
-          } cursor-pointer font-bold text-lg leading-5 flex items-center text-[#002c47] font-Din transition-all duration-300 h-[40px]`}
+          className={` ${isInterview ? "order-1 mt-[15px]" : ""}
+            ${
+              currentLanguage === "zh" ? "" : "leading-5"
+            } cursor-pointer font-bold text-lg  flex items-center text-[#002c47] font-Din transition-all duration-300`}
         >
           {post.post_title}
         </div>
