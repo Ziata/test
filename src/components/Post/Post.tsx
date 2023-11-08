@@ -65,7 +65,7 @@ function Post({
           }}
           className={` ${
             isInterview ? "order-1 mt-[15px]" : ""
-          } cursor-pointer font-bold text-lg leading-5 flex items-center text-[#002c47] font-Din transition-all duration-300`}
+          } cursor-pointer font-bold text-lg leading-5 flex items-center text-[#002c47] font-Din transition-all duration-300 h-[40px]`}
         >
           {post.post_title}
         </div>
