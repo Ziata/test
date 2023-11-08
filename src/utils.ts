@@ -58,7 +58,7 @@ export const generateUniqueId = () => {
 };
 
 export const formatDate = (inputDate: string, lang: string): string => {
-  const inputDateTime: Date = new Date(inputDate);
+  const inputDateTime: Date = new Date(inputDate.replace(/-/g, "/"));
 
   const currentDateTime: Date = new Date();
   const currentDateTimeUTC: Date = new Date(
