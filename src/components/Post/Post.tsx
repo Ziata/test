@@ -78,7 +78,7 @@ function Post({
               overflow: "hidden",
               textOverflow: "ellipsis",
             }}
-            className="font-light h-max-[3.2rem] text-[14px] md:text-[0.95rem] leading-[1.1rem] md:leading-6 font-Din text-[#737373]"
+            className="font-light max-h-[3.2rem] md:max-h-[4.5rem] text-[14px] md:text-[0.95rem] leading-[1.1rem] md:leading-6 font-Din text-[#737373]"
             dangerouslySetInnerHTML={{
               __html: truncateText(post.post_content, 240),
             }}
