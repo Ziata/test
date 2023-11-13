@@ -65,7 +65,7 @@ function Post({
           }}
           className={` ${
             isInterview ? "order-1 mt-[15px]" : ""
-          } cursor-pointer h-[2.6rem] font-bold text-lg leading-[1.3rem] flex items-center text-[#002c47] font-Din transition-all duration-300`}
+          } cursor-pointer h-[2.4rem] font-bold text-lg leading-[1.3rem] flex items-center text-[#002c47] font-Din transition-all duration-300`}
         >
           {post.post_title}
         </div>
@@ -78,7 +78,7 @@ function Post({
               overflow: "hidden",
               textOverflow: "ellipsis",
             }}
-            className="font-light max-h-[3.2rem] md:max-h-[4.5rem] text-[14px] md:text-[0.95rem] leading-[1.1rem] md:leading-6 font-Din text-[#737373]"
+            className="font-light h-[3.2rem] md:h-[4.5rem] text-[14px] md:text-[0.95rem] leading-[1.1rem] md:leading-6 font-Din text-[#737373]"
             dangerouslySetInnerHTML={{
               __html: truncateText(post.post_content, 240),
             }}
