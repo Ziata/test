@@ -109,11 +109,11 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .text-content h1 {
-  @apply text-[2.125rem] font-bold [2.4rem];
+  @apply text-[2.125rem] font-bold leading-[2.4rem];
 }
 
 .text-content h2 {
-  @apply text-[1.875rem] font-bold [1.95rem];
+  @apply text-[1.875rem] font-bold leading-[1.95rem];
 }
 
 .text-content h3 {
