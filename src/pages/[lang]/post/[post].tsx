@@ -117,7 +117,7 @@ const Post: React.FC<PostProps> = ({
             <h4 className="font-light text-center text-2xl leading-7 w-full text-white font-Din">
               {findFirstCategory(data.categories)}
             </h4>
-            <h2 className="font-bold text-3xl leading-8 flex items-center text-white font-Din text-center mt-[40px] mb-[45px]">
+            <h2 className="font-bold text-3xl flex items-center text-white font-Din text-center mt-[40px] mb-[45px]">
               {data.post_title}
             </h2>
             <Link
