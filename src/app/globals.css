@@ -109,27 +109,27 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .text-content h1 {
-  @apply text-[2.125rem] font-bold leading-[1];
+  @apply text-[2.125rem] font-bold [2.4rem];
 }
 
 .text-content h2 {
-  @apply text-[1.875rem] font-bold leading-[1];
+  @apply text-[1.875rem] font-bold [1.95rem];
 }
 
 .text-content h3 {
-  @apply text-[1.625rem] font-bold leading-[1];
+  @apply text-[1.625rem] font-bold leading-[1.75rem];
 }
 
 .text-content h4 {
-  @apply text-[1.25rem] font-bold leading-[1];
+  @apply text-[1.25rem] font-bold leading-[1.35rem];
 }
 
 .text-content h5 {
-  @apply text-[1.125rem] font-bold leading-[1];
+  @apply text-[1.125rem] font-bold leading-[1.25rem];
 }
 
 .text-content h6 {
-  @apply text-[1rem] font-bold leading-[1];
+  @apply text-[1rem] font-bold leading-[1.15rem];
 }
 
 .wp-caption-text {

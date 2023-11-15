@@ -203,7 +203,7 @@ const Post: React.FC<PostProps> = ({
             ) : (
               data && (
                 <>
-                  <h2 className="font-bold text-3xl leading-8 flex items-center text-[#002c47] font-Din">
+                  <h2 className="font-bold text-3xl flex items-center text-[#002c47] font-Din">
                     {data.post_title}
                   </h2>
                   <div
