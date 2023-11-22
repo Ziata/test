@@ -105,9 +105,9 @@ const Contact: React.FC<PageProps> = ({
       }
       executeRecaptcha("enquiryFormSubmit").then((gReCaptchaToken) => {
         console.log(gReCaptchaToken, "response Google reCaptcha server");
-        handleSubmit(); // eslint-disable-next-line react-hooks/exhaustive-deps
+        handleSubmit();
       });
-    },
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
     [executeRecaptcha]
   );
 
