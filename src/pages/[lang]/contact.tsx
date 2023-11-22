@@ -164,7 +164,7 @@ const Contact: React.FC<PageProps> = ({
                 />
               </label>
               <div className="flex items-center">
-                <ReCAPTCHA sitekey="6Les_BgpAAAAAA1GKcqKQBCwRTEJgpIZHln5ro9z" />
+                <ReCAPTCHA sitekey="6Les_BgpAAAAAEAhl_wl6My9eN47WBQUVTHntaWr" />
               </div>
             </div>
             {statusMessage && (
