@@ -6,10 +6,7 @@ import { useSendMessageMutation } from "@/services/api";
 import { IFollow, IFooter, IHeader, Page } from "@/services/interface";
 import { GetServerSideProps } from "next";
 import { useCallback, useContext, useEffect, useState } from "react";
-import {
-  GoogleReCaptchaProvider,
-  GoogleReCaptcha,
-} from "react-google-recaptcha-v3";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 const jsonToFormData = (json: any) => {
   try {
@@ -49,7 +46,7 @@ const Contact: React.FC<PageProps> = ({
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
   const [statusMessage, setStatusMessage] = useState<string>("");
   const [sendMessage, { isLoading }] = useSendMessageMutation();
-  const [token, setToken] = useState();
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
 
@@ -77,7 +74,7 @@ const Contact: React.FC<PageProps> = ({
   };
 
   const handleSubmit = async () => {
-    if (!isNameValid || !isEmailValid || !data.form_id || !token)
+    if (!isNameValid || !isEmailValid || !data.form_id)
       setStatusMessage(
         "One or more fields have an error. Please check and try again."
       );
@@ -98,6 +95,21 @@ const Contact: React.FC<PageProps> = ({
       }
     }
   };
+
+  const handleSumitForm = useCallback(
+    (e: any) => {
+      e.preventDefault();
+      if (!executeRecaptcha) {
+        console.log("Execute recaptcha not yet available");
+        return;
+      }
+      executeRecaptcha("enquiryFormSubmit").then((gReCaptchaToken) => {
+        console.log(gReCaptchaToken, "response Google reCaptcha server");
+        handleSubmit(); // eslint-disable-next-line react-hooks/exhaustive-deps
+      });
+    },
+    [executeRecaptcha]
+  );
 
   useEffect(() => {
     statusMessage && setTimeout(() => setStatusMessage(""), 5000);
@@ -168,23 +180,7 @@ const Contact: React.FC<PageProps> = ({
                 />
               </label>
               <div className="flex items-center">
-                <GoogleReCaptchaProvider
-                  reCaptchaKey="6Les_BgpAAAAAA1GKcqKQBCwRTEJgpIZHln5ro9z"
-                  container={{
-                    element: "captcha",
-                    parameters: {
-                      theme: undefined,
-                    },
-                  }}
-                >
-                  <GoogleReCaptcha
-                    onVerify={(token: any) => {
-                      setToken(token);
-                    }}
-                  />
-
-                  <div id="captcha"></div>
-                </GoogleReCaptchaProvider>
+                <div id="captcha"></div>
               </div>
             </div>
             {statusMessage && (

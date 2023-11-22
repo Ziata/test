@@ -11,20 +11,37 @@ import i18n from "@/i18n";
 import { IHeader } from "@/services/interface";
 import { LayoutProvider } from "@/context/LayoutContext";
 import { SearchProvider } from "@/context/SearchContext";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 function MyApp({ Component, pageProps }: AppProps & { headerData: IHeader }) {
   return (
     <Provider store={store}>
-      <I18nextProvider i18n={i18n}>
-        <LayoutProvider>
-          <SearchProvider>
-            <Header />
-            <div className="h-[86px] md:h-[156px]" />
-            <Component {...pageProps} />
-            <Footer />
-          </SearchProvider>
-        </LayoutProvider>
-      </I18nextProvider>
+      <GoogleReCaptchaProvider
+        reCaptchaKey="6Les_BgpAAAAAA1GKcqKQBCwRTEJgpIZHln5ro9z"
+        scriptProps={{
+          async: false,
+          defer: false,
+          appendTo: "head",
+          nonce: undefined,
+        }}
+        container={{
+          element: "captcha",
+          parameters: {
+            theme: undefined,
+          },
+        }}
+      >
+        <I18nextProvider i18n={i18n}>
+          <LayoutProvider>
+            <SearchProvider>
+              <Header />
+              <div className="h-[86px] md:h-[156px]" />
+              <Component {...pageProps} />
+              <Footer />
+            </SearchProvider>
+          </LayoutProvider>
+        </I18nextProvider>
+      </GoogleReCaptchaProvider>
     </Provider>
   );
 }
