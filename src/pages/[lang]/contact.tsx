@@ -173,7 +173,7 @@ const Contact: React.FC<PageProps> = ({
                   onChange={(e) => setMessage(e.target.value)}
                 />
               </label>
-              <div className="flex items-center" id="captcha">
+              <div className="flex items-center">
                 <GoogleReCaptchaProvider
                   reCaptchaKey="6Les_BgpAAAAAA1GKcqKQBCwRTEJgpIZHln5ro9z"
                   container={{
@@ -188,6 +188,8 @@ const Contact: React.FC<PageProps> = ({
                     refreshReCaptcha={refreshReCaptcha}
                     onVerify={onVerify}
                   />
+
+                  <div id="captcha"></div>
                 </GoogleReCaptchaProvider>
               </div>
             </div>
