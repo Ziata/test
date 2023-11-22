@@ -5,8 +5,11 @@ import { LayoutContext } from "@/context/LayoutContext";
 import { useSendMessageMutation } from "@/services/api";
 import { IFollow, IFooter, IHeader, Page } from "@/services/interface";
 import { GetServerSideProps } from "next";
-import { useContext, useEffect, useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useCallback, useContext, useEffect, useState } from "react";
+import {
+  GoogleReCaptchaProvider,
+  GoogleReCaptcha,
+} from "react-google-recaptcha-v3";
 
 const jsonToFormData = (json: any) => {
   try {
@@ -46,7 +49,12 @@ const Contact: React.FC<PageProps> = ({
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
   const [statusMessage, setStatusMessage] = useState<string>("");
   const [sendMessage, { isLoading }] = useSendMessageMutation();
-  const [recaptchaValue, setRecaptchaValue] = useState(null);
+  const [token, setToken] = useState();
+  const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
+
+  const onVerify = (token: any) => {
+    setToken(token);
+  };
 
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
 
@@ -73,12 +81,8 @@ const Contact: React.FC<PageProps> = ({
     return emailRegex.test(email);
   };
 
-  const handleRecaptchaChange = (value: any) => {
-    setRecaptchaValue(value);
-  };
-
   const handleSubmit = async () => {
-    if (!isNameValid || !isEmailValid || !data.form_id || !recaptchaValue)
+    if (!isNameValid || !isEmailValid || !data.form_id || !token)
       setStatusMessage(
         "One or more fields have an error. Please check and try again."
       );
@@ -98,6 +102,7 @@ const Contact: React.FC<PageProps> = ({
         console.error(error);
       }
     }
+    setRefreshReCaptcha((r) => !r);
   };
 
   useEffect(() => {
@@ -169,10 +174,12 @@ const Contact: React.FC<PageProps> = ({
                 />
               </label>
               <div className="flex items-center">
-                <ReCAPTCHA
-                  sitekey={"6Les_BgpAAAAAA1GKcqKQBCwRTEJgpIZHln5ro9z"}
-                  onChange={handleRecaptchaChange}
-                />
+                <GoogleReCaptchaProvider reCaptchaKey="6Les_BgpAAAAAA1GKcqKQBCwRTEJgpIZHln5ro9z">
+                  <GoogleReCaptcha
+                    refreshReCaptcha={refreshReCaptcha}
+                    onVerify={onVerify}
+                  />
+                </GoogleReCaptchaProvider>
               </div>
             </div>
             {statusMessage && (
