@@ -50,11 +50,6 @@ const Contact: React.FC<PageProps> = ({
   const [statusMessage, setStatusMessage] = useState<string>("");
   const [sendMessage, { isLoading }] = useSendMessageMutation();
   const [token, setToken] = useState();
-  const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
-
-  const onVerify = (token: any) => {
-    setToken(token);
-  };
 
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
 
@@ -102,7 +97,6 @@ const Contact: React.FC<PageProps> = ({
         console.error(error);
       }
     }
-    setRefreshReCaptcha((r) => !r);
   };
 
   useEffect(() => {
@@ -177,16 +171,16 @@ const Contact: React.FC<PageProps> = ({
                 <GoogleReCaptchaProvider
                   reCaptchaKey="6Les_BgpAAAAAA1GKcqKQBCwRTEJgpIZHln5ro9z"
                   container={{
-                    // optional to render inside custom element
                     element: "captcha",
                     parameters: {
-                      theme: "dark", // optional, default undefined
+                      theme: undefined,
                     },
                   }}
                 >
                   <GoogleReCaptcha
-                    refreshReCaptcha={refreshReCaptcha}
-                    onVerify={onVerify}
+                    onVerify={(token: any) => {
+                      setToken(token);
+                    }}
                   />
 
                   <div id="captcha"></div>
