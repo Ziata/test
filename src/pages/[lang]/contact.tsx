@@ -46,6 +46,7 @@ const Contact: React.FC<PageProps> = ({
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
   const [statusMessage, setStatusMessage] = useState<string>("");
   const [sendMessage, { isLoading }] = useSendMessageMutation();
+  const [recaptchaValue, setRecaptchaValue] = useState(null);
 
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
 
@@ -72,8 +73,12 @@ const Contact: React.FC<PageProps> = ({
     return emailRegex.test(email);
   };
 
+  const handleRecaptchaChange = (value: any) => {
+    setRecaptchaValue(value);
+  };
+
   const handleSubmit = async () => {
-    if (!isNameValid || !isEmailValid || !data.form_id)
+    if (!isNameValid || !isEmailValid || !data.form_id || !recaptchaValue)
       setStatusMessage(
         "One or more fields have an error. Please check and try again."
       );
@@ -164,7 +169,10 @@ const Contact: React.FC<PageProps> = ({
                 />
               </label>
               <div className="flex items-center">
-                <ReCAPTCHA sitekey="6Les_BgpAAAAAEAhl_wl6My9eN47WBQUVTHntaWr" />
+                <ReCAPTCHA
+                  sitekey={"6Les_BgpAAAAAA1GKcqKQBCwRTEJgpIZHln5ro9z"}
+                  onChange={handleRecaptchaChange}
+                />
               </div>
             </div>
             {statusMessage && (
