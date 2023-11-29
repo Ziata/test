@@ -1,0 +1,15 @@
+.content {
+  @apply space-y-6;
+
+  ul {
+    @apply list-underscore list-inside;
+  }
+
+  h2 {
+    @apply text-3xl text-tcci-blue;
+  }
+
+  a {
+    @apply text-tcci-blue hover:text-tcci-orange-o70
+  }
+}

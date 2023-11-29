@@ -1,0 +1,24 @@
+
+.ant-picker-content .ant-picker-calendar-date-value {
+    @apply font-bold text-start text-lg mb-4;
+}
+
+.ant-picker-content th {
+    @apply text-center !pb-4 text-xl;
+}
+
+.ant-picker-content .ant-picker-cell-inner.ant-picker-calendar-date {
+    @apply border-t-tcci-blue;
+}
+
+.ant-picker-content .ant-picker-calendar-date-content {
+    @apply !h-48;
+}
+
+.ant-picker-calendar {
+    font-family: 'D-DIN', "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    @apply text-neutral-900
+}
+
+

@@ -1,0 +1,119 @@
+.content {
+  //a {
+  //  @apply hover:text-tcci-orange text-tcci-blue;
+  //}
+  //p {
+  //  @apply pt-4;
+  //}
+  .article-header-group, .article-header-group + h1{
+    display:none;
+  }
+
+  .timeline_container ul, .timeline_container li {
+    list-style: none;
+    padding: 0;
+  }
+
+  .timeline_container ul{
+    margin-left:1.25rem !important;
+  }
+
+  .timeline_container {
+
+  }
+
+  .timeline_wrapper {
+
+  }
+
+  .timeline_container h1 {
+    font-size: 1.1rem;
+    font-family: sans-serif;
+  }
+
+  .sessions {
+    border-radius: 12px;
+    position: relative;
+  }
+
+  .timeline_container li {
+    padding-bottom: 1.5rem;
+    border-left: 1px solid #abaaed;
+    position: relative;
+    padding-left: 20px;
+    margin-left: 10px;
+  }
+  .timeline_container li:last-child {
+    border: 0px;
+    padding-bottom: 0;
+  }
+  .timeline_container li:before {
+    content: "";
+    width: 15px;
+    height: 15px;
+    background: white;
+    border: 1px solid #002c47;
+    border-radius: 50%;
+    position: absolute;
+    left: -10px;
+    top: 0px;
+  }
+
+  .timeline_container li ul li {
+    padding-bottom: 0rem;
+    border-left: 0px;
+    position: relative;
+    padding-left: 0px;
+    margin-left: 0px;
+  }
+
+  .timeline_container li ul li:before{
+    width: 0px;
+    height: 0px;
+    border: 0px solid #002c47;
+    left: 0px;
+    top: 0px;
+  }
+
+  .timeline_container li ul li {
+    margin-bottom: 0rem !important;
+    padding-bottom: 0px;
+    padding-top: 0.5rem;
+    border-left: 0px;
+    position: relative;
+    padding-left: 0px;
+    margin-left: 0px;
+    list-style: disc;
+  }
+
+  .time {
+    color: #2a2839;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+  }
+  @media screen and (min-width: 601px) {
+    .time {
+      font-size: 0.9rem;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .time {
+      margin-bottom: 0.3rem;
+      font-size: 0.85rem;
+    }
+  }
+
+  p {
+    @apply text-tcci-grey text-neutral-500;
+    font-family: 'D-DIN', "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    a {
+      @apply text-tcci-blue hover:text-tcci-orange-o70;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    p {
+      font-size: 0.9rem;
+    }
+  }
+}
+
