@@ -49,7 +49,7 @@ export default function templatePage(props) {
     if (scripts) {
       // @ts-ignore
       window?.execScript
-        ? window?.execScript(scripts)
+        ? (window as any)?.execScript(scripts)
         : window.setTimeout(scripts, 0);
     }
   };
