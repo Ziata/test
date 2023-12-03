@@ -14,7 +14,7 @@ export default function Item({
 
   useEffect(() => {
     setExpanded(active);
-  }, [active]);
+  }, [active]); // eslint-disable-line
 
   return (
     <div className="py-5 border-b-[rgba(0, 0, 0, 0.10);] border-b-[1px] border-solid">

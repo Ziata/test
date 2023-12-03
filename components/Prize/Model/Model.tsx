@@ -20,7 +20,7 @@ export default function Model({
     interval = setInterval(() => {
       setProgress(0);
       setActive((prevActive) => (prevActive + 1) % data.length);
-    }, 6000);
+    }, 5000);
   };
 
   useEffect(() => {

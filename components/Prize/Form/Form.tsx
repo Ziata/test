@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MailchimpSubscribe from "react-mailchimp-subscribe";
 
 export const Form = ({ status, message, onValidated }) => {
   const [email, setEmail] = useState("");
