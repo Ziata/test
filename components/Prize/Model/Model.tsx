@@ -20,7 +20,7 @@ export default function Model({
     interval = setInterval(() => {
       setProgress(0);
       setActive((prevActive) => (prevActive + 1) % data.length);
-    }, 7000);
+    }, 6000);
   };
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function Model({
     return () => {
       clearInterval(interval);
     };
-  }, [data, active]);
+  }, [data, active]); // eslint-disable-line
 
   const updateProgressBar = () => {
     requestAnimationFrame(() => {

@@ -13,6 +13,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/future/image";
 import Objective from "../components/Prize/Objective/Objective";
 import Model from "components/Prize/Model/Model";
+import MailchimpSubscribe from "react-mailchimp-subscribe";
+import { Form } from "components/Prize/Form/Form";
 
 export default function Prize(props: any) {
   const { t } = useTranslation("common");
@@ -25,6 +27,10 @@ export default function Prize(props: any) {
     data?.footerNavmenu?.translation?.footerNavMenus?.footermenus || [];
   let imageUrl = metaImageUrl;
   let url = websiteUrl + props.__SEED_NODE__.uri || websiteUrl;
+
+  const mailchimpUrl =
+    "https://cheninstitute.us17.list-manage.com/subscribe/post?u=52012dde9962674edda12541c&amp;id=6f55fd885c&amp;f_id=00de6be0f0";
+  const SimpleForm = () => <MailchimpSubscribe url={mailchimpUrl} />;
 
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -58,7 +64,6 @@ export default function Prize(props: any) {
         imageUrl={imageUrl}
         url={url}
       />
-
       <Header navMenus={navMenus} />
       <Main>
         <div className="py-12 w-max-[1100px] mx-auto md:mb-[80px]">
@@ -89,38 +94,16 @@ export default function Prize(props: any) {
               <span className="text-[#F00] pt-2 mr-2">*</span>is required.
             </div>
           </div>
-          <div className="flex flex-col md:flex-row gap-7 flex-wrap justify-between">
-            <input
-              className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
-              placeholder="email"
-              value={email}
-              onChange={handleEmailChange}
-            />
-            <input
-              className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
-              placeholder="First Name"
-              value={firstName}
-              onChange={handleFirstNameChange}
-            />
-            <input
-              className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
-              placeholder="Last Name"
-              value={lastName}
-              onChange={handleLastNameChange}
-            />
-            <input
-              className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
-              placeholder="Organization"
-              value={organization}
-              onChange={handleOrganizationChange}
-            />
-            <button
-              className="w-[145px] h-16 border text-lg text-white rounded-[20px] border-solid border-[rgba(54,54,54,0.2)] bg-[#B5B5B5] flex items-center justify-center disabled:opacity-60"
-              disabled={isButtonDisabled}
-            >
-              Submit
-            </button>
-          </div>
+          <MailchimpSubscribe
+            url={mailchimpUrl}
+            render={({ subscribe, status, message }) => (
+              <Form
+                status={status}
+                message={message}
+                onValidated={(formData) => subscribe(formData)}
+              />
+            )}
+          />
         </div>
       </Main>
       <Objective

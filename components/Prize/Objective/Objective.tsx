@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Image from "next/future/image";
 
 export default function Objective({
   title,
@@ -25,7 +26,7 @@ export default function Objective({
     return () => {
       clearInterval(interval);
     };
-  }, [data, active]);
+  }, [data, active]); // eslint-disable-line
 
   const updateProgressBar = () => {
     requestAnimationFrame(() => {
@@ -54,10 +55,14 @@ export default function Objective({
     <div className="w-full min-h-[730px] relative">
       <div className="hidden absolute w-full h-full md:flex flex-wrap">
         <div className="w-full md:w-[42%] min-h-[730px] bg-[url(/images/prize/blur.png)] bg-cover bg-center"></div>
-        <div
-          className="w-full md:w-[58%] h-full bg-cover bg-center"
-          style={{ backgroundImage: `url('${data[active].image}')` }}
-        ></div>
+        <div className="w-full md:w-[58%] h-full relative">
+          <Image
+            src={`${data[active].image}`}
+            alt="tab-img"
+            fill={true}
+            className="object-cover"
+          />
+        </div>
       </div>
       <div className="bg-[url(/images/prize/blur.png)] bg-cover bg-center md:bg-none w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative py-[60px]">
         <h4 className="text-3xl text-[#FFF] w-full md:max-w-[30%]">{title}</h4>
