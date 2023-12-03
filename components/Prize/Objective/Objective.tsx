@@ -53,13 +53,13 @@ export default function Objective({
   return (
     <div className="w-full min-h-[730px] relative">
       <div className="hidden absolute w-full h-full md:flex flex-wrap">
-        <div className="w-full md:w-[42%] h-full bg-[url(/images/prize/blur.png)] bg-cover bg-center"></div>
+        <div className="w-full md:w-[42%] min-h-[730px] bg-[url(/images/prize/blur.png)] bg-cover bg-center"></div>
         <div
           className="w-full md:w-[58%] h-full bg-cover bg-center"
           style={{ backgroundImage: `url('${data[active].image}')` }}
         ></div>
       </div>
-      <div className="bg-[url(/images/prize/blur.png)] bg-cover bg-center md:bg-transparent w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative py-[60px]">
+      <div className="bg-[url(/images/prize/blur.png)] bg-cover bg-center md:bg-none w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative py-[60px]">
         <h4 className="text-3xl text-[#FFF] w-full md:max-w-[30%]">{title}</h4>
         <div className="flex flex-col">
           {data &&
