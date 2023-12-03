@@ -12,6 +12,7 @@ import { metaImageUrl, websiteUrl } from "../utils/LinkPath";
 import React, { useEffect, useState } from "react";
 import Image from "next/future/image";
 import Objective from "../components/Prize/Objective/Objective";
+import Model from "components/Prize/Model/Model";
 
 export default function Prize(props: any) {
   const { t } = useTranslation("common");
@@ -60,7 +61,7 @@ export default function Prize(props: any) {
 
       <Header navMenus={navMenus} />
       <Main>
-        <div className="py-12 w-max-[1100px] mx-auto mb-[80px]">
+        <div className="py-12 w-max-[1100px] mx-auto md:mb-[80px]">
           <h2 className="font-normal text-3xl leading-9 flex items-center text-[#002C47] mb-10">
             {pageData.hero_section_title}
           </h2>
@@ -88,27 +89,27 @@ export default function Prize(props: any) {
               <span className="text-[#F00] pt-2 mr-2">*</span>is required.
             </div>
           </div>
-          <div className="flex gap-7 flex-wrap justify-between">
+          <div className="flex flex-col md:flex-row gap-7 flex-wrap justify-between">
             <input
-              className="w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
+              className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
               placeholder="email"
               value={email}
               onChange={handleEmailChange}
             />
             <input
-              className="w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
+              className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
               placeholder="First Name"
               value={firstName}
               onChange={handleFirstNameChange}
             />
             <input
-              className="w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
+              className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
               placeholder="Last Name"
               value={lastName}
               onChange={handleLastNameChange}
             />
             <input
-              className="w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
+              className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
               placeholder="Organization"
               value={organization}
               onChange={handleOrganizationChange}
@@ -123,10 +124,28 @@ export default function Prize(props: any) {
         </div>
       </Main>
       <Objective
+        title={pageData.objective_list_title}
+        data={pageData.objective_list_items}
+      />
+      <Model
         title={pageData.model_section_title}
         data={pageData.model_section_items}
       />
-      <Footer footermenus={footermenus} />
+      <Model
+        title={pageData.partner_section_title}
+        data={pageData.partner_section_items}
+        isRight={true}
+      />
+      <div className={`w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8`}>
+        <h5 className="font-normal text-3xl leading-9 flex items-center text-[#002C47] mb-10">
+          {pageData.bottom_section_title}
+        </h5>
+        <div
+          className="text-lg leading-[22px] text-[#6D6D6D] my-10"
+          dangerouslySetInnerHTML={{ __html: pageData.bottom_section_content }}
+        />
+        <Footer footermenus={footermenus} />
+      </div>
     </>
   );
 }

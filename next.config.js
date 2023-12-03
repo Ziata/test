@@ -11,7 +11,7 @@ module.exports = withBundleAnalyzer(
   withFaust({
     i18n,
     images: {
-      domains: [getWpHostname(), "120.53.222.205"],
+      domains: [getWpHostname()],
       formats: ["image/webp"],
     },
     async redirects() {
