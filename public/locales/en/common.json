@@ -289,5 +289,12 @@
 	"Page not found": "Page not found",
 	"Subscribe successfully": "Subscribe successfully!",
 	"Physician Scientist": "Physician Scientists",
-	"AI Scholars": "AI Scholars"
+	"AI Scholars": "AI Scholars",
+	"Register to be notified": "Register to be notified.",
+	"email": "Email",
+	"first name": "First Name",
+	"last name": "Last Name",
+	"organization": "Organization",
+	"subscribe": "Subscribe",
+	"is required": "is required"
 }

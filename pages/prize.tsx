@@ -16,7 +16,7 @@ import Model from "components/Prize/Model/Model";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
 import { Form } from "components/Prize/Form/Form";
 
-export default function Prize(props: any) {
+export default function Prize(props) {
   const { t } = useTranslation("common");
   const data = props.__TEMPLATE_QUERY_DATA__;
   const pageData = props.pageData;
@@ -63,10 +63,11 @@ export default function Prize(props: any) {
           />
           <div className="flex justify-between mb-9">
             <div className="text-[#002C47] text-xl font-normal">
-              Register to be notified.
+              {t("Register to be notified")}
             </div>
             <div className="text-[#A2A2A2] text-lgflex items-center">
-              <span className="text-[#F00] pt-2 mr-2">*</span>is required.
+              <span className="text-[#F00] pt-2 mr-2">*</span>
+              {t("is required")}
             </div>
           </div>
           <MailchimpSubscribe

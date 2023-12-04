@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useCollapse } from "react-collapsed";
 import Image from "next/future/image";
 

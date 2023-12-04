@@ -287,5 +287,12 @@
 	"Page not found": "未找到页面",
 	"Subscribe successfully": "订阅成功！",
 	"Physician Scientist": "临床科学家",
-	"AI Scholars": "人工智能学者"
+	"AI Scholars": "人工智能学者",
+	"Register to be notified": "注册即可收到通知。",
+	"email": "电子邮件",
+	"first name": "名",
+	"last name": "姓",
+	"organization": "组织",
+	"subscribe": "订阅",
+	"is required": "是必须的。"
 }

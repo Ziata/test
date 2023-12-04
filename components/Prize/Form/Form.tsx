@@ -1,6 +1,8 @@
+import { useTranslation } from "next-i18next";
 import React, { useEffect, useState } from "react";
 
 export const Form = ({ status, message, onValidated }) => {
+  const { t } = useTranslation("common");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -80,7 +82,7 @@ export const Form = ({ status, message, onValidated }) => {
         <label className="relative">
           <input
             className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
-            placeholder="email"
+            placeholder={t(`Email`)}
             value={email}
             id="mce-EMAIL"
             onChange={handleEmailChange}
@@ -93,21 +95,21 @@ export const Form = ({ status, message, onValidated }) => {
         </label>
         <input
           className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
-          placeholder="First Name"
+          placeholder={t(`first name`)}
           value={firstName}
           id="mce-MMERGE1"
           onChange={handleFirstNameChange}
         />
         <input
           className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
-          placeholder="Last Name"
+          placeholder={t(`last name`)}
           id="mce-MMERGE2"
           value={lastName}
           onChange={handleLastNameChange}
         />
         <input
           className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
-          placeholder="Organization"
+          placeholder={t(`organization`)}
           value={organization}
           id="mce-MMERGE3"
           onChange={handleOrganizationChange}
@@ -118,7 +120,7 @@ export const Form = ({ status, message, onValidated }) => {
           type="submit"
           name="subscribe"
           id="mc-embedded-subscribe"
-          value="Subscribe"
+          value={t(`subscribe`)}
         />
       </div>
     </form>
