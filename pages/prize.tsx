@@ -9,7 +9,7 @@ import { useTranslation } from "next-i18next";
 import { gql } from "@apollo/client";
 import { BlogInfoFragment } from "../fragments/GeneralSettings";
 import { metaImageUrl, websiteUrl } from "../utils/LinkPath";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/future/image";
 import Objective from "../components/Prize/Objective/Objective";
 import Model from "components/Prize/Model/Model";
@@ -30,31 +30,6 @@ export default function Prize(props: any) {
 
   const mailchimpUrl =
     "https://cheninstitute.us17.list-manage.com/subscribe/post?u=52012dde9962674edda12541c&amp;id=6f55fd885c&amp;f_id=00de6be0f0";
-  const SimpleForm = () => <MailchimpSubscribe url={mailchimpUrl} />;
-
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [organization, setOrganization] = useState("");
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-
-  const handleEmailChange = (event) => {
-    const emailValue = event.target.value;
-    setEmail(emailValue);
-    setIsButtonDisabled(!emailValue);
-  };
-
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
-  };
-
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
-  };
-
-  const handleOrganizationChange = (event) => {
-    setOrganization(event.target.value);
-  };
 
   return (
     <>
@@ -83,7 +58,7 @@ export default function Prize(props: any) {
             />
           </div>
           <div
-            className="text-lg leading-[22px] text-[#6D6D6D] my-10"
+            className="text-[#6D6D6D] my-10"
             dangerouslySetInnerHTML={{ __html: pageData.hero_section_content }}
           />
           <div className="flex justify-between mb-9">
@@ -124,7 +99,7 @@ export default function Prize(props: any) {
           {pageData.bottom_section_title}
         </h5>
         <div
-          className="text-lg leading-[22px] text-[#6D6D6D] my-10"
+          className=" text-[#6D6D6D] mt-10 mb-20"
           dangerouslySetInnerHTML={{ __html: pageData.bottom_section_content }}
         />
         <Footer footermenus={footermenus} />

@@ -57,7 +57,7 @@ export const Form = ({ status, message, onValidated }) => {
       onSubmit={(e) => handleSubmit(e)}
     >
       <div
-        className="flex flex-col md:flex-row gap-7 flex-wrap justify-between relative"
+        className="flex flex-col md:flex-row gap-7 flex-wrap relative"
         id="mc_embed_signup_scroll"
       >
         <div className="relative md:absolute left-1/2 -translate-x-1/2 md:top-[-60px]">
@@ -77,13 +77,20 @@ export const Form = ({ status, message, onValidated }) => {
             />
           )}
         </div>
-        <input
-          className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
-          placeholder="email"
-          value={email}
-          id="mce-EMAIL"
-          onChange={handleEmailChange}
-        />
+        <label className="relative">
+          <input
+            className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
+            placeholder="email"
+            value={email}
+            id="mce-EMAIL"
+            onChange={handleEmailChange}
+          />
+          {!email && (
+            <span className="text-[#F00] pt-2 mr-2 absolute top-1/2 -translate-y-1/2 left-[70px]">
+              *
+            </span>
+          )}
+        </label>
         <input
           className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
           placeholder="First Name"
@@ -106,7 +113,7 @@ export const Form = ({ status, message, onValidated }) => {
           onChange={handleOrganizationChange}
         />
         <input
-          className="w-[145px] h-16 border text-lg text-white rounded-[20px] border-solid border-[rgba(54,54,54,0.2)] bg-[#B5B5B5] flex items-center justify-center disabled:opacity-60"
+          className="w-[145px] h-16 border text-lg text-white rounded-[20px] border-solid border-[rgba(54,54,54,0.2)] bg-[#002c47] cursor-pointer flex items-center justify-center disabled:opacity-60"
           disabled={isButtonDisabled}
           type="submit"
           name="subscribe"
