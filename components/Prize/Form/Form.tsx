@@ -57,7 +57,7 @@ export const Form = ({ status, message, onValidated }) => {
       onSubmit={(e) => handleSubmit(e)}
     >
       <div
-        className="flex flex-col md:flex-row gap-7 flex-wrap relative"
+        className="flex flex-col md:flex-row gap-5 flex-wrap relative"
         id="mc_embed_signup_scroll"
       >
         <div className="relative md:absolute left-1/2 -translate-x-1/2 md:top-[-60px]">
@@ -113,7 +113,7 @@ export const Form = ({ status, message, onValidated }) => {
           onChange={handleOrganizationChange}
         />
         <input
-          className="w-[145px] h-16 border text-lg text-white rounded-[20px] border-solid border-[rgba(54,54,54,0.2)] bg-[#002c47] cursor-pointer flex items-center justify-center disabled:opacity-60"
+          className="w-[145px] h-16 border text-lg text-white rounded-[20px] border-solid bg-[#002c47] border-[rgba(54,54,54,0.2)] disabled:bg-[#B5B5B5] flex items-center justify-center disabled:opacity-60"
           disabled={isButtonDisabled}
           type="submit"
           name="subscribe"
