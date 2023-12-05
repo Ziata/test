@@ -12,31 +12,48 @@ export const Form = ({ status, message, onValidated }) => {
   const handleEmailChange = (event) => {
     const emailValue = event.target.value;
     setEmail(emailValue);
-    setIsButtonDisabled(!emailValue);
+    setIsButtonDisabled(
+      !emailValue || !firstName || !lastName || !organization
+    );
   };
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
+    setIsButtonDisabled(
+      !email || !event.target.value || !lastName || !organization
+    );
   };
 
   const handleLastNameChange = (event) => {
     setLastName(event.target.value);
+    setIsButtonDisabled(
+      !email || !firstName || !event.target.value || !organization
+    );
   };
 
   const handleOrganizationChange = (event) => {
     setOrganization(event.target.value);
+    setIsButtonDisabled(
+      !email || !firstName || !lastName || !event.target.value
+    );
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    email &&
+    if (
+      email &&
       email.indexOf("@") > -1 &&
+      firstName &&
+      lastName &&
+      organization
+    ) {
       onValidated({
         EMAIL: email,
         "mce-MMERGE1": firstName,
         "mce-MMERGE2": lastName,
         "mce-MMERGE3": organization,
       });
+    }
   };
 
   useEffect(() => {
@@ -88,34 +105,55 @@ export const Form = ({ status, message, onValidated }) => {
             onChange={handleEmailChange}
           />
           {!email && (
-            <span className="text-[#F00] pt-2 mr-2 absolute top-1/2 -translate-y-1/2 left-[70px]">
+            <span className="text-[#F00] pt-2 mr-2 absolute top-1/2 -translate-y-1/2 left-[10px]">
+              *
+            </span>
+          )}
+        </label>
+        <label className="relative">
+          <input
+            className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
+            placeholder={t(`first name`)}
+            value={firstName}
+            id="mce-MMERGE1"
+            onChange={handleFirstNameChange}
+          />
+          {!firstName && (
+            <span className="text-[#F00] pt-2 mr-2 absolute top-1/2 -translate-y-1/2 left-[10px]">
+              *
+            </span>
+          )}
+        </label>
+        <label className="relative">
+          <input
+            className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
+            placeholder={t(`last name`)}
+            id="mce-MMERGE2"
+            value={lastName}
+            onChange={handleLastNameChange}
+          />
+          {!lastName && (
+            <span className="text-[#F00] pt-2 mr-2 absolute top-1/2 -translate-y-1/2 left-[10px]">
+              *
+            </span>
+          )}
+        </label>
+        <label className="relative">
+          <input
+            className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
+            placeholder={t(`organization`)}
+            value={organization}
+            id="mce-MMERGE3"
+            onChange={handleOrganizationChange}
+          />
+          {!organization && (
+            <span className="text-[#F00] pt-2 mr-2 absolute top-1/2 -translate-y-1/2 left-[10px]">
               *
             </span>
           )}
         </label>
         <input
-          className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
-          placeholder={t(`first name`)}
-          value={firstName}
-          id="mce-MMERGE1"
-          onChange={handleFirstNameChange}
-        />
-        <input
-          className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
-          placeholder={t(`last name`)}
-          id="mce-MMERGE2"
-          value={lastName}
-          onChange={handleLastNameChange}
-        />
-        <input
-          className="w-full md:w-[211px] h-16 border not-italic font-normal text-lg leading-[22px] text-[#002C47] rounded-[20px] border-solid border-[rgba(0,0,0,0.2)] outline-none p-5"
-          placeholder={t(`organization`)}
-          value={organization}
-          id="mce-MMERGE3"
-          onChange={handleOrganizationChange}
-        />
-        <input
-          className="w-[145px] h-16 border text-lg text-white rounded-[20px] border-solid bg-[#002c47] border-[rgba(54,54,54,0.2)] disabled:bg-[#B5B5B5] flex items-center justify-center disabled:opacity-60"
+          className="w-[145px] h-16 border text-lg text-white rounded-[20px] border-solid bg-[#002c47] border-[rgba(54,54,54,0.2)] disabled:bg-[#B5B5B5] flex items-center justify-center disabled:opacity-60 hover:opacity-80 transition-all duration-300 cursor-pointer"
           disabled={isButtonDisabled}
           type="submit"
           name="subscribe"
