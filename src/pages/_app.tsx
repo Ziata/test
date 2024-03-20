@@ -37,7 +37,22 @@ function MyApp({ Component, pageProps }: AppProps & { headerData: IHeader }) {
               <Header />
               <div className="h-[86px] md:h-[156px]" />
               <Component {...pageProps} />
-              <Footer />
+              <Footer /> {/* Google Tag Manager */}
+              <script
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=G-VGBX51RMTG"
+              ></script>
+              <script
+                dangerouslySetInnerHTML={{
+                  __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'G-VGBX51RMTG');
+                `,
+                }}
+              ></script>
+              {/* End Google Tag Manager */}
             </SearchProvider>
           </LayoutProvider>
         </I18nextProvider>
