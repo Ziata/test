@@ -244,6 +244,8 @@ export interface FourthBlock {
   fourthBlockPosts: IPost[];
   fourth_block_button_name_for_video?: string;
   fourth_block_button_name_for_audio?: string;
+  fourth_block_background_image_opacity: string
+
 }
 
 export interface PostContentLangs {

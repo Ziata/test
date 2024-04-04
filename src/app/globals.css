@@ -33,6 +33,10 @@
   opacity: 0.7;
 }
 
+.gradient-background-full::before {
+    opacity: 1;
+}
+
 html .slick-dots {
   margin-bottom: -20px;
 }

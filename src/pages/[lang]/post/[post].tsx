@@ -15,6 +15,7 @@ import Recomend from "@/components/Recomend/Recomend";
 import { t } from "i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import {LinkedinIcon, LinkedinShareButton, TwitterShareButton, XIcon } from 'react-share';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -42,9 +43,18 @@ const Post: React.FC<PostProps> = ({
   const router = useRouter();
   const currentLanguage = router.query.lang as string;
 
+
+  const currentUrl = window.location.href;
+
+
   useEffect(() => {
     setHeaderData(headerData); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerData]);
+
+
+    useEffect(() => {
+    console.log(currentUrl); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUrl]);
 
   useEffect(() => {
     setFooterData(footerData); // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -221,6 +231,10 @@ const Post: React.FC<PostProps> = ({
                         <span>By {data.author_name}</span>
                       </>
                     )}
+                      <div className="ml-2 flex gap-2">
+                      <LinkedinShareButton url={currentUrl} title={data.post_title}><LinkedinIcon size={24} /></LinkedinShareButton>
+                      <TwitterShareButton url={currentUrl} title={data.post_title}><XIcon size={24}/></TwitterShareButton>
+                    </div>
                   </div>
                   <div
                     className="relative w-full my-[20px] h-[350px] bg-center"

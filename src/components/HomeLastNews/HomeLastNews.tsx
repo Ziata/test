@@ -33,7 +33,7 @@ function HomeLastNews({ data }: { data: FirstBlock }) {
 
   return (
     <div className="container pb-[70px]">
-      <div className="flex justify-between items-center py-10">
+      <div className="flex justify-between items-center pt-6 pb-4">
         <div className="font-light text-2xl leading-7 flex items-center text-[#002c47] font-Din">
           {data.title}
         </div>

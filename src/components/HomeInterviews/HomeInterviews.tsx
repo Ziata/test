@@ -22,6 +22,8 @@ const settings = {
 
 function HomeInterviews({ data }: { data: FourthBlock }) {
   const router = useRouter();
+ 
+  console.log(data)
 
   return (
     <div
@@ -31,7 +33,7 @@ function HomeInterviews({ data }: { data: FourthBlock }) {
         backgroundPosition: "center",
       }}
     >
-      <div className="container flex justify-between items-center pb-[40px]">
+      <div className="container flex justify-between items-center pb-4">
         <div className="font-light text-2xl leading-7 flex items-center text-[#fff] font-Din">
           {data.title}
         </div>
@@ -66,7 +68,7 @@ function HomeInterviews({ data }: { data: FourthBlock }) {
                 backgroundPosition: "center",
               }}
             >
-              <div className="gradient-background w-full h-1/2 bottom-0 left-0 !absolute" />
+              <div style={{opacity: data.fourth_block_background_image_opacity}} className="gradient-background gradient-background-full w-full h-1/2 bottom-0 left-0 !absolute" />
               <div className="z-1 relative w-full">
                 <div className="font-normal text-[18px] md:text-2xl leading-7 flex w-full flex-col-reverse md:flex-row items-center text-white font-Din">
                   <Link
