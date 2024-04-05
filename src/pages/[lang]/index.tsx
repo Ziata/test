@@ -6,13 +6,15 @@ import HomeSpotlight from "@/components/HomeSpotlight/HomeSpotlight";
 import { IFollow, IFooter, IHeader, IHome } from "@/services/interface";
 import { GetServerSideProps } from "next";
 import { LayoutContext } from "@/context/LayoutContext";
+import Head from "next/head";
+import { generateMetadata } from "@/services/generateMeta";
 
 interface HomeProps {
   data: IHome;
   headerData: IHeader;
   footerData: IFooter;
   followData: IFollow;
-}
+} 
 
 const Home: React.FC<HomeProps> = ({
   data,
@@ -21,18 +23,39 @@ const Home: React.FC<HomeProps> = ({
   followData,
 }) => {
   const { setHeaderData, setFooterData } = useContext(LayoutContext);
-
   useEffect(() => {
     setHeaderData(headerData); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerData]);
-
+  
   useEffect(() => {
     setFooterData(footerData); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [footerData]);
 
+useEffect(() => {
+ 
+  generateMetadata(headerData)
+    .then(metadata => {
+      return (
+        <Head>
+          {metadata.openGraph && (
+            <>
+              <meta property="og:title" content={'metadata.openGraph.title'} />
+              <meta property="og:description" content={metadata.openGraph.description} />
+              {/* Добавьте другие мета-теги Open Graph, если необходимо */}
+            </>
+          )}
+        </Head>
+      );
+    })
+    .catch(error => {
+      console.error("Error generating metadata:", error);
+    });
+}, [headerData]);
+
   return (
     data && (
       <>
+
         {data.firstBlock.latestNews.length > 0 && (
           <HomeLastNews data={data.firstBlock} />
         )}
