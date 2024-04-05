@@ -6,8 +6,8 @@ import HomeSpotlight from "@/components/HomeSpotlight/HomeSpotlight";
 import { IFollow, IFooter, IHeader, IHome } from "@/services/interface";
 import { GetServerSideProps } from "next";
 import { LayoutContext } from "@/context/LayoutContext";
-import Head from "next/head";
-import HeadSEO from "@/services/generateMeta";
+import HeadSEO from "@/services/HeadSEO";
+
 
 interface HomeProps {
   data: IHome;
@@ -35,7 +35,7 @@ const Home: React.FC<HomeProps> = ({
   return (
     data && (
       <>
-       {/*  <HeadSEO headerData={headerData} /> */}
+        <HeadSEO headerData={headerData} />
         {data.firstBlock.latestNews.length > 0 && (
           <HomeLastNews data={data.firstBlock} />
         )}

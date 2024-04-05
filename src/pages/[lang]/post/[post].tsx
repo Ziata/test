@@ -51,11 +51,6 @@ const Post: React.FC<PostProps> = ({
     setHeaderData(headerData); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerData]);
 
-
-    useEffect(() => {
-    console.log(currentUrl); // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUrl]);
-
   useEffect(() => {
     setFooterData(footerData); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [footerData]);

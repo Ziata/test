@@ -5,6 +5,7 @@ import Post from "@/components/Post/Post";
 import Recomend from "@/components/Recomend/Recomend";
 import Tabs from "@/components/Tabs/Tabs";
 import { LayoutContext } from "@/context/LayoutContext";
+import HeadSEO from "@/services/HeadSEO";
 import {
   ICategory,
   IFollow,
@@ -93,6 +94,7 @@ const Category: React.FC<CategoryProps> = ({
 
   return (
     <>
+      <HeadSEO headerData={headerData} />
       <div
         className="w-full h-[200px] md:h-[330px] flex items-center justify-center"
         style={{

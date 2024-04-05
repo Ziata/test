@@ -1,6 +1,7 @@
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import { LayoutContext } from "@/context/LayoutContext";
 import { PageProps } from "@/pages/[lang]/contact";
+import HeadSEO from "@/services/HeadSEO";
 import { IFooter, IHeader, Page } from "@/services/interface";
 import { GetServerSideProps } from "next";
 import { useContext, useEffect } from "react";
@@ -23,6 +24,7 @@ const About: React.FC<PageProps> = ({
 
   return (
     <>
+      <HeadSEO headerData={headerData} />
       <div
         className="w-full h-[200px] md:h-[330px] flex items-center justify-center"
         style={{

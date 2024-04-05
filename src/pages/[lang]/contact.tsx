@@ -2,6 +2,7 @@ import ContactSelect from "@/components/ContactSelect/ContactSelect";
 import FollowBlock from "@/components/FollowBlock/FollowBlock";
 import Loader from "@/components/Loader/Loader";
 import { LayoutContext } from "@/context/LayoutContext";
+import HeadSEO from "@/services/HeadSEO";
 import { useSendMessageMutation } from "@/services/api";
 import { IFollow, IFooter, IHeader, Page } from "@/services/interface";
 import { GetServerSideProps } from "next";
@@ -128,6 +129,7 @@ const Contact: React.FC<PageProps> = ({
 
   return (
     <>
+      <HeadSEO headerData={headerData} />
       <div
         className="w-full h-[200px] md:h-[330px] flex items-center justify-center"
         style={{

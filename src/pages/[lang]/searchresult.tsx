@@ -15,6 +15,7 @@ import {
 import { GetServerSideProps } from "next";
 import { useContext, useEffect, useState } from "react";
 import { t } from "i18next";
+import HeadSEO from "@/services/HeadSEO";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -58,6 +59,7 @@ const Search: React.FC<PageProps> = ({
 
   return (
     <>
+      <HeadSEO headerData={headerData} />
       <div
         className="w-full h-[200px] md:h-[330px] flex items-center justify-center"
         style={{
