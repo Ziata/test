@@ -54,14 +54,14 @@ export default function Header() {
     <header className="fixed w-full z-[19]">
  
         <Head>
-          {data && (
+  
           <>
-            <title>{data.site_title}</title>
+            <title>{data?.site_title}</title>
             <meta name="description" content={'data.tagline'} />
             <meta property="og:image" content={'data.site_icon'}></meta>
             <link rel="icon" href={'data.site_icon'} />
           </>
-        )}
+       
         </Head>
    
       <Modal isOpen={isOpenModal} parentSelector="body" closeModal={closeModal}>
