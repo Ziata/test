@@ -96,7 +96,7 @@ const Post: React.FC<PostProps> = ({
   };
 
   return (
-    <>
+    headerData && <>
       <HeadSEO headerData={headerData} />
       {data?.youtube_url ? (
         <div

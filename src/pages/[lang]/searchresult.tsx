@@ -58,7 +58,7 @@ const Search: React.FC<PageProps> = ({
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <>
+    headerData && <>
       <HeadSEO headerData={headerData} />
       <div
         className="w-full h-[200px] md:h-[330px] flex items-center justify-center"

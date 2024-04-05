@@ -128,7 +128,7 @@ const Contact: React.FC<PageProps> = ({
   }, [data]);
 
   return (
-    <>
+    headerData && <>
       <HeadSEO headerData={headerData} />
       <div
         className="w-full h-[200px] md:h-[330px] flex items-center justify-center"
