@@ -16,6 +16,7 @@ import { t } from "i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {LinkedinIcon, LinkedinShareButton, TwitterShareButton, XIcon } from 'react-share';
+import HeadSEO from "@/services/HeadSEO";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -96,6 +97,7 @@ const Post: React.FC<PostProps> = ({
 
   return (
     <>
+      <HeadSEO headerData={headerData} />
       {data?.youtube_url ? (
         <div
           className="w-full h-[250px] md:h-[500px] relative"
