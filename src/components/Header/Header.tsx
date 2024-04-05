@@ -54,7 +54,7 @@ export default function Header() {
   return (
     <header className="fixed w-full z-[19]">
  
-      {data && <HeadSEO headerData={ data } />}
+      {/* {data && <HeadSEO headerData={ data } />} */}
    
       <Modal isOpen={isOpenModal} parentSelector="body" closeModal={closeModal}>
         <Search closeModal={closeModal} />
