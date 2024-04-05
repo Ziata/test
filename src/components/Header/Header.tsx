@@ -11,6 +11,7 @@ import Search from "@/components/Search/Search";
 import { LayoutContext } from "@/context/LayoutContext";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import HeadSEO from "@/services/generateMeta";
 
 
 
@@ -53,16 +54,7 @@ export default function Header() {
   return (
     <header className="fixed w-full z-[19]">
  
-        {/* <Head>
-  
-          <>
-            <title>{data?.site_title}</title>
-            <meta name="description" content={'data.tagline'} />
-            <meta property="og:image" content={'data.site_icon'}></meta>
-            <link rel="icon" href={'data.site_icon'} />
-          </>
-       
-        </Head> */}
+      {data && <HeadSEO headerData={ data } />}
    
       <Modal isOpen={isOpenModal} parentSelector="body" closeModal={closeModal}>
         <Search closeModal={closeModal} />
