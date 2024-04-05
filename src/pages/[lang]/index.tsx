@@ -35,7 +35,7 @@ const Home: React.FC<HomeProps> = ({
   return (
     data && (
       <>
-        <HeadSEO title="sadaewsda" />
+        <HeadSEO headerData={headerData} />
         {data.firstBlock.latestNews.length > 0 && (
           <HomeLastNews data={data.firstBlock} />
         )}
