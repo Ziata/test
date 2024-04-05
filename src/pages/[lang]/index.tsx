@@ -7,7 +7,7 @@ import { IFollow, IFooter, IHeader, IHome } from "@/services/interface";
 import { GetServerSideProps } from "next";
 import { LayoutContext } from "@/context/LayoutContext";
 import Head from "next/head";
-import { generateMetadata } from "@/services/generateMeta";
+import HeadSEO from "@/services/generateMeta";
 
 interface HomeProps {
   data: IHome;
@@ -35,7 +35,7 @@ const Home: React.FC<HomeProps> = ({
   return (
     data && (
       <>
-
+        <HeadSEO title="sadaewsda" />
         {data.firstBlock.latestNews.length > 0 && (
           <HomeLastNews data={data.firstBlock} />
         )}

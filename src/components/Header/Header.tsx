@@ -53,7 +53,7 @@ export default function Header() {
   return (
     <header className="fixed w-full z-[19]">
  
-        <Head>
+        {/* <Head>
   
           <>
             <title>{data?.site_title}</title>
@@ -62,7 +62,7 @@ export default function Header() {
             <link rel="icon" href={'data.site_icon'} />
           </>
        
-        </Head>
+        </Head> */}
    
       <Modal isOpen={isOpenModal} parentSelector="body" closeModal={closeModal}>
         <Search closeModal={closeModal} />
