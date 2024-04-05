@@ -11,8 +11,9 @@ import Search from "@/components/Search/Search";
 import { LayoutContext } from "@/context/LayoutContext";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { GetServerSideProps } from "next";
 
-export default function Header() {
+export default function Header({ metadata }: any) {
   const { headerData: data } = useContext(LayoutContext);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -97,3 +98,18 @@ export default function Header() {
     </header>
   );
 }
+
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const metadata = {
+    title: "Заголовок страницы",
+    description: "Описание страницы",
+    image: "URL изображения",
+  };
+
+  return {
+    props: {
+      metadata,
+    },
+  };
+};
