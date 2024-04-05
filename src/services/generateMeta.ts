@@ -7,8 +7,25 @@ export async function generateMetadata( headerData :  IHeader): Promise<Metadata
     title: headerData?.site_title || '' ,
     description: headerData?.tagline || '' ,
     openGraph: {
-      title: 'this is open graph title for testing',
-      images: headerData?.site_icon, 
-    },
+    title: 'Next.js',
+    description: 'The React Framework for the Web',
+    url: 'https://nextjs.org',
+    siteName: 'Next.js',
+    images: [
+      {
+        url: 'https://nextjs.org/og.png',
+        width: 800,
+        height: 600,
+      },
+      {
+        url: 'https://nextjs.org/og-alt.png',
+        width: 1800,
+        height: 1600,
+        alt: 'My custom alt',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
   }
 }

@@ -31,26 +31,6 @@ const Home: React.FC<HomeProps> = ({
     setFooterData(footerData); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [footerData]);
 
-useEffect(() => {
- 
-  generateMetadata(headerData)
-    .then(metadata => {
-      return (
-        <Head>
-          {metadata.openGraph && (
-            <>
-              <meta property="og:title" content={'metadata.openGraph.title'} />
-              <meta property="og:description" content={metadata.openGraph.description} />
-              {/* Добавьте другие мета-теги Open Graph, если необходимо */}
-            </>
-          )}
-        </Head>
-      );
-    })
-    .catch(error => {
-      console.error("Error generating metadata:", error);
-    });
-}, [headerData]);
 
   return (
     data && (
