@@ -22,8 +22,6 @@ const settings = {
 
 function HomeInterviews({ data }: { data: FourthBlock }) {
   const router = useRouter();
- 
-  console.log(data)
 
   return (
     <div

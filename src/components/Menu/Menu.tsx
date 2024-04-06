@@ -1,5 +1,9 @@
+import Modal from "@/components/Modal/Modal";
+import SubscriptionModal from "@/components/SubscriptionModal/SubscriptionModal";
+import { useModal } from "@/hooks/useModal";
 import { CategoryMenu } from "@/services/interface";
 import { generateUniqueId } from "@/utils";
+import { t } from "i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { SetStateAction } from "react";
@@ -14,15 +18,20 @@ export default function Menu({
   categories: CategoryMenu[];
 }) {
   const router = useRouter();
-
+const { closeModal: closeSubscriptionModal, isOpen: isOpenSubscriptionModal, openModal: openSubscriptionModal } = useModal();
   const currentLanguage = router.query.lang as string;
 
   return (
+    <>
+      <Modal isOpen={isOpenSubscriptionModal} parentSelector="body" closeModal={closeSubscriptionModal}>
+       <SubscriptionModal closeModal={closeSubscriptionModal} />
+      </Modal>
     <div
       className={`${
         isOpen ? "top-0 pt-[110px] !h-[100vh] absolute" : "-top-[100vh] fixed"
       } !max-w-full container h-full flex flex-col justify-start md:top-0 md:relative md:flex-row md:h-[70px] md:justify-center items-center gap-[50px] teansition-all duration-500 bg-[#fff] overflow-auto hidden-scrollbar z-[18]`}
     >
+    <button className="block md:hidden font-Din font-bold text-base capitalize transition-all text-red-500" onClick={openSubscriptionModal}>{t("Get Our Newsletter")}</button>
       {categories.map((item) => {
         const isActive =
           router.asPath ===
@@ -41,6 +50,8 @@ export default function Menu({
           </Link>
         );
       })}
+      <button className="hidden md:block font-Din font-bold text-base capitalize transition-all text-red-500" onClick={openSubscriptionModal}>{t("Get Our Newsletter")}</button>
     </div>
+    </>
   );
 }

@@ -10,11 +10,7 @@ import Modal from "@/components/Modal/Modal";
 import Search from "@/components/Search/Search";
 import { LayoutContext } from "@/context/LayoutContext";
 import { useRouter } from "next/router";
-import Head from "next/head";
-import HeadSEO from "@/services/HeadSEO";
-
-
-
+import SubscriptionModal from "@/components/SubscriptionModal/SubscriptionModal";
 
 
 export default function Header() {
@@ -22,6 +18,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const { closeModal, isOpen: isOpenModal, openModal } = useModal();
+   const { closeModal: closeSubscriptionModal, isOpen: isOpenSubscriptionModal, openModal: openSubscriptionModal } = useModal();
   const router = useRouter();
 
   const handleResize = () => {
@@ -51,11 +48,39 @@ export default function Header() {
   }, [isMobile]);
 
 
+
+  
+  useEffect(() => {
+    if(!data) return
+    const shouldDisplaySubscriptionModal = () => {
+      const lastDismissTime = localStorage.getItem("subscriptionDismissTime");
+      if (!lastDismissTime) return true; // Display if no dismissal record found
+      const currentTime = new Date().getTime();
+      return currentTime - parseInt(lastDismissTime) > data.popup_show_delay;
+    };
+
+    if (shouldDisplaySubscriptionModal() && !isOpenSubscriptionModal) {
+      openSubscriptionModal();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpenSubscriptionModal, data]);
+
+
+  const handleNoThanksClick = () => {
+    localStorage.setItem("subscriptionDismissTime", new Date().getTime().toString());
+    closeSubscriptionModal();
+  };
+
+  useEffect(()=>{console.log(data)}, [data])
+
   return (
     <header className="fixed w-full z-[19]">
       <Modal isOpen={isOpenModal} parentSelector="body" closeModal={closeModal}>
         <Search closeModal={closeModal} />
       </Modal>
+      {<Modal isOpen={isOpenSubscriptionModal} parentSelector="body" closeModal={closeModal}>
+       <SubscriptionModal closeModal={handleNoThanksClick} />
+      </Modal>}
       <div className="w-full bg-[#F8F8F8] h-[86px] z-20 relative">
         <div className="container flex items-center w-full h-full justify-between relative tb:justify-end">
           <Link
@@ -68,7 +93,7 @@ export default function Header() {
                 alt="logo"
                 width={data.logo_image.width}
                 height={data.logo_image.height}
-              />
+              /> 
             )}
           </Link>
           <div className="flex items-center">

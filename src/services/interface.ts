@@ -6,6 +6,7 @@ export interface IHeader {
   site_icon: string;
   site_title: string;
   tagline: string;
+  popup_show_delay: number
 }
 
 export interface Sizes {
