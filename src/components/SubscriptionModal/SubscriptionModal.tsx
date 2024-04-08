@@ -80,7 +80,7 @@ export default function SubscriptionModal({ closeModal }: { closeModal: () => vo
           {isLoading ? <Loader customClass="w-6 h-6" /> : t('Subscribe')}
         </button>
       </div>
-      {statusMessage && <div className="text-orange-600 mt-4">{statusMessage}</div>}
+      {statusMessage && <div className="text-orange-600 my-4 text-center">{statusMessage}</div>}
       <button
         className="font-Din block text-sm leading-6 capitalize text-[#8A8A8A] mx-auto underline"
         onClick={closeModal}
