@@ -1,86 +1,86 @@
-import { useState, useEffect, useContext } from "react";
-import LanguageSwitch from "@/components/LanguageSwitch/LanguageSwitch";
-import Menu from "@/components/Menu/Menu";
-import MenuButton from "@/components/MenuButton/MenuButton";
-import Image from "next/image";
-import Link from "next/link";
-import search from "static/img/search.svg";
-import { useModal } from "@/hooks/useModal";
-import Modal from "@/components/Modal/Modal";
-import Search from "@/components/Search/Search";
-import { LayoutContext } from "@/context/LayoutContext";
-import { useRouter } from "next/router";
-import SubscriptionModal from "@/components/SubscriptionModal/SubscriptionModal";
-
+import { useState, useEffect, useContext } from 'react'
+import LanguageSwitch from '@/components/LanguageSwitch/LanguageSwitch'
+import Menu from '@/components/Menu/Menu'
+import MenuButton from '@/components/MenuButton/MenuButton'
+import Image from 'next/image'
+import Link from 'next/link'
+import search from 'static/img/search.svg'
+import { useModal } from '@/hooks/useModal'
+import Modal from '@/components/Modal/Modal'
+import Search from '@/components/Search/Search'
+import { LayoutContext } from '@/context/LayoutContext'
+import { useRouter } from 'next/router'
+import SubscriptionModal from '@/components/SubscriptionModal/SubscriptionModal'
+import { Page } from '@/services/interface'
 
 export default function Header() {
-  const { headerData: data } = useContext(LayoutContext);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-  const { closeModal, isOpen: isOpenModal, openModal } = useModal();
-   const { closeModal: closeSubscriptionModal, isOpen: isOpenSubscriptionModal, openModal: openSubscriptionModal } = useModal();
-  const router = useRouter();
+  const { headerData: data } = useContext(LayoutContext)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isMobile, setIsMobile] = useState<boolean>(false)
+  const { closeModal, isOpen: isOpenModal, openModal } = useModal()
+  const {
+    closeModal: closeSubscriptionModal,
+    isOpen: isOpenSubscriptionModal,
+    openModal: openSubscriptionModal
+  } = useModal()
+  const router = useRouter()
 
   const handleResize = () => {
-    setIsMobile(window.innerWidth < 768);
-  };
+    setIsMobile(window.innerWidth < 768)
+  }
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden'
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = 'auto'
     }
-  }, [isOpen]);
+  }, [isOpen])
 
   useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    handleResize();
+    window.addEventListener('resize', handleResize)
+    handleResize()
     return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   useEffect(() => {
     if (isMobile) {
-      setIsOpen(false);
+      setIsOpen(false)
     }
-  }, [isMobile]);
+  }, [isMobile])
 
-
-
-  
   useEffect(() => {
-    if(!data) return
+    if (!data) return
     const shouldDisplaySubscriptionModal = () => {
-      const lastDismissTime = localStorage.getItem("subscriptionDismissTime");
-      if (!lastDismissTime) return true; // Display if no dismissal record found
-      const currentTime = new Date().getTime();
-      return currentTime - parseInt(lastDismissTime) > data.popup_show_delay;
-    };
+      const lastDismissTime = localStorage.getItem('subscriptionDismissTime')
+      if (!lastDismissTime) return true // Display if no dismissal record found
+      const currentTime = new Date().getTime()
+      return currentTime - parseInt(lastDismissTime) > data.popup_show_delay
+    }
 
     if (shouldDisplaySubscriptionModal() && !isOpenSubscriptionModal) {
-      openSubscriptionModal();
+      openSubscriptionModal()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpenSubscriptionModal, data]);
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpenSubscriptionModal, data])
 
   const handleNoThanksClick = () => {
-    localStorage.setItem("subscriptionDismissTime", new Date().getTime().toString());
-    closeSubscriptionModal();
-  };
-
-  useEffect(()=>{console.log(data)}, [data])
+    localStorage.setItem('subscriptionDismissTime', new Date().getTime().toString())
+    closeSubscriptionModal()
+  }
 
   return (
     <header className="fixed w-full z-[19]">
       <Modal isOpen={isOpenModal} parentSelector="body" closeModal={closeModal}>
         <Search closeModal={closeModal} />
       </Modal>
-      {<Modal isOpen={isOpenSubscriptionModal} parentSelector="body" closeModal={closeModal}>
-       <SubscriptionModal closeModal={handleNoThanksClick} />
-      </Modal>}
+      {
+        <Modal isOpen={isOpenSubscriptionModal} parentSelector="body" closeModal={closeModal}>
+          <SubscriptionModal closeModal={handleNoThanksClick} />
+        </Modal>
+      }
       <div className="w-full bg-[#F8F8F8] h-[86px] z-20 relative">
         <div className="container flex items-center w-full h-full justify-between relative tb:justify-end">
           <Link
@@ -93,7 +93,7 @@ export default function Header() {
                 alt="logo"
                 width={data.logo_image.width}
                 height={data.logo_image.height}
-              /> 
+              />
             )}
           </Link>
           <div className="flex items-center">
@@ -105,15 +105,7 @@ export default function Header() {
           </div>
         </div>
       </div>
-      {data && (
-        <Menu
-          categories={data.category_menu}
-          isOpen={isMobile && isOpen}
-          setIsOpen={setIsOpen}
-        />
-      )}
+      {data && <Menu categories={data.category_menu} isOpen={isMobile && isOpen} setIsOpen={setIsOpen} />}
     </header>
-  );
+  )
 }
-
-

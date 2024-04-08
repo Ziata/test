@@ -9,7 +9,7 @@ import { GetServerSideProps } from "next";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
-const jsonToFormData = (json: any) => {
+export const jsonToFormData = (json: any) => {
   try {
     const data = new FormData();
 
