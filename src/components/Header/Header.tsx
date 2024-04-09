@@ -11,7 +11,6 @@ import Search from '@/components/Search/Search'
 import { LayoutContext } from '@/context/LayoutContext'
 import { useRouter } from 'next/router'
 import SubscriptionModal from '@/components/SubscriptionModal/SubscriptionModal'
-import { Page } from '@/services/interface'
 
 export default function Header() {
   const { headerData: data } = useContext(LayoutContext)
@@ -77,7 +76,7 @@ export default function Header() {
         <Search closeModal={closeModal} />
       </Modal>
       {
-        <Modal isOpen={isOpenSubscriptionModal} parentSelector="body" closeModal={closeModal}>
+        <Modal isOpen={isOpenSubscriptionModal} parentSelector="body" closeModal={closeModal} center>
           <SubscriptionModal closeModal={handleNoThanksClick} />
         </Modal>
       }
