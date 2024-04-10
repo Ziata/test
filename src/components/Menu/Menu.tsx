@@ -33,7 +33,7 @@ export default function Menu({
       <div
         className={`${
           isOpen ? 'top-0 pt-[110px] !h-[100vh] absolute' : '-top-[100vh] fixed'
-        } !max-w-full container h-full flex flex-col justify-start md:top-0 md:relative md:flex-row md:h-[70px] md:justify-center items-center gap-[50px] teansition-all duration-500 bg-[#fff] overflow-auto hidden-scrollbar z-[18]`}
+        } !max-w-[1600px] container h-full flex flex-col justify-start md:top-0 md:relative md:flex-row md:h-[70px] md:justify-center items-center gap-[50px] teansition-all duration-500 bg-[#fff] overflow-auto hidden-scrollbar z-[18]`}
       >
         <button
           className="block md:hidden font-Din font-bold text-base capitalize transition-all text-red-500"
@@ -58,7 +58,7 @@ export default function Menu({
           )
         })}
         <button
-          className="hidden md:block font-Din font-bold text-base capitalize transition-all text-red-500 tb:absolute tb:right-[60px]"
+          className="hidden md:block font-Din font-bold text-base capitalize transition-all text-red-500 stb:absolute stb:right-[25px] tb:right-[60px]"
           onClick={openSubscriptionModal}
         >
           {t('Get Our Newsletter')}
