@@ -1,13 +1,14 @@
 import Loader from '@/components/Loader/Loader'
+import { LayoutContext } from '@/context/LayoutContext'
 import { jsonToFormData } from '@/pages/[lang]/contact'
 import { useSendMessageMutation } from '@/services/api'
 import { Page } from '@/services/interface'
 import { t } from 'i18next'
-import { useParams } from 'next/navigation'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 export default function SubscriptionModal({ closeModal }: { closeModal: () => void }) {
+  const { headerData } = useContext(LayoutContext)
   const [email, setEmail] = useState<string>('')
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false)
   const [statusMessage, setStatusMessage] = useState<string>('')
@@ -58,13 +59,15 @@ export default function SubscriptionModal({ closeModal }: { closeModal: () => vo
     statusMessage && setTimeout(() => setStatusMessage(''), 5000)
   }, [statusMessage])
 
+  if (!headerData) return
+
   return (
     <div className="rounded-[10px] bg-[#fff] p-6 tb:p-9 min-w-[300px]">
       <h3 className="font-Din font-bold text-[24px] tb:text-[45px]  text-center capitalize text-black tb:whitespace-nowrap">
-        {t('Subscription modal title')}
+        {headerData.popup_title_text}
       </h3>
       <h6 className="font-Din font-normal text-[18px] tb:text-2xl leading-6 capitalize text-[#8A8A8A] tb:whitespace-nowrap my-3 tb:my-10 text-center">
-        {t('Subscription modal subtitle')}
+        {headerData.popup_content_text}
       </h6>
       <div className="flex items-center justify-center mb-5">
         <input
@@ -85,7 +88,7 @@ export default function SubscriptionModal({ closeModal }: { closeModal: () => vo
         className="font-Din block text-sm leading-6 capitalize text-[#8A8A8A] mx-auto underline"
         onClick={closeModal}
       >
-        {t('No thanks')}
+        {headerData.popup_close_text}
       </button>
     </div>
   )

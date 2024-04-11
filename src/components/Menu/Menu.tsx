@@ -1,12 +1,13 @@
 import Modal from '@/components/Modal/Modal'
 import SubscriptionModal from '@/components/SubscriptionModal/SubscriptionModal'
+import { LayoutContext } from '@/context/LayoutContext'
 import { useModal } from '@/hooks/useModal'
 import { CategoryMenu } from '@/services/interface'
 import { generateUniqueId } from '@/utils'
 import { t } from 'i18next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { SetStateAction } from 'react'
+import React, { SetStateAction, useContext } from 'react'
 
 export default function Menu({
   isOpen,
@@ -18,12 +19,15 @@ export default function Menu({
   categories: CategoryMenu[]
 }) {
   const router = useRouter()
+  const { headerData } = useContext(LayoutContext)
   const {
     closeModal: closeSubscriptionModal,
     isOpen: isOpenSubscriptionModal,
     openModal: openSubscriptionModal
   } = useModal()
   const currentLanguage = router.query.lang as string
+
+  if (!headerData) return
 
   return (
     <>
@@ -33,14 +37,19 @@ export default function Menu({
       <div
         className={`${
           isOpen ? 'top-0 pt-[110px] !h-[100vh] absolute' : '-top-[100vh] fixed'
-        } !max-w-[1600px] container h-full flex flex-col justify-start md:top-0 md:relative md:flex-row md:h-[70px] md:justify-center items-center gap-[50px] teansition-all duration-500 bg-[#fff] overflow-auto hidden-scrollbar z-[18]`}
+        } !max-w-full container h-full flex flex-col justify-start md:top-0 md:relative md:flex-row md:h-[70px] md:justify-center items-center gap-[50px] teansition-all duration-500 bg-[#fff] overflow-auto hidden-scrollbar z-[18]`}
       >
         <button
-          className="block md:hidden font-Din font-bold text-base capitalize transition-all text-red-500"
-          onClick={openSubscriptionModal}
+          className="block md:hidden font-Din font-bold text-base capitalize transition-all text-[#DD0000]"
+          onClick={
+            headerData.menu_button_open_in_new_tab === 'No'
+              ? openSubscriptionModal
+              : () => window.open(headerData.menu_button_url, '_blank')
+          }
         >
-          {t('Get Our Newsletter')}
+          {headerData.menu_button_name}
         </button>
+
         {categories.map(item => {
           const isActive = router.asPath === `/${currentLanguage}/category/${item.category.slug}`
 
@@ -57,12 +66,18 @@ export default function Menu({
             </Link>
           )
         })}
-        <button
-          className="hidden md:block font-Din font-bold text-base capitalize transition-all text-red-500 stb:absolute stb:right-[25px] tb:right-[60px]"
-          onClick={openSubscriptionModal}
-        >
-          {t('Get Our Newsletter')}
-        </button>
+        <div className="stb:w-full max-w-[1600px] stb:absolute stb:pr-[25px] tb:pr-[60px] flex justify-end items-center">
+          <button
+            className="hidden md:block font-Din font-bold text-base capitalize transition-all text-[#DD0000]"
+            onClick={
+              headerData.menu_button_open_in_new_tab === 'No'
+                ? openSubscriptionModal
+                : () => window.open(headerData.menu_button_url, '_blank')
+            }
+          >
+            {headerData?.menu_button_name}
+          </button>
+        </div>
       </div>
     </>
   )
