@@ -12,6 +12,7 @@ export default function SubscriptionModal({ closeModal }: { closeModal: () => vo
   const [email, setEmail] = useState<string>('')
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false)
   const [statusMessage, setStatusMessage] = useState<string>('')
+  const [status, setStatus] = useState<string>('')
   const router = useRouter()
   const currentLanguage = router.query.lang as string
   const [sendMessage, { isLoading }] = useSendMessageMutation()
@@ -45,8 +46,15 @@ export default function SubscriptionModal({ closeModal }: { closeModal: () => vo
             'your-email': email,
             'type-enquiry': 'subscribe'
           })
-        })) as { data: { message: string } }
+        })) as { data: { message: string; status: string } }
+
         setStatusMessage(result?.data?.message)
+        setStatus(result.data?.status)
+        if (result.data?.status === 'mail_sent') {
+          setTimeout(() => {
+            closeModal()
+          }, 7000)
+        }
       } catch (error) {
         console.error(error)
       }
@@ -83,7 +91,11 @@ export default function SubscriptionModal({ closeModal }: { closeModal: () => vo
           {isLoading ? <Loader customClass="w-6 h-6" /> : t('Subscribe')}
         </button>
       </div>
-      {statusMessage && <div className="text-orange-600 my-4 text-center">{statusMessage}</div>}
+      {statusMessage && (
+        <div className={`${status === 'mail_sent' ? 'text-[#31b137]' : 'text-[#DD0000]'}  my-4 text-center`}>
+          {statusMessage}
+        </div>
+      )}
       <button
         className="font-Din block text-sm leading-6 capitalize text-[#8A8A8A] mx-auto underline"
         onClick={closeModal}
