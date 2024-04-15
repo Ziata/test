@@ -75,11 +75,9 @@ export default function Header() {
       <Modal isOpen={isOpenModal} parentSelector="body" closeModal={closeModal}>
         <Search closeModal={closeModal} />
       </Modal>
-      {
-        <Modal isOpen={isOpenSubscriptionModal} parentSelector="body" closeModal={closeModal} center>
-          <SubscriptionModal closeModal={handleNoThanksClick} />
-        </Modal>
-      }
+      <Modal isOpen={isOpenSubscriptionModal} parentSelector="body" closeModal={closeModal} center>
+        <SubscriptionModal closeModal={handleNoThanksClick} />
+      </Modal>
       <div className="w-full bg-[#F8F8F8] h-[86px] z-20 relative">
         <div className="container flex items-center w-full h-full justify-between relative tb:justify-end">
           <Link

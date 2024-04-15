@@ -41,10 +41,11 @@ export default function Menu({
       >
         <button
           className="block md:hidden font-Din font-bold text-base capitalize transition-all text-[#DD0000]"
-          onClick={
-            headerData.menu_button_open_in_new_tab === 'No'
-              ? openSubscriptionModal
-              : () => window.open(headerData.menu_button_url, '_blank')
+          onClick={() =>
+            window.open(
+              headerData.menu_button_url,
+              headerData.menu_button_open_in_new_tab === 'No' ? '_self' : '_blank'
+            )
           }
         >
           {headerData.menu_button_name}
@@ -69,10 +70,11 @@ export default function Menu({
         <div className="stb:w-full max-w-[1600px] stb:absolute stb:pr-[25px] tb:pr-[60px] flex justify-end items-center">
           <button
             className="hidden md:block font-Din font-bold text-base capitalize transition-all text-[#DD0000]"
-            onClick={
-              headerData.menu_button_open_in_new_tab === 'No'
-                ? openSubscriptionModal
-                : () => window.open(headerData.menu_button_url, '_blank')
+            onClick={() =>
+              window.open(
+                headerData.menu_button_url,
+                headerData.menu_button_open_in_new_tab === 'No' ? '_self' : '_blank'
+              )
             }
           >
             {headerData?.menu_button_name}
