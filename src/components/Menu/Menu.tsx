@@ -61,7 +61,7 @@ export default function Menu({
               onClick={() => setIsOpen(false)}
               className={`font-Din font-bold text-base capitalize ${
                 isActive ? 'text-[#0071BC]' : 'text-[#002c47]'
-              } transition-all duration-300 hover:text-[#0071BC]`}
+              } transition-all duration-300 hover:text-[#0071BC] z-[2]`}
             >
               {item.category_name}
             </Link>
